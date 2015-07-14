@@ -38,13 +38,13 @@ Public Class Main
 
         End If
 
-        Dim args() As String = My.Application.CommandLineArgs().ToArray
-        If args.Length <> 0 Then import(args(0))
-
         Me.Size = New Point(495, 150)
         Me._startPanel = New BasePanel(Me)
 
         updateDataSet()
+
+        Dim args() As String = My.Application.CommandLineArgs().ToArray
+        If args.Length <> 0 Then import(args(0))
 
         AutoSave.Interval() = 1000 * 60 * 15 '15 minutes
         AutoSave.Start()
@@ -164,6 +164,8 @@ Public Class Main
             Dim req As String = mAnime.sqlSerialize(Anime.MODE_INSERT, "data")
             Dim command As SqlClient.SqlCommand = New SqlClient.SqlCommand(req, sqlCo)
             databaseExecute(command)
+
+            updateDataSet()
 
         End If
 
