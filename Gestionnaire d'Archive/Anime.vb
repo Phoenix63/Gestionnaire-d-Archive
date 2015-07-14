@@ -167,7 +167,7 @@
             Dim buff As String() = Split(line, "=")
 
             If (buff.Length = 2) Then
-                extractedFile(i) = buff(1)
+                extractedFile(i) = buff(1).Replace(";", "") 'Sql Secure Command
             Else
                 Throw New Exception
             End If

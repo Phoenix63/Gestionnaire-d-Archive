@@ -25,7 +25,6 @@ Public MustInherit Class AnimePanel
         setDataView()
         updateList()
 
-
     End Sub
 
 #Region "Build function"
@@ -67,6 +66,7 @@ Public MustInherit Class AnimePanel
             .Size = New Point(460, 180)
             .TabStop = False
             .Text = "#Nom"
+            .Visible = False
             .TabIndex = 4
         End With
         '
@@ -443,6 +443,7 @@ Public MustInherit Class AnimePanel
     Private Sub _listSelectedIndexChanged(sender As Object, e As EventArgs)
 
         Parent.Size = New Point(495, 345)
+        _nom.Visible = True
         updateInfo()
         setMenuEditionEnabled(True)
 

@@ -11,28 +11,19 @@
     End Sub
 
 #Region "Methode"
-
-    Public Overrides Function _checkNecessaryEntries() As Boolean
-
-        Dim ret = MyBase._checkNecessaryEntries()
-
-        If (Main.isDuplicateAnime(_anime)) Then
-            MsgBox("L'animé existe déjà dans la base de donnée", MsgBoxStyle.Critical, "Duplication de l'animé")
-            ret = False
-        End If
-
-        Return ret
-
-    End Function
-
 #End Region
 
 #Region "Handler"
     Protected Overrides Sub _click(sender As Object, e As EventArgs)
 
-        _anime = getInfo()
-
         If (_checkNecessaryEntries()) Then
+
+            _anime = getInfo()
+
+            If (Main.isDuplicateAnime(_anime)) Then
+                MsgBox("L'animé existe déjà dans la base de donnée", MsgBoxStyle.Critical, "Duplication de l'animé")
+                Return
+            End If
 
             Dim table As DataTable = Main.dataSet.Tables("data")
             Dim row As DataRow = table.NewRow()

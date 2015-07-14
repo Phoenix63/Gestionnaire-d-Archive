@@ -32,6 +32,9 @@
         Me._finished.Checked = anime.getFinished()
 
     End Sub
+    Public Overrides Function _checkSmartLink() As Boolean
+        Return MyBase._checkSmartLink() And Not Me._anime.getSmartLink()
+    End Function
 #End Region
 
 #Region "Handler"

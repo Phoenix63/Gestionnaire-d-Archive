@@ -334,7 +334,7 @@ Public Class SetPanel
     End Sub
     Private Sub _smartLinkCheckedChanged(sender As Object, e As EventArgs)
 
-        If (Me._smartLink.Checked And Not Me._anime.getSmartLink()) Then
+        If (_checkSmartLink()) Then
             MsgBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, il est nécessaire que vous mettiez le lien du première épisode." & vbCrLf & vbCrLf & _
                    "Exemple :" & vbCrLf & _
                    "http://monsite.fr/mon-anime" & vbCrLf & _
@@ -391,6 +391,9 @@ Public Class SetPanel
 
         Return ret
 
+    End Function
+    Public Overridable Function _checkSmartLink() As Boolean
+        Return Me._smartLink.Checked
     End Function
 #End Region
 

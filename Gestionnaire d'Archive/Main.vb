@@ -3,6 +3,11 @@ Imports System.Text.RegularExpressions
 
 Public Class Main
 
+    Private Const SET_X As Integer = 495
+    Private Const SET_Y As Integer = 345
+    Private Const ANIME_X As Integer = 495
+    Private Const ANIME_Y As Integer = 157
+
     Public sqlCo As New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True;ConnectRetryCount=5")
     Public dataSet As New DataSet
 
@@ -41,6 +46,9 @@ Public Class Main
 
         updateDataSet()
 
+        AutoSave.Interval() = 1000 * 60 * 15 '15 minutes
+        AutoSave.Start()
+
     End Sub
     Private Sub Main_Finalize(sender As Object, e As EventArgs) Handles MyBase.FormClosing
         commitDataSet()
@@ -64,18 +72,22 @@ Public Class Main
 
         Dim name As String = ""
         Dim code As String = ""
-        Dim valide = vbNo
+        Dim valide As MsgBoxResult = MsgBoxResult.No
 
         While valide = vbNo
-            name = InputBox("Entrez le nom : ")
+            name = InputBox("Entrez le nom : ", "Enregistrement")
+            If name = "" Then Return
             code = InputBox("Entrez le code : ")
-            valide = MsgBox("Enregistrement de Gestionnaire d'Archive sous le nom de " & name & vbCrLf & "Avec le code d'enregistrement " & code & vbCrLf & vbCrLf & "Les informations saisies sont-elles correctes ?", vbYesNo)
+            If code = "" Then Return
+            valide = MsgBox("Enregistrement de Gestionnaire d'Archive sous le nom de " & name & vbCrLf & "Avec le code d'enregistrement " & code & vbCrLf & vbCrLf & "Les informations saisies sont-elles correctes ?", vbYesNoCancel, "Enregistrement")
+            If valide = MsgBoxResult.Cancel Then Return
         End While
 
         If (Not checkTrial(name, code)) Then
             My.Settings.NOM = name
             My.Settings.CODE = code
             menuSignIn.Visible = False
+            InfoMenu.Visible = True
             trial = False
             MsgBox("Merci de vous être enregistré(e) sur Gestionnaire d'Archive")
         End If
@@ -215,13 +227,15 @@ Public Class Main
         End Try
 
         Commande.Dispose()
-        sqlCo.Close() 'a voir !
+        sqlCo.Close()
 
     End Sub
     Public Sub loadMenu(Optional anime As Anime = Nothing)
 
         Me.Controls.Remove(_basePanel)
-        Me.Size = New Point(495, 150)
+        Me.Size = New Point(ANIME_X, ANIME_Y)
+
+        AnimePanel.setMenuEditionEnabled()
 
         If menuLoadEnCours.Checked Then
             _basePanel = If(anime Is Nothing, New AnimeEnCoursPanel(Me), New AnimeEnCoursPanel(Me, anime))
@@ -230,8 +244,6 @@ Public Class Main
         End If
 
         _basePanel.BringToFront()
-
-        AnimePanel.setMenuEditionEnabled()
 
     End Sub
     Private Sub changeBrowser()
@@ -276,7 +288,7 @@ Public Class Main
         menuLoadFini.Checked = False
 
         Me.Controls.Remove(_basePanel)
-        Me.Size = New Point(495, 345)
+        Me.Size = New Point(SET_X, SET_Y)
 
         _basePanel = New NouveauPanel(Me)
         _basePanel.BringToFront()
@@ -287,7 +299,7 @@ Public Class Main
     Private Sub modifier_Click(sender As Object, e As EventArgs) Handles modifier.Click
 
         Me.Controls.Remove(_basePanel)
-        Me.Size = New Point(495, 345)
+        Me.Size = New Point(SET_X, SET_Y)
 
         _basePanel = New ModifierPanel(Me, CType(_basePanel, AnimePanel)._anime)
         _basePanel.BringToFront()
@@ -300,7 +312,7 @@ Public Class Main
         If Not sender.Checked Then
 
             Me.Controls.Remove(_basePanel)
-            Me.Size = New Point(495, 150)
+            Me.Size = New Point(ANIME_X, ANIME_Y)
 
             sender.Checked = True
 
@@ -400,15 +412,16 @@ Public Class Main
 
     End Sub
     Private Sub ModifierToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ModifierToolStripMenuItem1.Click
-
         changeBrowser()
-
     End Sub
     Private Sub InfoMenu_Click(sender As Object, e As EventArgs) Handles InfoMenu.Click
 
         MsgBox("Vous êtes enregistré en tant que " & My.Settings.NOM & vbCrLf & "Avec le numéro d'enregistrement " & My.Settings.CODE,
                vbInformation, "Information d'enregistrement")
 
+    End Sub
+    Private Sub AutoSave_Tick(sender As Object, e As EventArgs) Handles AutoSave.Tick
+        commitDataSet()
     End Sub
 #End Region
 

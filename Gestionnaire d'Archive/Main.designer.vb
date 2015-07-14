@@ -48,6 +48,7 @@ Partial Class Main
         Me.urlCopy = New System.Windows.Forms.ToolStripMenuItem()
         Me.opf = New System.Windows.Forms.OpenFileDialog()
         Me.sfd = New System.Windows.Forms.SaveFileDialog()
+        Me.AutoSave = New System.Windows.Forms.Timer(Me.components)
         Me.menuStrip.SuspendLayout()
         Me.urlClick.SuspendLayout()
         Me.SuspendLayout()
@@ -57,7 +58,7 @@ Partial Class Main
         Me.menuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.menuEdition, Me.menuOutils, Me.menuSignIn, Me.InfoMenu})
         Me.menuStrip.Location = New System.Drawing.Point(0, 0)
         Me.menuStrip.Name = "menuStrip"
-        Me.menuStrip.Size = New System.Drawing.Size(405, 24)
+        Me.menuStrip.Size = New System.Drawing.Size(479, 24)
         Me.menuStrip.TabIndex = 0
         Me.menuStrip.Text = "MenuStrip1"
         '
@@ -211,12 +212,15 @@ Partial Class Main
         Me.sfd.FileName = """"""
         Me.sfd.Filter = "Gestionnaire d'Archive Data|*.mga"
         '
+        'AutoSave
+        '
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(405, 133)
+        Me.ClientSize = New System.Drawing.Size(479, 118)
         Me.Controls.Add(Me.menuStrip)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -255,5 +259,6 @@ Partial Class Main
     Friend WithEvents importer As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents opf As System.Windows.Forms.OpenFileDialog
     Friend WithEvents sfd As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents AutoSave As System.Windows.Forms.Timer
 
 End Class

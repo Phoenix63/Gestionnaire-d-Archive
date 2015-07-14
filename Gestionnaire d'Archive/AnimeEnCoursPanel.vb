@@ -15,9 +15,9 @@ Public Class AnimeEnCoursPanel
 
         Me.New(form)
 
-        If (Not Anime.getFinished()) Then
+        If (Not anime.getFinished()) Then
 
-            Me._animeList.Text = Anime.getNom()
+            Me._animeList.Text = anime.getNom()
             Me._animeList.SelectedIndex = Me._animeList.FindString(Me._animeList.Text)
 
         End If
