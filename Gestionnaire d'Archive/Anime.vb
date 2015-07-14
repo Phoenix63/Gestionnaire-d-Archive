@@ -16,6 +16,7 @@
     Public Const MODE_UPDATE As String = "UPDATE"
     Public Const MODE_INSERT As String = "INSERT"
     Public Const FORMAT As String = "d/M/yyyy"
+    Public Const SEPARATOR As String = "=#~GA~#="
 
 #Region "Constructor"
     Public Sub New(ByVal nom As String, ByVal lien As String, ByVal episode As Integer, ByVal mDate As Date,
@@ -102,7 +103,7 @@
                                 getNote() & "', '" & _
                                 If(getFinished(), 0, If(getFollow(), 1, 0)) & "', '" & _
                                 If(getSmartLink(), 1, 0) & "', '" & _
-                                getCommentaire() & "', '" & _
+                                getCommentaire().Replace("'", "''") & "', '" & _
                                 If(getFinished(), 1, 0) & "')"
 
     End Function
@@ -116,7 +117,7 @@
                 "Note = '" & getNote() & "', " & _
                 "Follow = '" & If(getFinished(), 0, If(getFollow(), 1, 0)) & "', " & _
                 "SmartLink = '" & If(getFinished(), 0, If(getSmartLink(), 1, 0)) & "', " & _
-                "Commentaire = '" & getCommentaire() & "', " & _
+                "Commentaire = '" & getCommentaire().Replace("'", "''") & "', " & _
                 "Fini = '" & If(getFinished(), 1, 0) & "' " & _
                 "WHERE Nom = '" & getNom() & "'"
 
@@ -130,13 +131,13 @@
         ' Serialize the class into a string parsable by fileDeserialize() methode
         '
 
-        Return "Nom=" & getNom() & vbCrLf _
-             & "Lien=" & getLien() & vbCrLf _
-             & "Episode=" & getEpisode() & vbCrLf _
-             & "Date=" & getDate().ToString(Anime.FORMAT) & vbCrLf _
-             & "Genre=" & getGenre() & vbCrLf _
-             & "Commentaire=" & getCommentaire() & vbCrLf _
-             & "Note=" & getNote()
+        Return "Nom" & SEPARATOR & getNom() & vbCrLf _
+             & "Lien" & SEPARATOR & getLien() & vbCrLf _
+             & "Episode" & SEPARATOR & getEpisode() & vbCrLf _
+             & "Date" & SEPARATOR & getDate().ToString(Anime.FORMAT) & vbCrLf _
+             & "Genre" & SEPARATOR & getGenre() & vbCrLf _
+             & "Commentaire" & SEPARATOR & getCommentaire() & vbCrLf _
+             & "Note" & SEPARATOR & getNote()
 
     End Function
     Public Function fileFullSerialize() As String
@@ -146,9 +147,9 @@
         '
 
         Return fileSerialize() & vbCrLf _
-             & "Follow=" & getFollow() & vbCrLf _
-             & "SmartLink=" & getSmartLink() & vbCrLf _
-             & "Finished=" & getFinished()
+             & "Follow" & SEPARATOR & getFollow() & vbCrLf _
+             & "SmartLink" & SEPARATOR & getSmartLink() & vbCrLf _
+             & "Finished" & SEPARATOR & getFinished()
 
     End Function
     Public Shared Function fileDeserialize(ByVal file As String) As Anime
@@ -164,7 +165,7 @@
 
         For Each line In fileCut
 
-            Dim buff As String() = Split(line, "=")
+            Dim buff As String() = Split(line, SEPARATOR)
 
             If (buff.Length = 2) Then
                 extractedFile(i) = buff(1).Replace(";", "") 'Sql Secure Command

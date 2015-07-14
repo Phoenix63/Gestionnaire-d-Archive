@@ -165,8 +165,6 @@ Public Class Main
             Dim command As SqlClient.SqlCommand = New SqlClient.SqlCommand(req, sqlCo)
             databaseExecute(command)
 
-            updateDataSet()
-
         End If
 
     End Sub
@@ -198,9 +196,13 @@ Public Class Main
         Dim dataAdapter As New SqlDataAdapter("SELECT * FROM data", sqlCo)
         Dim objCommandBuild As New SqlCommandBuilder(dataAdapter)
 
+        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
         dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
         dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
-        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
+
+        objCommandBuild.Dispose()
+        dataAdapter.Dispose()
+        dataTable.Dispose()
 
     End Sub
     Public Function isDuplicateAnime(ByVal anime As Anime) As Boolean
@@ -356,20 +358,13 @@ Public Class Main
 
         opf.Title() = "Importation d'un animé"
         opf.FileName() = ""
+        opf.Multiselect() = True
 
         If (opf.ShowDialog() = DialogResult.OK) Then
 
-            Dim mAnime As Anime = Anime.fileDeserialize(readFile(opf.FileName))
-
-            If (isDuplicateAnime(mAnime)) Then
-                MsgBox("L'animé est déjà existant dans la base de donnée", MsgBoxStyle.Critical, "Duplication de l'animé")
-                Return
-            End If
-
-            databaseConnect()
-            Dim req As String = mAnime.sqlSerialize(Anime.MODE_INSERT, "data")
-            Dim command As SqlClient.SqlCommand = New SqlClient.SqlCommand(req, sqlCo)
-            databaseExecute(command)
+            For Each file As String In opf.FileNames
+                import(file)
+            Next
 
             updateDataSet()
 
