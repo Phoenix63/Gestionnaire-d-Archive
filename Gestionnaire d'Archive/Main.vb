@@ -216,11 +216,15 @@ Public Class Main
         Dim dataAdapter As New SqlDataAdapter("SELECT * FROM data", sqlCo)
         Dim objCommandBuild As New SqlCommandBuilder(dataAdapter)
 
-        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
+        'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
+        'If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
+        'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
+        'If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
+        'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
+
         If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
-        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
+        dataAdapter.Update(dataTable)
         If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
-        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
 
         objCommandBuild.Dispose()
         dataAdapter.Dispose()
