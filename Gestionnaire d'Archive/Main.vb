@@ -8,8 +8,12 @@ Public Class Main
     Private Const ANIME_X As Integer = 495
     Private Const ANIME_Y As Integer = 157
 
-    Public sqlCo As New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DataBase.mdf;Integrated Security=True;ConnectRetryCount=5")
-    Public dataSet As New DataSet
+    Private sqlCo As SqlConnection = New SqlConnection("Data Source=(LocalDB)\v11.0;" _
+                                      & "AttachDbFilename=|DataDirectory|\DataBase.mdf;" _
+                                      & "Integrated Security=True;" _
+                                      & "ApplicationIntent=ReadWrite")
+
+    Public dataSet As DataSet = New DataSet()
 
     Private _startPanel As BasePanel
     Public _basePanel As BasePanel
@@ -20,38 +24,18 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        check()
-
-        If Not (checkTrial(My.Settings.NOM, My.Settings.CODE)) Then
-            menuSignIn.Visible = False
-            InfoMenu.Visible = True
-        End If
-
-        If My.Settings.OTHER_CHECKED Then
-
-            AutreToolStripMenuItem.Checked = True
-            DefautToolStripMenuItem.Checked = False
-            If Not (My.Settings.BROWSER = "null") Then
-                AutreToolStripMenuItem.Tag = My.Settings.BROWSER
-                AutreToolStripMenuItem.Text = IO.Path.GetFileNameWithoutExtension(My.Settings.BROWSER)
-            End If
-
-        End If
-
-        Me.Size = New Point(495, 150)
-        Me._startPanel = New BasePanel(Me)
-
-        updateDataSet()
-
-        Dim args() As String = My.Application.CommandLineArgs().ToArray
-        If args.Length <> 0 Then import(args(0))
-
-        AutoSave.Interval() = 1000 * 60 * 15 '15 minutes
-        AutoSave.Start()
+        initialize()
 
     End Sub
     Private Sub Main_Finalize(sender As Object, e As EventArgs) Handles MyBase.FormClosing
+
+        Me.Controls.Remove(_basePanel)
+        Me.Size = New Point(ANIME_X, ANIME_Y)
+        Me._basePanel = New FinalizePanel(Me)
+        Me._basePanel.BringToFront()
+
         commitDataSet()
+
     End Sub
 
 #Region "MaJ Logiciel"
@@ -147,6 +131,42 @@ Public Class Main
 #End Region
 
 #Region "Methode"
+    Private Sub initialize()
+
+        check()
+
+        If Not (checkTrial(My.Settings.NOM, My.Settings.CODE)) Then
+            menuSignIn.Visible = False
+            InfoMenu.Visible = True
+        End If
+
+        If My.Settings.OTHER_CHECKED Then
+
+            AutreToolStripMenuItem.Checked = True
+            DefautToolStripMenuItem.Checked = False
+            If Not (My.Settings.BROWSER = "null") Then
+                AutreToolStripMenuItem.Tag = My.Settings.BROWSER
+                AutreToolStripMenuItem.Text = IO.Path.GetFileNameWithoutExtension(My.Settings.BROWSER)
+            End If
+
+        End If
+
+        Me.Size = New Point(495, 150)
+        Me._basePanel = New LoadPanel(Me)
+        Me._basePanel.BringToFront()
+
+        updateDataSet()
+
+        Dim args() As String = My.Application.CommandLineArgs().ToArray
+        If args.Length <> 0 Then import(args(0))
+
+        AutoSave.Interval() = 1000 * 60 * 15 '15 minutes
+        AutoSave.Start()
+
+        Me.Controls.Remove(Me._basePanel)
+        Me._startPanel = New BasePanel(Me)
+
+    End Sub
     Private Sub import(ByVal path)
 
         Dim checkArgs As Boolean = IO.Path.GetExtension(path).Equals(".mga")
@@ -197,7 +217,9 @@ Public Class Main
         Dim objCommandBuild As New SqlCommandBuilder(dataAdapter)
 
         dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
+        If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
         dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
+        If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
         dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
 
         objCommandBuild.Dispose()

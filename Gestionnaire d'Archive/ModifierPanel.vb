@@ -27,6 +27,7 @@
         Me._genre.Text = anime.getGenre()
         Me._date.Value = anime.getDate().ToString(anime.FORMAT)
         Me._note.Value = anime.getNote()
+        Me._commentaire.Text = anime.getCommentaire()
         Me._follow.Checked = anime.getFollow()
         Me._smartLink.Checked = anime.getSmartLink()
         Me._finished.Checked = anime.getFinished()

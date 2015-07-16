@@ -80,7 +80,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>8807355B07B56EEAD0B56347AA40536FB02A1534</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0E0957BCFA8CFB0AA6F1533C9A6A2891644622CC</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>GestionnaireArchiveCustomKey.pfx</AssemblyOriginatorKeyFile>
@@ -89,10 +89,13 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>GAico.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>GestionnaireArchiveCustomKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -136,6 +139,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="BasePanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FinalizePanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LoadPanel.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Main.designer.vb">

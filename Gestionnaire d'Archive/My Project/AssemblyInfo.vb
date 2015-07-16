@@ -1,4 +1,6 @@
-﻿Imports System
+﻿Imports System.Resources
+
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -13,7 +15,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyCompany("PhoenixZ_Group")> 
 <Assembly: AssemblyProduct("Gestionnaire d'Archive")> 
 <Assembly: AssemblyCopyright("Copyright ©  2015")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTrademark("PhoenixZ_Groupe")> 
 
 <Assembly: ComVisible(True)> 
 
@@ -33,3 +35,5 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyVersion("1.0.0.0")> 
 <Assembly: AssemblyFileVersion("1.0.0.0")> 
+
+<Assembly: NeutralResourcesLanguageAttribute("fr")> 
