@@ -22,6 +22,7 @@
         ' Subtitle
         '
         With MyBase._subtitle
+            .Location = New Point(150, 25)
             .Text = "chargement en cours. . ."
         End With
 

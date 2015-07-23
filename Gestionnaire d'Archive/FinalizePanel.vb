@@ -25,6 +25,7 @@
         ' Subtitle
         '
         With MyBase._subtitle
+            .Location = New Point(150, 25)
             .Text = "sauvegarde en cours."
         End With
 

@@ -210,7 +210,7 @@ Public Class Main
         sqlCo.Close()
 
     End Sub
-    Private Sub commitDataSet()
+    Public Sub commitDataSet()
 
         Dim dataTable As DataTable = dataSet.Tables("data")
         Dim dataAdapter As New SqlDataAdapter("SELECT * FROM data", sqlCo)
