@@ -33,7 +33,7 @@ Partial Class Main
         Me.menuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuEdition = New System.Windows.Forms.ToolStripMenuItem()
         Me.modifier = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Cloturer = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cloturer = New System.Windows.Forms.ToolStripMenuItem()
         Me.supprimer = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuOutils = New System.Windows.Forms.ToolStripMenuItem()
         Me.BrowserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -102,7 +102,7 @@ Partial Class Main
         '
         'menuEdition
         '
-        Me.menuEdition.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.modifier, Me.Cloturer, Me.supprimer})
+        Me.menuEdition.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.modifier, Me.cloturer, Me.supprimer})
         Me.menuEdition.Name = "menuEdition"
         Me.menuEdition.Size = New System.Drawing.Size(56, 20)
         Me.menuEdition.Text = "Edition"
@@ -111,21 +111,21 @@ Partial Class Main
         '
         Me.modifier.Enabled = False
         Me.modifier.Name = "modifier"
-        Me.modifier.Size = New System.Drawing.Size(129, 22)
+        Me.modifier.Size = New System.Drawing.Size(152, 22)
         Me.modifier.Text = "Modifier"
         '
-        'Cloturer
+        'cloturer
         '
-        Me.Cloturer.Enabled = False
-        Me.Cloturer.Name = "Cloturer"
-        Me.Cloturer.Size = New System.Drawing.Size(129, 22)
-        Me.Cloturer.Text = "Cloturer"
+        Me.cloturer.Enabled = False
+        Me.cloturer.Name = "cloturer"
+        Me.cloturer.Size = New System.Drawing.Size(152, 22)
+        Me.cloturer.Text = "Cloturer"
         '
         'supprimer
         '
         Me.supprimer.Enabled = False
         Me.supprimer.Name = "supprimer"
-        Me.supprimer.Size = New System.Drawing.Size(129, 22)
+        Me.supprimer.Size = New System.Drawing.Size(152, 22)
         Me.supprimer.Text = "Supprimer"
         '
         'menuOutils
@@ -139,7 +139,7 @@ Partial Class Main
         '
         Me.BrowserToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DefautToolStripMenuItem, Me.AutreToolStripMenuItem, Me.ModifierToolStripMenuItem1})
         Me.BrowserToolStripMenuItem.Name = "BrowserToolStripMenuItem"
-        Me.BrowserToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.BrowserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.BrowserToolStripMenuItem.Text = "Browser"
         '
         'DefautToolStripMenuItem
@@ -165,13 +165,13 @@ Partial Class Main
         'RechercheToolStripMenuItem
         '
         Me.RechercheToolStripMenuItem.Name = "RechercheToolStripMenuItem"
-        Me.RechercheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.RechercheToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.RechercheToolStripMenuItem.Text = "Recherche"
         '
         'importer
         '
         Me.importer.Name = "importer"
-        Me.importer.Size = New System.Drawing.Size(129, 22)
+        Me.importer.Size = New System.Drawing.Size(152, 22)
         Me.importer.Text = "Importer"
         '
         'menuSignIn
@@ -254,7 +254,7 @@ Partial Class Main
     Friend WithEvents InfoMenu As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents menuEdition As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents modifier As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Cloturer As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cloturer As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents supprimer As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents importer As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents opf As System.Windows.Forms.OpenFileDialog

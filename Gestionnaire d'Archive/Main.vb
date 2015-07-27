@@ -27,13 +27,9 @@ Public Class Main
         initialize()
 
     End Sub
-    Private Sub Main_Finalize(sender As Object, e As EventArgs) Handles MyBase.FormClosing
+    Private Sub Main_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
 
-        Me.Controls.Remove(_basePanel)
-        Me.Size = New Point(ANIME_X, ANIME_Y)
-        Me._basePanel = New FinalizePanel(Me)
-        Me._basePanel.BringToFront()
-
+        displayClosing()
         commitDataSet()
 
     End Sub
@@ -152,8 +148,7 @@ Public Class Main
         End If
 
         Me.Size = New Point(495, 150)
-        Me._basePanel = New LoadPanel(Me)
-        Me._basePanel.BringToFront()
+        Me._startPanel = New LoadPanel(Me)
 
         updateDataSet()
 
@@ -163,8 +158,17 @@ Public Class Main
         AutoSave.Interval() = 1000 * 60 * 15 '15 minutes
         AutoSave.Start()
 
-        Me.Controls.Remove(Me._basePanel)
+        Me.Controls.Remove(Me._startPanel)
         Me._startPanel = New BasePanel(Me)
+
+    End Sub
+    Private Sub displayClosing()
+
+        Me.Controls.Remove(Me._basePanel)
+        Me.Controls.Remove(Me._startPanel)
+
+        Me.Size = New Point(ANIME_X, ANIME_Y)
+        Me._startPanel = New FinalizePanel(Me)
 
     End Sub
     Private Sub import(ByVal path)
@@ -217,14 +221,14 @@ Public Class Main
         Dim objCommandBuild As New SqlCommandBuilder(dataAdapter)
 
         'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
-        'If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
+        'If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
         'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
-        'If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
+        'If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
         'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
 
-        If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
+        If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
         dataAdapter.Update(dataTable)
-        If TypeOf Me._basePanel Is FinalizePanel Then CType(Me._basePanel, FinalizePanel).nextStep()
+        If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
 
         objCommandBuild.Dispose()
         dataAdapter.Dispose()
@@ -292,6 +296,12 @@ Public Class Main
             My.Settings.BROWSER = url
             AutreToolStripMenuItem.Tag = url
             AutreToolStripMenuItem.Text = IO.Path.GetFileNameWithoutExtension(url)
+
+        Else
+
+            DefautToolStripMenuItem.Checked = True
+            AutreToolStripMenuItem.Checked = False
+            My.Settings.OTHER_CHECKED = False
 
         End If
 
@@ -361,7 +371,7 @@ Public Class Main
         End If
 
     End Sub
-    Private Sub cloturer_Click(sender As Object, e As EventArgs) Handles Cloturer.Click
+    Private Sub cloturer_Click(sender As Object, e As EventArgs) Handles cloturer.Click
 
         Dim row As DataRow = dataSet.Tables("data").Select("Nom = '" & _basePanel._anime.getNom() & "'")(0)
 
