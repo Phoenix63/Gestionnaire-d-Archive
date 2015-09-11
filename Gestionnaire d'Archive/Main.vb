@@ -8,10 +8,7 @@ Public Class Main
     Private Const ANIME_X As Integer = 495
     Private Const ANIME_Y As Integer = 157
 
-    Private sqlCo As SqlConnection = New SqlConnection("Data Source=(LocalDB)\v11.0;" _
-                                      & "AttachDbFilename=|DataDirectory|\DataBase.mdf;" _
-                                      & "Integrated Security=True;" _
-                                      & "ApplicationIntent=ReadWrite")
+    Private sqlCo As SqlConnection
 
     Public dataSet As DataSet = New DataSet()
 
@@ -23,6 +20,33 @@ Public Class Main
     Dim trial As Boolean = True
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Dim retryCount As Integer = 5
+        Dim connectError As Boolean = True
+
+        While connectError And (retryCount > 0)
+
+            Try
+                Me.sqlCo = New SqlConnection("Data Source=(LocalDB)\v11.0;" _
+                                          & "AttachDbFilename=|DataDirectory|\DataBase.mdf;" _
+                                          & "Integrated Security=True;" _
+                                          & "ApplicationIntent=ReadWrite;" _
+                                          & "Connect Timeout=30;" _
+                                          & "ConnectRetryCount=5")
+                connectError = False
+            Catch ex As Exception
+                retryCount -= 1
+                Threading.Thread.Sleep(1000)
+            End Try
+
+        End While
+
+        If retryCount = 0 Then
+            MsgBox("Veuillez relancer le programme, la base de donnée n'a pas pu être join lors de cette instance",
+                   MsgBoxStyle.Critical + MsgBoxStyle.Information,
+                   "Erreur du lancement de l'application")
+            Close()
+        End If
 
         initialize()
 
@@ -227,7 +251,8 @@ Public Class Main
         'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
 
         If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
-        dataAdapter.Update(dataTable)
+        'dataAdapter.Update(dataTable)
+        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
         If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
 
         objCommandBuild.Dispose()
