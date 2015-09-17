@@ -297,12 +297,14 @@ Public Class Main
         Me.Controls.Remove(_basePanel)
         Me.Size = New Point(ANIME_X, ANIME_Y)
 
-        AnimePanel.setMenuEditionEnabled()
+        AnimePanel.setMenuEditionEnabled(False)
 
         If menuLoadEnCours.Checked Then
             _basePanel = If(anime Is Nothing, New AnimeEnCoursPanel(Me), New AnimeEnCoursPanel(Me, anime))
-        Else
+        ElseIf menuLoadFini.Checked Then
             _basePanel = If(anime Is Nothing, New AnimeFiniPanel(Me), New AnimeFiniPanel(Me, anime))
+        ElseIf menuLoadHebdo.Checked Then
+            _basePanel = If(anime Is Nothing, New AnimeSortiePanel(Me), New AnimeSortiePanel(Me, anime))
         End If
 
         _basePanel.BringToFront()

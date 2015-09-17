@@ -11,6 +11,18 @@ Public Class AnimeSortiePanel
         Me._subtitle.ForeColor = Color.Purple
 
     End Sub
+    Public Sub New(form As Form, anime As Anime)
+
+        Me.New(form)
+
+        If (Not anime.getFinished()) Then
+
+            Me._animeList.Text = anime.getNom()
+            Me._animeList.SelectedIndex = Me._animeList.FindString(Me._animeList.Text)
+
+        End If
+
+    End Sub
 
 #Region "Methode"
     Protected Overrides Sub setDataView()
