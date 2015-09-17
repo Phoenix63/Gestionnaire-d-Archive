@@ -20,6 +20,7 @@ Public MustInherit Class AnimePanel
         Me.Width = BasePanel.MY_WIDTH
         Me.Height = BasePanel.MY_HEIGHT
 
+        setMenuEditionEnabled(False)
         buildPanel()
         linkPanelFunction()
         setDataView()
@@ -415,7 +416,14 @@ Public MustInherit Class AnimePanel
 
         If (e.Button = Windows.Forms.MouseButtons.Left) Then
 
-            Dim url As String = If(Me._lien.Text.Contains("http://"), Me._lien.Text, "http://" & Me._lien.Text)
+            Dim url As String
+
+            If Me._lien.Text.Contains("http://") Or Me._lien.Text.Contains(":\") Then 'C'est un url vers le web ou local
+                url = Me._lien.Text
+            Else 'Par défaut on considère que c'est un url vers le web
+                url = "http://" & Me._lien.Text
+            End If
+
             If (Main.DefautToolStripMenuItem.Checked) Then 'On utilise le browser par défaut
                 Process.Start(url)
             Else 'Sinon il y a un autre browser renseigné, on vérifie son existance sinon on lance par défaut

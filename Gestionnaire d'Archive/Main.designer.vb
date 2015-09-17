@@ -27,8 +27,10 @@ Partial Class Main
         Me.menuStrip = New System.Windows.Forms.MenuStrip()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuNew = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SauvegarderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChargerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuLoadEnCours = New System.Windows.Forms.ToolStripMenuItem()
+        Me.menuLoadHebdo = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuLoadFini = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuExit = New System.Windows.Forms.ToolStripMenuItem()
         Me.menuEdition = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,7 +66,7 @@ Partial Class Main
         '
         'MenuToolStripMenuItem
         '
-        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuNew, Me.ChargerToolStripMenuItem, Me.menuExit})
+        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuNew, Me.SauvegarderToolStripMenuItem, Me.ChargerToolStripMenuItem, Me.menuExit})
         Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
         Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(54, 20)
         Me.MenuToolStripMenuItem.Text = "Fichier"
@@ -72,32 +74,44 @@ Partial Class Main
         'menuNew
         '
         Me.menuNew.Name = "menuNew"
-        Me.menuNew.Size = New System.Drawing.Size(122, 22)
+        Me.menuNew.Size = New System.Drawing.Size(152, 22)
         Me.menuNew.Text = "Nouveau"
+        '
+        'SauvegarderToolStripMenuItem
+        '
+        Me.SauvegarderToolStripMenuItem.Name = "SauvegarderToolStripMenuItem"
+        Me.SauvegarderToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SauvegarderToolStripMenuItem.Text = "Sauvegarder"
         '
         'ChargerToolStripMenuItem
         '
-        Me.ChargerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuLoadEnCours, Me.menuLoadFini})
+        Me.ChargerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuLoadEnCours, Me.menuLoadHebdo, Me.menuLoadFini})
         Me.ChargerToolStripMenuItem.Name = "ChargerToolStripMenuItem"
-        Me.ChargerToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.ChargerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ChargerToolStripMenuItem.Text = "Charger"
         '
         'menuLoadEnCours
         '
         Me.menuLoadEnCours.Name = "menuLoadEnCours"
-        Me.menuLoadEnCours.Size = New System.Drawing.Size(119, 22)
+        Me.menuLoadEnCours.Size = New System.Drawing.Size(153, 22)
         Me.menuLoadEnCours.Text = "En cours"
+        '
+        'menuLoadHebdo
+        '
+        Me.menuLoadHebdo.Name = "menuLoadHebdo"
+        Me.menuLoadHebdo.Size = New System.Drawing.Size(153, 22)
+        Me.menuLoadHebdo.Text = "Hebdomadaire"
         '
         'menuLoadFini
         '
         Me.menuLoadFini.Name = "menuLoadFini"
-        Me.menuLoadFini.Size = New System.Drawing.Size(119, 22)
+        Me.menuLoadFini.Size = New System.Drawing.Size(153, 22)
         Me.menuLoadFini.Text = "Terminé"
         '
         'menuExit
         '
         Me.menuExit.Name = "menuExit"
-        Me.menuExit.Size = New System.Drawing.Size(122, 22)
+        Me.menuExit.Size = New System.Drawing.Size(152, 22)
         Me.menuExit.Text = "Quitter"
         '
         'menuEdition
@@ -111,21 +125,21 @@ Partial Class Main
         '
         Me.modifier.Enabled = False
         Me.modifier.Name = "modifier"
-        Me.modifier.Size = New System.Drawing.Size(152, 22)
+        Me.modifier.Size = New System.Drawing.Size(129, 22)
         Me.modifier.Text = "Modifier"
         '
         'cloturer
         '
         Me.cloturer.Enabled = False
         Me.cloturer.Name = "cloturer"
-        Me.cloturer.Size = New System.Drawing.Size(152, 22)
+        Me.cloturer.Size = New System.Drawing.Size(129, 22)
         Me.cloturer.Text = "Cloturer"
         '
         'supprimer
         '
         Me.supprimer.Enabled = False
         Me.supprimer.Name = "supprimer"
-        Me.supprimer.Size = New System.Drawing.Size(152, 22)
+        Me.supprimer.Size = New System.Drawing.Size(129, 22)
         Me.supprimer.Text = "Supprimer"
         '
         'menuOutils
@@ -139,7 +153,7 @@ Partial Class Main
         '
         Me.BrowserToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DefautToolStripMenuItem, Me.AutreToolStripMenuItem, Me.ModifierToolStripMenuItem1})
         Me.BrowserToolStripMenuItem.Name = "BrowserToolStripMenuItem"
-        Me.BrowserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.BrowserToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.BrowserToolStripMenuItem.Text = "Browser"
         '
         'DefautToolStripMenuItem
@@ -165,13 +179,13 @@ Partial Class Main
         'RechercheToolStripMenuItem
         '
         Me.RechercheToolStripMenuItem.Name = "RechercheToolStripMenuItem"
-        Me.RechercheToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.RechercheToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
         Me.RechercheToolStripMenuItem.Text = "Recherche"
         '
         'importer
         '
         Me.importer.Name = "importer"
-        Me.importer.Size = New System.Drawing.Size(152, 22)
+        Me.importer.Size = New System.Drawing.Size(129, 22)
         Me.importer.Text = "Importer"
         '
         'menuSignIn
@@ -260,5 +274,7 @@ Partial Class Main
     Friend WithEvents opf As System.Windows.Forms.OpenFileDialog
     Friend WithEvents sfd As System.Windows.Forms.SaveFileDialog
     Friend WithEvents AutoSave As System.Windows.Forms.Timer
+    Friend WithEvents SauvegarderToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents menuLoadHebdo As System.Windows.Forms.ToolStripMenuItem
 
 End Class

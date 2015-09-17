@@ -129,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anime.vb" />
+    <Compile Include="AnimeSortiePanel.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AnimeEnCoursPanel.vb">
       <SubType>Component</SubType>
     </Compile>

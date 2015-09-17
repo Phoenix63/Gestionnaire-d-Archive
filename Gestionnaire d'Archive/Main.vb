@@ -375,22 +375,26 @@ Public Class Main
         AnimePanel.setMenuEditionEnabled()
 
     End Sub
-    Private Sub menuLoad_Click(sender As Object, e As EventArgs) Handles menuLoadEnCours.Click, menuLoadFini.Click
+    Private Sub menuLoad_Click(sender As Object, e As EventArgs) Handles menuLoadEnCours.Click, menuLoadFini.Click, menuLoadHebdo.Click
 
         If Not sender.Checked Then
 
             Me.Controls.Remove(_basePanel)
             Me.Size = New Point(ANIME_X, ANIME_Y)
 
+            menuLoadEnCours.Checked = False
+            menuLoadHebdo.Checked = False
+            menuLoadFini.Checked = False
             sender.Checked = True
 
+            cloturer.Text = "Cloturer"
+
             If sender.Equals(menuLoadEnCours) Then
-                menuLoadFini.Checked = False
-                cloturer.Text = "Cloturer"
                 _basePanel = New AnimeEnCoursPanel(Me)
-            Else
+            ElseIf sender.Equals(menuLoadHebdo) Then
+                _basePanel = New AnimeSortiePanel(Me)
+            ElseIf sender.Equals(menuLoadFini) Then
                 cloturer.Text = "Décloturer"
-                menuLoadEnCours.Checked = False
                 _basePanel = New AnimeFiniPanel(Me)
             End If
 
@@ -482,6 +486,9 @@ Public Class Main
 
     End Sub
     Private Sub AutoSave_Tick(sender As Object, e As EventArgs) Handles AutoSave.Tick
+        commitDataSet()
+    End Sub
+    Private Sub SauvegarderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SauvegarderToolStripMenuItem.Click
         commitDataSet()
     End Sub
 #End Region
