@@ -340,7 +340,7 @@ Public MustInherit Class AnimePanel
 
         If (Me._anime.getSmartLink()) Then
 
-            Dim dirPath As String = IO.Path.GetDirectoryName(link).Replace(":\", "://").Replace("\", "/")
+            Dim dirPath As String = IO.Path.GetDirectoryName(link).Replace(":/", "://")
             Dim filePath As String = IO.Path.GetFileName(link)
 
             If checkPath(filePath, "001") Then
@@ -349,7 +349,8 @@ Public MustInherit Class AnimePanel
                 filePath = filePath.Replace("01", normalize(2, Me._anime.getEpisode()))
             End If
 
-            link = dirPath + "/" + filePath
+            'Si le lien est en local
+            link = dirPath + If(dirPath.Contains(":\"), "\", "/") + filePath
 
         End If
 
