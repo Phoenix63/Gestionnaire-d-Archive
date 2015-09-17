@@ -16,8 +16,7 @@ Public Class Main
     Public _basePanel As BasePanel
 
     Private firstCommit As Boolean = True
-
-    Dim trial As Boolean = True
+    Private trial As Boolean = True
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -208,6 +207,8 @@ Public Class Main
                 Return
             End If
 
+            commitDataSet()
+
             databaseConnect()
             Dim req As String = mAnime.sqlSerialize(Anime.MODE_INSERT, "data")
             Dim command As SqlClient.SqlCommand = New SqlClient.SqlCommand(req, sqlCo)
@@ -244,16 +245,18 @@ Public Class Main
         Dim dataAdapter As New SqlDataAdapter("SELECT * FROM data", sqlCo)
         Dim objCommandBuild As New SqlCommandBuilder(dataAdapter)
 
-        'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
-        'If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
-        'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
-        'If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
-        'dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
+        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Added))
+        Threading.Thread.Sleep(250)
 
         If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
-        'dataAdapter.Update(dataTable)
+
         dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.ModifiedCurrent))
+        Threading.Thread.Sleep(250)
+
         If TypeOf Me._startPanel Is FinalizePanel Then CType(Me._startPanel, FinalizePanel).nextStep()
+
+        dataAdapter.Update(dataTable.Select(Nothing, Nothing, DataViewRowState.Deleted))
+        Threading.Thread.Sleep(250)
 
         objCommandBuild.Dispose()
         dataAdapter.Dispose()

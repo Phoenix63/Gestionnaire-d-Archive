@@ -43,8 +43,6 @@
 
             table.Rows.Add(row)
 
-            Main.commitDataSet()
-
             If sender.Equals(Me._validerFermer) Then
                 Main.Size = New Point(495, 150)
                 Main.Controls.Remove(Main._basePanel)
