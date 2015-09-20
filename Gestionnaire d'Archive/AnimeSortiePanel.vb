@@ -39,6 +39,8 @@ Public Class AnimeSortiePanel
             Me.dataView.RowFilter() = "Fini = '0' And Follow = '1'"
             Me.dataView.Sort() = "Nom ASC"
 
+            Dim filter As String = ""
+
             For Each line As DataRowView In Me.dataView
 
                 Dim animeTemp As Anime = New Anime(
@@ -63,10 +65,12 @@ Public Class AnimeSortiePanel
 
                 'L'animé n'est pas encore sorti, on le supprime de la view
                 If nextEp > 0 Then
-                    line.Delete()
+                    filter += " And Nom <> '" & animeTemp.getNom & "'"
                 End If
 
             Next
+
+            Me.dataView.RowFilter() = "Fini = '0' And Follow = '1'" & filter
 
         Catch ex As Exception
             MsgBox(ex.Message)
