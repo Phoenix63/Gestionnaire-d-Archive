@@ -63,7 +63,7 @@ Public Class AnimeSortiePanel
 
                 'L'animé n'est pas encore sorti, on le supprime de la view
                 If nextEp > 0 Then
-                    Me.dataView.RowFilter() = "Nom <> '" & animeTemp.getNom & "'"
+                    line.Delete()
                 End If
 
             Next
