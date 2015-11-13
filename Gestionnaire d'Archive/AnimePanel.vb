@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Text.RegularExpressions
 
 Public MustInherit Class AnimePanel
     Inherits BasePanel
@@ -340,7 +341,8 @@ Public MustInherit Class AnimePanel
 
         If (Me._anime.getSmartLink()) Then
 
-            Dim dirPath As String = IO.Path.GetDirectoryName(link).Replace(":/", "://")
+            Dim localRegex As New Regex("^[A-Z]:\\")
+            Dim dirPath As String = IO.Path.GetDirectoryName(link)
             Dim filePath As String = IO.Path.GetFileName(link)
 
             If checkPath(filePath, "001") Then
@@ -350,7 +352,11 @@ Public MustInherit Class AnimePanel
             End If
 
             'Si le lien est en local
-            link = dirPath + If(dirPath.Contains(":\"), "\", "/") + filePath
+            If localRegex.IsMatch(link) Then
+                link = dirPath + "\" + filePath
+            Else
+                link = dirPath.Replace(":\", "://").Replace("\", "/") + "/" + filePath
+            End If
 
         End If
 
@@ -418,8 +424,11 @@ Public MustInherit Class AnimePanel
         If (e.Button = Windows.Forms.MouseButtons.Left) Then
 
             Dim url As String
+            Dim localRegex As New Regex("^[A-Z]:\\")
+            Dim webRegex As New Regex("^http://")
 
-            If Me._lien.Text.Contains("http://") Or Me._lien.Text.Contains(":\") Then 'C'est un url vers le web ou local
+            'If Me._lien.Text.Contains("http://") Or Me._lien.Text.Contains(":\") Then 'C'est un url vers le web ou local
+            If webRegex.IsMatch(Me._lien.Text) Or localRegex.IsMatch(Me._lien.Text) Then
                 url = Me._lien.Text
             Else 'Par défaut on considère que c'est un url vers le web
                 url = "http://" & Me._lien.Text

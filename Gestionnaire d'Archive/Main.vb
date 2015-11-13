@@ -276,7 +276,7 @@ Public Class Main
         Try
             sqlCo.Open()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Erreur au chargement de la base de donnée")
         End Try
 
     End Sub
@@ -285,7 +285,7 @@ Public Class Main
         Try
             Commande.ExecuteNonQuery()
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, MsgBoxStyle.Critical, "Erreur à l'exécution sur la base de donnée")
         End Try
 
         Commande.Dispose()
