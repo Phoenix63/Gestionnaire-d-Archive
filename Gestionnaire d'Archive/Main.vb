@@ -1,6 +1,8 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Text.RegularExpressions
 
+Imports DLL_Account
+
 Public Class Main
 
     Private Const SET_X As Integer = 495
@@ -16,9 +18,36 @@ Public Class Main
     Public _basePanel As BasePanel
 
     Private firstCommit As Boolean = True
-    Private trial As Boolean = True
+    Public trial As Boolean = True
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        db_connect()
+        initialize()
+
+    End Sub
+    Private Sub Main_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
+
+        displayClosing()
+        commitDataSet()
+
+    End Sub
+
+#Region "MaJ Logiciel"
+    Private Sub check()
+
+        If (Dir(Application.StartupPath & "\Uplauncher GA.new") <> "") Then
+
+            My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Uplauncher GA.exe")
+            My.Computer.FileSystem.RenameFile(Application.StartupPath & "\Uplauncher GA.new", "Uplauncher GA.exe")
+
+        End If
+
+    End Sub
+#End Region
+
+#Region "Methode"
+    Private Sub db_connect()
 
         Dim retryCount As Integer = 5
         Dim connectError As Boolean = True
@@ -43,121 +72,19 @@ Public Class Main
         If retryCount = 0 Then
             MsgBox("Veuillez relancer le programme, la base de donnée n'a pas pu être join lors de cette instance",
                    MsgBoxStyle.Critical + MsgBoxStyle.Information,
-                   "Erreur du lancement de l'application")
+                   "Erreur au chargement des données")
             Close()
         End If
 
-        initialize()
-
     End Sub
-    Private Sub Main_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
-
-        displayClosing()
-        commitDataSet()
-
-    End Sub
-
-#Region "MaJ Logiciel"
-    Private Sub check()
-
-        If (Dir(Application.StartupPath & "\Uplauncher GA.new") <> "") Then
-
-            My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Uplauncher GA.exe")
-            My.Computer.FileSystem.RenameFile(Application.StartupPath & "\Uplauncher GA.new", "Uplauncher GA.exe")
-
-        End If
-
-    End Sub
-#End Region
-
-#Region "Trial"
-    Private Sub signIn()
-
-        Dim name As String = ""
-        Dim code As String = ""
-        Dim valide As MsgBoxResult = MsgBoxResult.No
-
-        While valide = vbNo
-            name = InputBox("Entrez le nom : ", "Enregistrement")
-            If name = "" Then Return
-            code = InputBox("Entrez le code : ")
-            If code = "" Then Return
-            valide = MsgBox("Enregistrement de Gestionnaire d'Archive sous le nom de " & name & vbCrLf & "Avec le code d'enregistrement " & code & vbCrLf & vbCrLf & "Les informations saisies sont-elles correctes ?", vbYesNoCancel, "Enregistrement")
-            If valide = MsgBoxResult.Cancel Then Return
-        End While
-
-        If (Not checkTrial(name, code)) Then
-            My.Settings.NOM = name
-            My.Settings.CODE = code
-            menuSignIn.Visible = False
-            InfoMenu.Visible = True
-            trial = False
-            MsgBox("Merci de vous être enregistré(e) sur Gestionnaire d'Archive")
-        End If
-
-    End Sub
-    Private Function checkTrial(ByVal name_t As String, ByVal code_t As String)
-
-        Dim code() As String
-        Dim value As UInteger = 0
-
-        If name_t = "######||######" And code_t = "######||######" Or name_t = "" And code_t = "" Then Return True
-
-        code = Split(code_t, "-")
-        For i = 0 To code.Length - 1
-            value += valueOf(code(i))
-        Next
-
-        If value * 255 = 19125 Then
-            trial = False
-            Return False
-        Else
-            MsgBox("Code d'enregistrement incorrecte, veuillez vous re-enregistrer ultérieurement")
-            Return True
-        End If
-
-    End Function
-    Private Function numberLength(ByVal nb As ULong)
-
-        Dim length As ULong = 0
-
-        While (nb / 10) <> 0
-            nb = nb / 10
-            length += 1
-        End While
-
-        Return length
-
-    End Function
-    Private Function valueOf(ByVal val As ULong)
-
-        If val = 0 Then Return 0
-
-        Dim valeur As ULong = val
-        Dim length As ULong = numberLength(val)
-        Dim ret As ULong = 0
-        Dim i As ULong = 0
-
-        While i < length
-            ret += valeur Mod 10
-            valeur = valeur / 10
-            i += 1
-        End While
-
-        Return ret
-
-    End Function
-#End Region
-
-#Region "Methode"
     Private Sub initialize()
 
         check()
 
-        If Not (checkTrial(My.Settings.NOM, My.Settings.CODE)) Then
-            menuSignIn.Visible = False
-            InfoMenu.Visible = True
-        End If
+        'If Not (checkTrial(My.Settings.NOM, My.Settings.CODE)) Then
+        'menuSignIn.Visible = False
+        'InfoMenu.Visible = True
+        'End If
 
         If My.Settings.OTHER_CHECKED Then
 
@@ -261,6 +188,9 @@ Public Class Main
         objCommandBuild.Dispose()
         dataAdapter.Dispose()
         dataTable.Dispose()
+
+        sqlCo.Dispose()
+        db_connect()
 
     End Sub
     Public Function isDuplicateAnime(ByVal anime As Anime) As Boolean
@@ -449,7 +379,10 @@ Public Class Main
 
     End Sub
     Private Sub menuSignIn_Click(sender As Object, e As EventArgs) Handles menuSignIn.Click
-        signIn()
+
+        Dim account_panel As AccountPanel = New AccountPanel(Me)
+        account_panel.Show()
+
     End Sub
     Private Sub menuExit_Click(sender As Object, e As EventArgs) Handles menuExit.Click
         Close()

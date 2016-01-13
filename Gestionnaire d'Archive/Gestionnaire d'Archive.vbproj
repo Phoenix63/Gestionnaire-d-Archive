@@ -99,6 +99,9 @@
     <ManifestKeyFile>GestionnaireArchiveCustomKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DLL Account">
+      <HintPath>..\..\GA Cloud\GA Cloud\bin\Release\DLL Account.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>True</Private>
     </Reference>
