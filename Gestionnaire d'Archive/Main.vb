@@ -50,9 +50,9 @@ Public Class Main
     Private Sub db_connect()
 
         Dim retryCount As Integer = 5
-        Dim connectError As Boolean = True
+        Dim connectError As Boolean = False
 
-        While connectError And (retryCount > 0)
+        While Not connectError And (retryCount > 0)
 
             Try
                 Me.sqlCo = New SqlConnection("Data Source=(LocalDB)\v11.0;" _
