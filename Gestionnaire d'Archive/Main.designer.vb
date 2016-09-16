@@ -74,20 +74,20 @@ Partial Class Main
         'menuNew
         '
         Me.menuNew.Name = "menuNew"
-        Me.menuNew.Size = New System.Drawing.Size(152, 22)
+        Me.menuNew.Size = New System.Drawing.Size(139, 22)
         Me.menuNew.Text = "Nouveau"
         '
         'SauvegarderToolStripMenuItem
         '
         Me.SauvegarderToolStripMenuItem.Name = "SauvegarderToolStripMenuItem"
-        Me.SauvegarderToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SauvegarderToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.SauvegarderToolStripMenuItem.Text = "Sauvegarder"
         '
         'ChargerToolStripMenuItem
         '
         Me.ChargerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.menuLoadEnCours, Me.menuLoadHebdo, Me.menuLoadFini})
         Me.ChargerToolStripMenuItem.Name = "ChargerToolStripMenuItem"
-        Me.ChargerToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ChargerToolStripMenuItem.Size = New System.Drawing.Size(139, 22)
         Me.ChargerToolStripMenuItem.Text = "Charger"
         '
         'menuLoadEnCours
@@ -111,7 +111,7 @@ Partial Class Main
         'menuExit
         '
         Me.menuExit.Name = "menuExit"
-        Me.menuExit.Size = New System.Drawing.Size(152, 22)
+        Me.menuExit.Size = New System.Drawing.Size(139, 22)
         Me.menuExit.Text = "Quitter"
         '
         'menuEdition
@@ -241,6 +241,7 @@ Partial Class Main
         Me.MainMenuStrip = Me.menuStrip
         Me.MaximizeBox = False
         Me.Name = "Main"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Gestionnaire d'Archive"
         Me.menuStrip.ResumeLayout(False)
         Me.menuStrip.PerformLayout()
