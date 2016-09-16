@@ -349,6 +349,33 @@ Public MustInherit Class AnimePanel
                 filePath = filePath.Replace("001", normalize(3, Me._anime.getEpisode()))
             ElseIf checkPath(filePath, "01") Then
                 filePath = filePath.Replace("01", normalize(2, Me._anime.getEpisode()))
+            ElseIf link.Contains("episode-") Then
+
+                Dim epIndex As Integer, i As Integer
+                Dim newLink As String
+
+                newLink = ""
+                epIndex = link.LastIndexOf("episode-") + 7
+
+                For i = 0 To epIndex
+                    newLink += link(i)
+                Next
+
+                newLink += "" & Me._anime.getEpisode()
+                i = epIndex + 1
+
+                While link(i) <> "-" Or i = link.Length
+                    i += 1
+                End While
+
+                If i <> link.Length Then
+                    For j = i To link.Length - 1
+                        newLink += link(j)
+                    Next
+                End If
+
+                Return newLink
+
             End If
 
             'Si le lien est en local
