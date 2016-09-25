@@ -151,6 +151,24 @@
     <Compile Include="FinalizePanel.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Interface V2\MenuInterface.Designer.vb">
+      <DependentUpon>MenuInterface.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\MenuInterface.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\SaveInterface.Designer.vb">
+      <DependentUpon>SaveInterface.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\SaveInterface.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\V2_Test.Designer.vb">
+      <DependentUpon>V2_Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\V2_Test.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="LoadPanel.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -186,6 +204,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Interface V2\MenuInterface.resx">
+      <DependentUpon>MenuInterface.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\SaveInterface.resx">
+      <DependentUpon>SaveInterface.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\V2_Test.resx">
+      <DependentUpon>V2_Test.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
