@@ -151,6 +151,12 @@
     <Compile Include="FinalizePanel.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Interface V2\AnimeInterface.Designer.vb">
+      <DependentUpon>AnimeInterface.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\AnimeInterface.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Interface V2\MenuInterface.Designer.vb">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </Compile>
@@ -161,6 +167,12 @@
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </Compile>
     <Compile Include="Interface V2\SaveInterface.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\StarRanking.Designer.vb">
+      <DependentUpon>StarRanking.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\StarRanking.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\V2_Test.Designer.vb">
@@ -204,11 +216,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Interface V2\AnimeInterface.resx">
+      <DependentUpon>AnimeInterface.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\MenuInterface.resx">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\SaveInterface.resx">
       <DependentUpon>SaveInterface.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\StarRanking.resx">
+      <DependentUpon>StarRanking.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\V2_Test.resx">
       <DependentUpon>V2_Test.vb</DependentUpon>
@@ -244,6 +262,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="GAico.ico" />
+    <None Include="Interface V2\inactivestar.png" />
+    <None Include="Interface V2\activestar.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -27,6 +27,8 @@ Partial Class V2_Test
         Me.bt_close = New System.Windows.Forms.Button()
         Me.title = New System.Windows.Forms.Label()
         Me.pContainer = New System.Windows.Forms.Panel()
+        Me.StarRanking1 = New Gestionnaire_d_Archive.StarRanking()
+        Me.pContainer.SuspendLayout()
         Me.SuspendLayout()
         '
         'bt_menu
@@ -88,10 +90,18 @@ Partial Class V2_Test
         'pContainer
         '
         Me.pContainer.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.pContainer.Controls.Add(Me.StarRanking1)
         Me.pContainer.Location = New System.Drawing.Point(0, 25)
         Me.pContainer.Name = "pContainer"
         Me.pContainer.Size = New System.Drawing.Size(600, 375)
         Me.pContainer.TabIndex = 8
+        '
+        'StarRanking1
+        '
+        Me.StarRanking1.Location = New System.Drawing.Point(171, 103)
+        Me.StarRanking1.Name = "StarRanking1"
+        Me.StarRanking1.Size = New System.Drawing.Size(175, 35)
+        Me.StarRanking1.TabIndex = 0
         '
         'V2_Test
         '
@@ -110,6 +120,7 @@ Partial Class V2_Test
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Gestionnaire d'Archive"
+        Me.pContainer.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -118,4 +129,5 @@ Partial Class V2_Test
     Friend WithEvents bt_close As System.Windows.Forms.Button
     Friend WithEvents title As System.Windows.Forms.Label
     Friend WithEvents pContainer As System.Windows.Forms.Panel
+    Friend WithEvents StarRanking1 As Gestionnaire_d_Archive.StarRanking
 End Class
