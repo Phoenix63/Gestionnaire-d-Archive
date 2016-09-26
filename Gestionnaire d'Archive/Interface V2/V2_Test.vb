@@ -4,27 +4,20 @@
     Private WithEvents mInterface As MenuInterface = Nothing
 
     Private Sub V2_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         Me.title.Text = Me.Text
-
     End Sub
-
     Private Sub V2_Test_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
-
         If Not sInterface Is Nothing Then sInterface.Dispose()
-
     End Sub
 
 #Region " Header "
 
     Private Sub bt_close_Click(sender As Object, e As EventArgs) Handles bt_close.Click
-        Close()
+        appExit()
     End Sub
-
     Private Sub bt_reduce_Click(sender As Object, e As EventArgs) Handles bt_reduce.Click
         Me.WindowState = FormWindowState.Minimized
     End Sub
-
     Private Sub bt_menu_Click(sender As Object, e As EventArgs) Handles bt_menu.Click
 
         If mInterface Is Nothing Then
@@ -37,7 +30,6 @@
         mInterface.menuOpen()
 
     End Sub
-
     Private Sub save() Handles mInterface.saveEvent
 
         If sInterface Is Nothing Then
@@ -49,6 +41,9 @@
 
         sInterface.startAnimation()
 
+    End Sub
+    Private Sub appExit() Handles mInterface.exitEvent
+        Close()
     End Sub
 
 #End Region
