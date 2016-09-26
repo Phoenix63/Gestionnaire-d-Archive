@@ -23,37 +23,42 @@ Partial Class MenuInterface
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.lb01 = New System.Windows.Forms.Label()
-        Me.bt01 = New System.Windows.Forms.Button()
+        Me.mTitle = New System.Windows.Forms.Label()
+        Me.mNew = New System.Windows.Forms.Button()
         Me.timerAnimation = New System.Windows.Forms.Timer(Me.components)
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.mLoad = New System.Windows.Forms.Button()
+        Me.mSave = New System.Windows.Forms.Button()
+        Me.mSignin = New System.Windows.Forms.Button()
+        Me.mInfo = New System.Windows.Forms.Button()
+        Me.mExit = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'lb01
+        'mTitle
         '
-        Me.lb01.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.lb01.Font = New System.Drawing.Font("Myriad Web Pro", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lb01.Location = New System.Drawing.Point(0, 0)
-        Me.lb01.Name = "lb01"
-        Me.lb01.Size = New System.Drawing.Size(150, 40)
-        Me.lb01.TabIndex = 0
-        Me.lb01.Text = "Label1"
-        Me.lb01.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.mTitle.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mTitle.Font = New System.Drawing.Font("Myriad Web Pro", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.mTitle.Location = New System.Drawing.Point(0, 0)
+        Me.mTitle.Name = "mTitle"
+        Me.mTitle.Size = New System.Drawing.Size(150, 40)
+        Me.mTitle.TabIndex = 0
+        Me.mTitle.Text = "Menu"
+        Me.mTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'bt01
+        'mNew
         '
-        Me.bt01.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.bt01.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.bt01.FlatAppearance.BorderSize = 0
-        Me.bt01.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.bt01.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.bt01.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.bt01.Location = New System.Drawing.Point(0, 40)
-        Me.bt01.Name = "bt01"
-        Me.bt01.Size = New System.Drawing.Size(150, 25)
-        Me.bt01.TabIndex = 8
-        Me.bt01.Text = "Sauvegarder"
-        Me.bt01.UseVisualStyleBackColor = False
+        Me.mNew.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mNew.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mNew.FlatAppearance.BorderSize = 0
+        Me.mNew.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mNew.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mNew.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mNew.Location = New System.Drawing.Point(0, 40)
+        Me.mNew.Name = "mNew"
+        Me.mNew.Size = New System.Drawing.Size(150, 25)
+        Me.mNew.TabIndex = 8
+        Me.mNew.Text = "Nouveau"
+        Me.mNew.UseVisualStyleBackColor = False
         '
         'timerAnimation
         '
@@ -74,22 +79,107 @@ Partial Class MenuInterface
         Me.Button1.Text = "X"
         Me.Button1.UseVisualStyleBackColor = False
         '
+        'mLoad
+        '
+        Me.mLoad.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mLoad.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mLoad.FlatAppearance.BorderSize = 0
+        Me.mLoad.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mLoad.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mLoad.Location = New System.Drawing.Point(0, 92)
+        Me.mLoad.Name = "mLoad"
+        Me.mLoad.Size = New System.Drawing.Size(150, 25)
+        Me.mLoad.TabIndex = 10
+        Me.mLoad.Text = "Charger"
+        Me.mLoad.UseVisualStyleBackColor = False
+        '
+        'mSave
+        '
+        Me.mSave.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mSave.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mSave.FlatAppearance.BorderSize = 0
+        Me.mSave.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mSave.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mSave.Location = New System.Drawing.Point(0, 66)
+        Me.mSave.Name = "mSave"
+        Me.mSave.Size = New System.Drawing.Size(150, 25)
+        Me.mSave.TabIndex = 11
+        Me.mSave.Text = "Sauvegarder"
+        Me.mSave.UseVisualStyleBackColor = False
+        '
+        'mSignin
+        '
+        Me.mSignin.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mSignin.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mSignin.FlatAppearance.BorderSize = 0
+        Me.mSignin.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mSignin.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mSignin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mSignin.Location = New System.Drawing.Point(0, 118)
+        Me.mSignin.Name = "mSignin"
+        Me.mSignin.Size = New System.Drawing.Size(150, 25)
+        Me.mSignin.TabIndex = 12
+        Me.mSignin.Text = "S'enregistrer"
+        Me.mSignin.UseVisualStyleBackColor = False
+        '
+        'mInfo
+        '
+        Me.mInfo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mInfo.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mInfo.FlatAppearance.BorderSize = 0
+        Me.mInfo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mInfo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mInfo.Location = New System.Drawing.Point(0, 144)
+        Me.mInfo.Name = "mInfo"
+        Me.mInfo.Size = New System.Drawing.Size(150, 25)
+        Me.mInfo.TabIndex = 13
+        Me.mInfo.Text = "Information"
+        Me.mInfo.UseVisualStyleBackColor = False
+        '
+        'mExit
+        '
+        Me.mExit.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mExit.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mExit.FlatAppearance.BorderSize = 0
+        Me.mExit.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mExit.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mExit.Location = New System.Drawing.Point(0, 375)
+        Me.mExit.Name = "mExit"
+        Me.mExit.Size = New System.Drawing.Size(150, 25)
+        Me.mExit.TabIndex = 14
+        Me.mExit.Text = "Quitter"
+        Me.mExit.UseVisualStyleBackColor = False
+        '
         'MenuInterface
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Transparent
+        Me.Controls.Add(Me.mExit)
+        Me.Controls.Add(Me.mInfo)
+        Me.Controls.Add(Me.mSignin)
+        Me.Controls.Add(Me.mSave)
+        Me.Controls.Add(Me.mLoad)
         Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.bt01)
-        Me.Controls.Add(Me.lb01)
+        Me.Controls.Add(Me.mNew)
+        Me.Controls.Add(Me.mTitle)
         Me.Name = "MenuInterface"
         Me.Size = New System.Drawing.Size(150, 400)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents lb01 As System.Windows.Forms.Label
-    Friend WithEvents bt01 As System.Windows.Forms.Button
+    Friend WithEvents mTitle As System.Windows.Forms.Label
+    Friend WithEvents mNew As System.Windows.Forms.Button
     Private WithEvents timerAnimation As System.Windows.Forms.Timer
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents mLoad As System.Windows.Forms.Button
+    Friend WithEvents mSave As System.Windows.Forms.Button
+    Friend WithEvents mSignin As System.Windows.Forms.Button
+    Friend WithEvents mInfo As System.Windows.Forms.Button
+    Friend WithEvents mExit As System.Windows.Forms.Button
 
 End Class

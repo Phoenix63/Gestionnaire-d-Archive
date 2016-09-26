@@ -22,6 +22,9 @@
 
     ' Event
     Public Event saveEvent()
+    Public Event newEvent()
+    Public Event loadEvent()
+    Public Event exitEvent()
 
     ' La méthode GetInstance doit être Shared <=> Static
     Public Shared Function GetInstance() As MenuInterface
@@ -71,10 +74,10 @@
 
     Public Property Title() As String
         Get
-            Return lb01.Text
+            Return mTitle.Text
         End Get
         Set(ByVal value As String)
-            lb01.Text = value
+            mTitle.Text = value
         End Set
     End Property
 
@@ -82,8 +85,23 @@
         menuClose()
     End Sub
 
-    Private Sub bt01_Click(sender As Object, e As EventArgs) Handles bt01.Click
+    Private Sub newClick(sender As Object, e As EventArgs) Handles mNew.Click
+        RaiseEvent newEvent()
+    End Sub
+    Private Sub saveClick(sender As Object, e As EventArgs) Handles mSave.Click
         RaiseEvent saveEvent()
+    End Sub
+    Private Sub loadClick(sender As Object, e As EventArgs) Handles mLoad.Click
+        RaiseEvent loadEvent()
+    End Sub
+    Private Sub signinClick(sender As Object, e As EventArgs) Handles mSignin.Click
+
+    End Sub
+    Private Sub infoClick(sender As Object, e As EventArgs) Handles mInfo.Click
+
+    End Sub
+    Private Sub exitClick(sender As Object, e As EventArgs) Handles mExit.Click
+        RaiseEvent exitEvent()
     End Sub
 
 End Class

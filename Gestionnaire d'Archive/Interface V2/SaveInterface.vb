@@ -46,7 +46,7 @@
 
         If (animateTickCount Mod 4 = 0) Then
             animateTickCount = 0
-            saveText.Text = "Sauvegarde en cours"
+            saveText.Text = ""
         Else
             saveText.Text += ". "
         End If
