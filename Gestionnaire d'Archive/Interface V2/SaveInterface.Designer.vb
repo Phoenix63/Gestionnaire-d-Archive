@@ -25,21 +25,31 @@ Partial Class SaveInterface
         Me.components = New System.ComponentModel.Container()
         Me.saveText = New System.Windows.Forms.Label()
         Me.timerAnimation = New System.Windows.Forms.Timer(Me.components)
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'saveText
         '
         Me.saveText.Font = New System.Drawing.Font("Myriad Web Pro", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.saveText.Location = New System.Drawing.Point(-1, 17)
+        Me.saveText.Location = New System.Drawing.Point(-1, 25)
         Me.saveText.Name = "saveText"
         Me.saveText.Size = New System.Drawing.Size(202, 18)
         Me.saveText.TabIndex = 0
-        Me.saveText.Text = "Sauvegarde en cours"
-        Me.saveText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.saveText.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'timerAnimation
         '
         Me.timerAnimation.Interval = 500
+        '
+        'Label1
+        '
+        Me.Label1.Font = New System.Drawing.Font("Myriad Web Pro", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(-1, 8)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(202, 18)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Sauvegarde en cours"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'SaveInterface
         '
@@ -47,6 +57,7 @@ Partial Class SaveInterface
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.saveText)
         Me.Name = "SaveInterface"
         Me.Size = New System.Drawing.Size(200, 50)
@@ -55,5 +66,6 @@ Partial Class SaveInterface
     End Sub
     Friend WithEvents saveText As System.Windows.Forms.Label
     Private WithEvents timerAnimation As System.Windows.Forms.Timer
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class
