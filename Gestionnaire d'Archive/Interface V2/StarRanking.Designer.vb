@@ -36,6 +36,7 @@ Partial Class StarRanking
         '
         's1
         '
+        Me.s1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.s1.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.activestar
         Me.s1.Location = New System.Drawing.Point(0, 0)
         Me.s1.Name = "s1"
@@ -43,9 +44,11 @@ Partial Class StarRanking
         Me.s1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.s1.TabIndex = 0
         Me.s1.TabStop = False
+        Me.s1.Tag = "1"
         '
         's2
         '
+        Me.s2.Cursor = System.Windows.Forms.Cursors.Hand
         Me.s2.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
         Me.s2.Location = New System.Drawing.Point(35, 0)
         Me.s2.Name = "s2"
@@ -53,9 +56,11 @@ Partial Class StarRanking
         Me.s2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.s2.TabIndex = 1
         Me.s2.TabStop = False
+        Me.s2.Tag = "2"
         '
         's3
         '
+        Me.s3.Cursor = System.Windows.Forms.Cursors.Hand
         Me.s3.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
         Me.s3.Location = New System.Drawing.Point(70, 0)
         Me.s3.Name = "s3"
@@ -63,9 +68,11 @@ Partial Class StarRanking
         Me.s3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.s3.TabIndex = 2
         Me.s3.TabStop = False
+        Me.s3.Tag = "3"
         '
         's4
         '
+        Me.s4.Cursor = System.Windows.Forms.Cursors.Hand
         Me.s4.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
         Me.s4.Location = New System.Drawing.Point(105, 0)
         Me.s4.Name = "s4"
@@ -73,9 +80,11 @@ Partial Class StarRanking
         Me.s4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.s4.TabIndex = 3
         Me.s4.TabStop = False
+        Me.s4.Tag = "4"
         '
         's5
         '
+        Me.s5.Cursor = System.Windows.Forms.Cursors.Hand
         Me.s5.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
         Me.s5.Location = New System.Drawing.Point(140, 0)
         Me.s5.Name = "s5"
@@ -83,6 +92,7 @@ Partial Class StarRanking
         Me.s5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.s5.TabIndex = 4
         Me.s5.TabStop = False
+        Me.s5.Tag = "5"
         '
         'StarRanking
         '
@@ -93,6 +103,10 @@ Partial Class StarRanking
         Me.Controls.Add(Me.s3)
         Me.Controls.Add(Me.s2)
         Me.Controls.Add(Me.s1)
+        Me.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Margin = New System.Windows.Forms.Padding(0)
+        Me.MaximumSize = New System.Drawing.Size(175, 35)
+        Me.MinimumSize = New System.Drawing.Size(175, 35)
         Me.Name = "StarRanking"
         Me.Size = New System.Drawing.Size(175, 35)
         CType(Me.s1, System.ComponentModel.ISupportInitialize).EndInit()

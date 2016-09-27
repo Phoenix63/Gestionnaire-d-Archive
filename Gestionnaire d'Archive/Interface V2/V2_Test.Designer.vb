@@ -54,7 +54,7 @@ Partial Class V2_Test
         Me.bt_reduce.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
         Me.bt_reduce.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
         Me.bt_reduce.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.bt_reduce.Location = New System.Drawing.Point(549, 0)
+        Me.bt_reduce.Location = New System.Drawing.Point(550, 0)
         Me.bt_reduce.Name = "bt_reduce"
         Me.bt_reduce.Size = New System.Drawing.Size(25, 25)
         Me.bt_reduce.TabIndex = 6
@@ -70,7 +70,7 @@ Partial Class V2_Test
         Me.bt_close.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
         Me.bt_close.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
         Me.bt_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.bt_close.Location = New System.Drawing.Point(574, 0)
+        Me.bt_close.Location = New System.Drawing.Point(575, 0)
         Me.bt_close.Name = "bt_close"
         Me.bt_close.Size = New System.Drawing.Size(25, 25)
         Me.bt_close.TabIndex = 5
@@ -98,8 +98,14 @@ Partial Class V2_Test
         '
         'StarRanking1
         '
-        Me.StarRanking1.Location = New System.Drawing.Point(171, 103)
+        Me.StarRanking1.AutoSize = True
+        Me.StarRanking1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.StarRanking1.Location = New System.Drawing.Point(386, 55)
+        Me.StarRanking1.Margin = New System.Windows.Forms.Padding(0)
+        Me.StarRanking1.MaximumSize = New System.Drawing.Size(175, 35)
+        Me.StarRanking1.MinimumSize = New System.Drawing.Size(175, 35)
         Me.StarRanking1.Name = "StarRanking1"
+        Me.StarRanking1.Rank = 1
         Me.StarRanking1.Size = New System.Drawing.Size(175, 35)
         Me.StarRanking1.TabIndex = 0
         '
@@ -121,6 +127,7 @@ Partial Class V2_Test
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Gestionnaire d'Archive"
         Me.pContainer.ResumeLayout(False)
+        Me.pContainer.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
