@@ -99,7 +99,7 @@ Public Class StarRanking
     End Sub
 
 #Region " Property "
-    <Description("Change the rank value, it have to be between 1 and 5.")>
+    <Description("Rank value, it have to be between 1 and 5.")>
     Public Property Rank() As Integer
         Get
             Return _rank
@@ -116,7 +116,7 @@ Public Class StarRanking
             End If
         End Set
     End Property
-    <Description("Change the picture when the stars are inactive.")>
+    <Description("Picture when the stars are inactive.")>
     Public Property InactiveStar() As Bitmap
         Get
             Return _inactiveStar
@@ -125,7 +125,7 @@ Public Class StarRanking
             RaiseEvent updateInactiveStar(value)
         End Set
     End Property
-    <Description("Change the picture when the stars are active.")>
+    <Description("Picture when the stars are active.")>
     Public Property ActiveStar() As Bitmap
         Get
             Return _activeStar
