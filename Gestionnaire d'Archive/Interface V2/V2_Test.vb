@@ -78,7 +78,7 @@
 
 #End Region
 
-    Private Sub StarRanking1_rankChanged(value As Integer) Handles StarRanking1.rankChanged
+    Private Sub StarRanking1_rankChanged(value As UInteger) Handles StarRanking1.rankChanged
         MsgBox("Nouveau classement : " & value)
     End Sub
 

@@ -98,14 +98,15 @@ Partial Class V2_Test
         '
         'StarRanking1
         '
-        Me.StarRanking1.AutoSize = True
+        Me.StarRanking1.ActiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.activestar
         Me.StarRanking1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.StarRanking1.Location = New System.Drawing.Point(386, 55)
+        Me.StarRanking1.InactiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
+        Me.StarRanking1.Location = New System.Drawing.Point(217, 130)
         Me.StarRanking1.Margin = New System.Windows.Forms.Padding(0)
         Me.StarRanking1.MaximumSize = New System.Drawing.Size(175, 35)
         Me.StarRanking1.MinimumSize = New System.Drawing.Size(175, 35)
         Me.StarRanking1.Name = "StarRanking1"
-        Me.StarRanking1.Rank = 1
+        Me.StarRanking1.Rank = 3
         Me.StarRanking1.Size = New System.Drawing.Size(175, 35)
         Me.StarRanking1.TabIndex = 0
         '
@@ -127,7 +128,6 @@ Partial Class V2_Test
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Gestionnaire d'Archive"
         Me.pContainer.ResumeLayout(False)
-        Me.pContainer.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
