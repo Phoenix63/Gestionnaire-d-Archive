@@ -151,6 +151,12 @@
     <Compile Include="FinalizePanel.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Interface V2\AnimeFilter.Designer.vb">
+      <DependentUpon>AnimeFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\AnimeFilter.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Interface V2\RechercherInterface.Designer.vb">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </Compile>
@@ -222,6 +228,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Interface V2\AnimeFilter.resx">
+      <DependentUpon>AnimeFilter.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\RechercherInterface.resx">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </EmbeddedResource>
