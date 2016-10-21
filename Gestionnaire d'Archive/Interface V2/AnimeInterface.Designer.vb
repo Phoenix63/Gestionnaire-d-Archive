@@ -36,6 +36,7 @@ Partial Class AnimeInterface
         Me.PictureBox6 = New System.Windows.Forms.PictureBox()
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
         Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -209,10 +210,24 @@ Partial Class AnimeInterface
         Me.Label1.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.Location = New System.Drawing.Point(200, 115)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 25)
+        Me.Label1.Size = New System.Drawing.Size(65, 30)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Genre :"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'aFilter
+        '
+        Me.aFilter.Active = False
+        Me.aFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
+        Me.aFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.aFilter.Location = New System.Drawing.Point(200, 115)
+        Me.aFilter.Margin = New System.Windows.Forms.Padding(0)
+        Me.aFilter.MaximumSize = New System.Drawing.Size(0, 79)
+        Me.aFilter.MinimumSize = New System.Drawing.Size(385, 79)
+        Me.aFilter.Name = "aFilter"
+        Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.aFilter.Size = New System.Drawing.Size(385, 79)
+        Me.aFilter.TabIndex = 17
         '
         'aRank
         '
@@ -234,6 +249,7 @@ Partial Class AnimeInterface
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Controls.Add(Me.aFilter)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox7)
         Me.Controls.Add(Me.PictureBox6)
@@ -277,5 +293,6 @@ Partial Class AnimeInterface
     Friend WithEvents PictureBox6 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox7 As System.Windows.Forms.PictureBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents aFilter As Gestionnaire_d_Archive.AnimeFilter
 
 End Class

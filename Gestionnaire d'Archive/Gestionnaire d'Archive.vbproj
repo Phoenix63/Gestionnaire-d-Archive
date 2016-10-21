@@ -281,9 +281,6 @@
     </Content>
     <Content Include="GAico.ico" />
     <None Include="PICTURES\default.png" />
-    <Content Include="PICTURES\test.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

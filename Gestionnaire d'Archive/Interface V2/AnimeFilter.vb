@@ -1,4 +1,5 @@
-﻿Public Class AnimeFilter
+﻿Imports System.Collections.Generic
+Public Class AnimeFilter
     Inherits UserControl
 
     Public Shared ReadOnly ITEM_LIST_ENUM As String() = {
@@ -34,24 +35,26 @@
         "Yuri"
     }
 
-    Public Class Item
+    Private Class Item
         Inherits Label
 
-        Private selected As Boolean = False
+        Private _selectable As Boolean = False
+        Private _active As Boolean = False
         Private color_active As Color = Color.FromName("ActiveCaption")
         Private color_inactive As Color = Color.FromName("GradientInactiveCaption")
 
-        Public Sub New(ByVal value As String, Optional ByVal selected As Boolean = False)
+        Public Sub New(ByVal value As String, Optional ByVal active As Boolean = False)
 
-            Me.selected = selected
+            _active = active
 
             With Me
                 .Text = value
                 .Height = 25
                 .AutoSize = True
                 .Margin = New Padding(3)
-                .Cursor = Cursors.Hand
-                .BackColor = IIf(selected, color_active, color_inactive)
+                .Padding = New Padding(2)
+                .Cursor = IIf(_selectable, Cursors.Hand, Cursors.Default)
+                .BackColor = IIf(active, color_active, color_inactive)
                 .BorderStyle = Windows.Forms.BorderStyle.FixedSingle
                 .TextAlign = HorizontalAlignment.Center
             End With
@@ -60,97 +63,153 @@
 
         End Sub
 
+#Region " Property "
+        Public Property Selectable() As Boolean
+            Get
+                Return _selectable
+            End Get
+            Set(value As Boolean)
+
+                If _selectable <> value Then
+                    _selectable = value
+                    If _selectable Then Cursor = Cursors.Hand Else Cursor = Cursors.Default
+                End If
+
+            End Set
+        End Property
         Public ReadOnly Property Active() As Boolean
             Get
-                Return selected
+                Return _active
             End Get
         End Property
+#End Region
+
+#Region " Handler "
         Private Sub filterClick(sender As Object, e As EventArgs)
 
-            If Not selected Then selected = True Else selected = False
-            Me.BackColor = IIf(selected, color_active, color_inactive)
+            If _selectable Then
+                If Not _active Then _active = True Else _active = False
+                Me.BackColor = IIf(_active, color_active, color_inactive)
+            End If
 
         End Sub
-        Public Overloads Function Equals(item As Item) As Boolean
-            If Me.Text.Equals(item.Text) Then Return True Else Return False
-        End Function
+#End Region     
 
     End Class
 
     Private itemList As New List(Of Item)
+    Private _active As Boolean = False
 
-    Public Sub New(ByVal items As List(Of Item))
+    ' Inner Event
+    Private Event ActiveChanged(value As Boolean)
 
+    Public Sub New()
+
+        ' Cet appel est requis par le concepteur.
         InitializeComponent()
 
-        itemList = items
+        ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
+        Me.MinimumSize = New Point(MyBase.Width, 79)
+        Me.MaximumSize = New Point(0, 79)
+        Me.AutoScrollOffset = New Point(0, 25)
 
-        Dim item As Item
-        Dim toAdd As Boolean = True
-        For Each i In ITEM_LIST_ENUM
+    End Sub
+    Public Sub New(ByVal gender As String)
 
-            toAdd = True
-            item = New Item(i)
-            For Each e In itemList
-                If e.Equals(item) Then
-                    toAdd = False
-                    Exit For
-                End If
-            Next
-            If toAdd Then
-                itemList.Add(item)
-            End If
-
-        Next
-
-        showSelected()
+        Me.New()
+        fillItemList(gender)
 
     End Sub
 
-    Private Sub AnimeFilter_EnabledChanged(sender As Object, e As EventArgs) Handles MyBase.EnabledChanged
+#Region " Property "
+    Public Property Active() As Boolean
+        Get
+            Return _active
+        End Get
+        Set(value As Boolean)
+            If (value <> _active) Then RaiseEvent ActiveChanged(value)
+        End Set
+    End Property
+#End Region
 
-        fContainer.Controls.Clear()
-        If Not MyBase.Enabled Then
-            showSelected()
-        Else
-            showAll()
+#Region " Handler "
+    Private Sub activeChange(value As Boolean) Handles Me.ActiveChanged
+
+        _active = value
+        showItem()
+
+    End Sub
+    Dim scrollPosition As Point = New Point(0, 0)
+    Private Sub scrollByWheel(sender As Object, e As MouseEventArgs) Handles fContainer.MouseWheel
+
+        Dim vScrollPosition As Integer
+        vScrollPosition = scrollPosition.Y
+        vScrollPosition -= Math.Sign(e.Delta) * 25
+        vScrollPosition = Math.Max(0, vScrollPosition)
+        vScrollPosition = Math.Min(vScrollPosition, sender.DisplayRectangle.Height - sender.Height)
+        scrollPosition.Y = vScrollPosition
+
+        sender.AutoScrollPosition = New Point(sender.AutoScrollPosition.X, vScrollPosition)
+        sender.Invalidate()
+
+    End Sub
+#End Region
+
+
+        If itemList.Count = 0 Then
+
+            Dim item As Item
+
+            Debug.Assert(Not strSplitted Is Nothing, "Genre vide")
+
+            For Each i In ITEM_LIST_ENUM
+                item = IIf(strSplitted.Contains(i), New Item(i, True), New Item(i))
+                itemList.Add(item)
+            Next
+
+            showItem()
+
         End If
 
     End Sub
-    Private Sub showSelected()
+    Private Shared Function CompareItemByActive(ByVal x As Item, ByVal y As Item) As Integer
 
-        Dim sumWidth As Integer = 0
-
-        For Each i In itemList
-            If i.Active Then
-                fContainer.Controls.Add(i)
-                sumWidth += i.Width
+        If x Is Nothing Then
+            If y Is Nothing Then
+                Return 0
+            Else
+                Return -1
             End If
-        Next
+        ElseIf y Is Nothing Then
+            Return 1
+        Else
+            Dim ret As Integer
 
-        resizeFilter(sumWidth)
+            If x.Active = y.Active Then
+                ret = 0
+            ElseIf x.Active Then
+                ret = -1
+            ElseIf y.Active Then
+                ret = 1
+            End If
 
-    End Sub
-    Private Sub showAll()
+            If ret <> 0 Then
+                Return ret
+            Else
+                Return x.Text.CompareTo(y.Text)
+            End If
+        End If
 
-        Dim sumWidth As Integer = 0
+    End Function
+    Private Sub showItem()
 
+        fContainer.Controls.Clear()
+
+        itemList.Sort(AddressOf CompareItemByActive)
         For Each i In itemList
+            i.Selectable = _active
             fContainer.Controls.Add(i)
-            sumWidth += i.Width
         Next
-
-        resizeFilter(sumWidth)
-
-    End Sub
-    Private Sub resizeFilter(ByVal sumWidth As Integer)
-
-        Dim heightMax As Integer = 0
-
-        heightMax = 25 * (Math.Ceiling(sumWidth / MyBase.Width))
-        Me.MinimumSize = New Point(MyBase.Width, 25)
-        Me.MaximumSize = New Point(0, 67)
-        Me.Height = heightMax
 
     End Sub
 

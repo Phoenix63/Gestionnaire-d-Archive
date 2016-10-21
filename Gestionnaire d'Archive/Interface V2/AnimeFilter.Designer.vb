@@ -30,23 +30,25 @@ Partial Class AnimeFilter
         Me.fContainer.AutoScroll = True
         Me.fContainer.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.fContainer.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.fContainer.Location = New System.Drawing.Point(0, 0)
-        Me.fContainer.MinimumSize = New System.Drawing.Size(200, 25)
+        Me.fContainer.Location = New System.Drawing.Point(2, 2)
+        Me.fContainer.Margin = New System.Windows.Forms.Padding(0)
+        Me.fContainer.MinimumSize = New System.Drawing.Size(200, 69)
         Me.fContainer.Name = "fContainer"
-        Me.fContainer.Padding = New System.Windows.Forms.Padding(2)
-        Me.fContainer.Size = New System.Drawing.Size(237, 35)
+        Me.fContainer.Padding = New System.Windows.Forms.Padding(0, 0, 5, 0)
+        Me.fContainer.Size = New System.Drawing.Size(235, 69)
         Me.fContainer.TabIndex = 1
         '
         'AnimeFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.Controls.Add(Me.fContainer)
-        Me.Enabled = False
-        Me.MinimumSize = New System.Drawing.Size(200, 25)
+        Me.Margin = New System.Windows.Forms.Padding(0)
+        Me.MinimumSize = New System.Drawing.Size(200, 67)
         Me.Name = "AnimeFilter"
-        Me.Size = New System.Drawing.Size(237, 35)
+        Me.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.Size = New System.Drawing.Size(237, 69)
         Me.ResumeLayout(False)
 
     End Sub
