@@ -155,10 +155,12 @@ Public Class AnimeFilter
     End Sub
 #End Region
 
+    Public Sub fillItemList(ByVal gender As String, ByVal separator As String)
 
         If itemList.Count = 0 Then
 
             Dim item As Item
+            Dim strSplitted As String() = Split(gender, separator)
 
             Debug.Assert(Not strSplitted Is Nothing, "Genre vide")
 
