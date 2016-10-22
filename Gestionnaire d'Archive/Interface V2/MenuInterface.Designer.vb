@@ -26,7 +26,7 @@ Partial Class MenuInterface
         Me.mTitle = New System.Windows.Forms.Label()
         Me.mNew = New System.Windows.Forms.Button()
         Me.timerAnimation = New System.Windows.Forms.Timer(Me.components)
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.mClose = New System.Windows.Forms.Button()
         Me.mLoad = New System.Windows.Forms.Button()
         Me.mSave = New System.Windows.Forms.Button()
         Me.mSignin = New System.Windows.Forms.Button()
@@ -64,20 +64,20 @@ Partial Class MenuInterface
         '
         Me.timerAnimation.Interval = 50
         '
-        'Button1
+        'mClose
         '
-        Me.Button1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(7, 7)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(25, 25)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "X"
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.mClose.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mClose.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.mClose.FlatAppearance.BorderSize = 0
+        Me.mClose.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.mClose.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.mClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.mClose.Location = New System.Drawing.Point(7, 7)
+        Me.mClose.Name = "mClose"
+        Me.mClose.Size = New System.Drawing.Size(25, 25)
+        Me.mClose.TabIndex = 9
+        Me.mClose.Text = "X"
+        Me.mClose.UseVisualStyleBackColor = False
         '
         'mLoad
         '
@@ -141,7 +141,7 @@ Partial Class MenuInterface
         '
         'mExit
         '
-        Me.mExit.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mExit.BackColor = System.Drawing.SystemColors.InactiveCaption
         Me.mExit.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.mExit.FlatAppearance.BorderSize = 0
         Me.mExit.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
@@ -164,7 +164,7 @@ Partial Class MenuInterface
         Me.Controls.Add(Me.mSignin)
         Me.Controls.Add(Me.mSave)
         Me.Controls.Add(Me.mLoad)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.mClose)
         Me.Controls.Add(Me.mNew)
         Me.Controls.Add(Me.mTitle)
         Me.Name = "MenuInterface"
@@ -175,7 +175,7 @@ Partial Class MenuInterface
     Friend WithEvents mTitle As System.Windows.Forms.Label
     Friend WithEvents mNew As System.Windows.Forms.Button
     Private WithEvents timerAnimation As System.Windows.Forms.Timer
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents mClose As System.Windows.Forms.Button
     Friend WithEvents mLoad As System.Windows.Forms.Button
     Friend WithEvents mSave As System.Windows.Forms.Button
     Friend WithEvents mSignin As System.Windows.Forms.Button

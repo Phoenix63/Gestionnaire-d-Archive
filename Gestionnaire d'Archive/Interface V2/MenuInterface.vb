@@ -1,4 +1,6 @@
-﻿Public Class MenuInterface
+﻿Imports System.ComponentModel
+
+Public Class MenuInterface
     '
     ' Cette class est ThreadSafe
     ' Composant utilisateur de l'interface de sauvegarde
@@ -20,7 +22,7 @@
         Me.Left = -1 * Me.Width
     End Sub
 
-    ' Event
+    ' Outer Event
     Public Event saveEvent()
     Public Event newEvent()
     Public Event loadEvent()
@@ -72,7 +74,8 @@
 
     End Sub
 
-    Public Property Title() As String
+    <Description("Change the menu's title.")>
+    Property Title() As String
         Get
             Return mTitle.Text
         End Get
@@ -81,26 +84,29 @@
         End Set
     End Property
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub closeClick(sender As Object, e As EventArgs) Handles mClose.Click
         menuClose()
     End Sub
-
     Private Sub newClick(sender As Object, e As EventArgs) Handles mNew.Click
+        menuClose()
         RaiseEvent newEvent()
     End Sub
     Private Sub saveClick(sender As Object, e As EventArgs) Handles mSave.Click
+        menuClose()
         RaiseEvent saveEvent()
     End Sub
     Private Sub loadClick(sender As Object, e As EventArgs) Handles mLoad.Click
+        menuClose()
         RaiseEvent loadEvent()
     End Sub
     Private Sub signinClick(sender As Object, e As EventArgs) Handles mSignin.Click
-
+        menuClose()
     End Sub
     Private Sub infoClick(sender As Object, e As EventArgs) Handles mInfo.Click
-
+        menuClose()
     End Sub
     Private Sub exitClick(sender As Object, e As EventArgs) Handles mExit.Click
+        menuClose()
         RaiseEvent exitEvent()
     End Sub
 

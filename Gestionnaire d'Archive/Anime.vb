@@ -12,7 +12,7 @@
     Private _follow As Boolean
     Private _smartLink As Boolean
     Private _finished As Boolean
-    ' Constante
+    ' Constant
     Public Const MODE_UPDATE As String = "UPDATE"
     Public Const MODE_INSERT As String = "INSERT"
     Public Const FORMAT As String = "d/M/yyyy"
