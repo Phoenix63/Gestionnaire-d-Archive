@@ -226,4 +226,19 @@
 
 #End Region
 
+    Public Overloads Function Equals(obj As Anime) As Boolean
+
+        Return Me._nom.Equals(obj.getNom()) And
+               Me._lien.Equals(obj.getLien()) And
+               Me._episode.Equals(obj.getEpisode()) And
+               Me._date.Equals(obj.getDate()) And
+               Me._genre.Equals(obj.getGenre()) And
+               Me._commentaire.Equals(obj.getCommentaire()) And
+               Me._note.Equals(obj.getNote()) And
+               Me._follow.Equals(obj.getFollow()) And
+               Me._smartLink.Equals(obj.getSmartLink()) And
+               Me._finished.Equals(obj.getFinished())
+
+    End Function
+
 End Class
