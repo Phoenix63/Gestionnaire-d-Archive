@@ -151,22 +151,34 @@
     <Compile Include="FinalizePanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Interface V2\AnimeFilter.Designer.vb">
+    <Compile Include="Interface V2\Anime\AnimeFilter.Designer.vb">
       <DependentUpon>AnimeFilter.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\AnimeFilter.vb">
+    <Compile Include="Interface V2\Anime\AnimeFilter.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\RechercherInterface.Designer.vb">
+    <Compile Include="Interface V2\Anime\NewAnimeInterface.Designer.vb">
+      <DependentUpon>NewAnimeInterface.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Anime\NewAnimeInterface.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeCard.Designer.vb">
+      <DependentUpon>AnimeCard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeCard.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\RechercherInterface.Designer.vb">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\RechercherInterface.vb">
+    <Compile Include="Interface V2\Rechercher\RechercherInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\AnimeInterface.Designer.vb">
+    <Compile Include="Interface V2\Anime\AnimeInterface.Designer.vb">
       <DependentUpon>AnimeInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\AnimeInterface.vb">
+    <Compile Include="Interface V2\Anime\AnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\MenuInterface.Designer.vb">
@@ -181,10 +193,10 @@
     <Compile Include="Interface V2\SaveInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\StarRanking.Designer.vb">
+    <Compile Include="Interface V2\Anime\StarRanking.Designer.vb">
       <DependentUpon>StarRanking.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\StarRanking.vb">
+    <Compile Include="Interface V2\Anime\StarRanking.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\V2_GUI.Designer.vb">
@@ -228,13 +240,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Interface V2\AnimeFilter.resx">
+    <EmbeddedResource Include="Interface V2\Anime\AnimeFilter.resx">
       <DependentUpon>AnimeFilter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\RechercherInterface.resx">
+    <EmbeddedResource Include="Interface V2\Anime\NewAnimeInterface.resx">
+      <DependentUpon>NewAnimeInterface.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
+      <DependentUpon>AnimeCard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\RechercherInterface.resx">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\AnimeInterface.resx">
+    <EmbeddedResource Include="Interface V2\Anime\AnimeInterface.resx">
       <DependentUpon>AnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\MenuInterface.resx">
@@ -243,7 +261,7 @@
     <EmbeddedResource Include="Interface V2\SaveInterface.resx">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\StarRanking.resx">
+    <EmbeddedResource Include="Interface V2\Anime\StarRanking.resx">
       <DependentUpon>StarRanking.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\V2_GUI.resx">
@@ -280,6 +298,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="GAico.ico" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\option.png" />
     <None Include="PICTURES\default.png" />
   </ItemGroup>
   <ItemGroup>

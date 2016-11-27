@@ -5,6 +5,7 @@
     Private WithEvents mInterface As MenuInterface = Nothing
     Private WithEvents rInterface As RechercherInterface = Nothing
     Private WithEvents aInterface As AnimeInterface = Nothing
+    Private WithEvents nInterface As NewAnimeInterface = Nothing
 
 #Region " Main Functions "
     Private Sub V2_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -48,6 +49,19 @@
 #End Region
 
 #Region " MenuEvent Handler "
+    Private Sub newAnime() Handles mInterface.newEvent
+
+        If Not nInterface Is Nothing Then
+            pContainer.Controls.Remove(nInterface)
+            nInterface.Dispose()
+        End If
+
+        nInterface = New NewAnimeInterface()
+
+        pContainer.Controls.Add(nInterface)
+        nInterface.BringToFront()
+
+    End Sub
     Private Sub save() Handles mInterface.saveEvent
 
         If sInterface Is Nothing Then
@@ -73,15 +87,31 @@
             aInterface.Dispose()
         End If
 
-        If Not anime Is Nothing Then
-            aInterface = New AnimeInterface(anime)
-        Else
-            aInterface = New AnimeInterface()
-        End If
+        Debug.Assert(Not anime Is Nothing)
+        aInterface = New AnimeInterface(anime)
+
         pContainer.Controls.Add(aInterface)
         aInterface.BringToFront()
 
     End Sub
+#End Region
+
+#Region " UpdateAnimeEvent Handler "
+
+#Region " NewAnimeInterfaceEvent Handler "
+    Private Sub addAnime(anime As Anime) Handles nInterface.newAnimeEvent
+
+
+
+    End Sub
+#End Region
+
+#Region " AnimeInterfaceEvent Handler "
+    Private Sub updateAnime(anime As Anime) 'handles aInterface.updateAnimeEvent
+
+    End Sub
+#End Region
+
 #End Region
 
 #Region " Move Form "
