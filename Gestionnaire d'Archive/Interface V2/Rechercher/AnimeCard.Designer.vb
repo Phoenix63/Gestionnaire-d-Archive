@@ -22,27 +22,31 @@ Partial Class AnimeCard
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cardName = New System.Windows.Forms.Label()
         Me.cardFont = New System.Windows.Forms.PictureBox()
         CType(Me.cardFont, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Label1
+        'cardName
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Location = New System.Drawing.Point(25, 175)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 13)
-        Me.Label1.TabIndex = 15
-        Me.Label1.Text = "Anime name"
+        Me.cardName.AutoEllipsis = True
+        Me.cardName.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.cardName.Font = New System.Drawing.Font("Palatino Linotype", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cardName.Location = New System.Drawing.Point(0, 165)
+        Me.cardName.Name = "cardName"
+        Me.cardName.Size = New System.Drawing.Size(120, 23)
+        Me.cardName.TabIndex = 15
+        Me.cardName.Text = "Anime name"
+        Me.cardName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'cardFont
         '
-        Me.cardFont.BackColor = System.Drawing.Color.Cornsilk
+        Me.cardFont.BackColor = System.Drawing.Color.Gainsboro
+        Me.cardFont.Cursor = System.Windows.Forms.Cursors.Hand
         Me.cardFont.Location = New System.Drawing.Point(0, 0)
         Me.cardFont.Name = "cardFont"
         Me.cardFont.Size = New System.Drawing.Size(120, 200)
+        Me.cardFont.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.cardFont.TabIndex = 11
         Me.cardFont.TabStop = False
         '
@@ -51,16 +55,15 @@ Partial Class AnimeCard
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.CornflowerBlue
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.cardName)
         Me.Controls.Add(Me.cardFont)
         Me.Name = "AnimeCard"
         Me.Size = New System.Drawing.Size(330, 348)
         CType(Me.cardFont, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents cardFont As System.Windows.Forms.PictureBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents cardName As System.Windows.Forms.Label
 
 End Class

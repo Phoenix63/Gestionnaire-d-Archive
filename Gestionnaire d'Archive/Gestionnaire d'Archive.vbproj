@@ -169,6 +169,12 @@
     <Compile Include="Interface V2\Rechercher\AnimeCard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeSlider.Designer.vb">
+      <DependentUpon>AnimeSlider.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeSlider.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Interface V2\Rechercher\RechercherInterface.Designer.vb">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </Compile>
@@ -248,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
       <DependentUpon>AnimeCard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\AnimeSlider.resx">
+      <DependentUpon>AnimeSlider.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\RechercherInterface.resx">
       <DependentUpon>RechercherInterface.vb</DependentUpon>

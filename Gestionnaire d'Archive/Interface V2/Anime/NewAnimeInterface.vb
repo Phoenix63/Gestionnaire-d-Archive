@@ -106,7 +106,7 @@
     Private Sub form_TextChanged(sender As Object, e As EventArgs) Handles nTitle.TextChanged, nEpisode.TextChanged, nLienModifiable.TextChanged
         nAjouter.Enabled = checkTextboxChange(sender)
     End Sub
-    Private Sub aSmartLink_CheckedChanged(sender As Object, e As EventArgs) Handles nSmartLink.CheckedChanged
+    Private Sub nSmartLink_CheckedChanged(sender As Object, e As EventArgs) Handles nSmartLink.CheckedChanged
         If sender.checked Then
             MsgBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, " & vbCrLf & _
                    "il est nécessaire que vous mettiez le lien du première épisode." & vbCrLf & vbCrLf & _

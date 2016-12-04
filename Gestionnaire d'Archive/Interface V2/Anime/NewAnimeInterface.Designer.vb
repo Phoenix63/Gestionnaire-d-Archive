@@ -25,8 +25,6 @@ Partial Class NewAnimeInterface
         Dim Label1 As System.Windows.Forms.Label
         Dim Label2 As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
-        Dim PictureBox3 As System.Windows.Forms.PictureBox
-        Dim PictureBox2 As System.Windows.Forms.PictureBox
         Dim Label4 As System.Windows.Forms.Label
         Dim Label5 As System.Windows.Forms.Label
         Dim Label6 As System.Windows.Forms.Label
@@ -47,15 +45,11 @@ Partial Class NewAnimeInterface
         Label1 = New System.Windows.Forms.Label()
         Label2 = New System.Windows.Forms.Label()
         Label3 = New System.Windows.Forms.Label()
-        PictureBox3 = New System.Windows.Forms.PictureBox()
-        PictureBox2 = New System.Windows.Forms.PictureBox()
         Label4 = New System.Windows.Forms.Label()
         Label5 = New System.Windows.Forms.Label()
         Label6 = New System.Windows.Forms.Label()
         Label7 = New System.Windows.Forms.Label()
         Label8 = New System.Windows.Forms.Label()
-        CType(PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -90,26 +84,6 @@ Partial Class NewAnimeInterface
         Label3.TabIndex = 31
         Label3.Text = "* Lien :"
         Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'PictureBox3
-        '
-        PictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox3.Location = New System.Drawing.Point(565, 0)
-        PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New System.Drawing.Size(35, 375)
-        PictureBox3.TabIndex = 3
-        PictureBox3.TabStop = False
-        PictureBox3.Visible = False
-        '
-        'PictureBox2
-        '
-        PictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox2.Location = New System.Drawing.Point(0, 0)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New System.Drawing.Size(35, 375)
-        PictureBox2.TabIndex = 1
-        PictureBox2.TabStop = False
-        PictureBox2.Visible = False
         '
         'Label4
         '
@@ -161,7 +135,7 @@ Partial Class NewAnimeInterface
         Label8.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label8.Location = New System.Drawing.Point(35, 325)
         Label8.Name = "Label8"
-        Label8.Size = New System.Drawing.Size(120, 35)
+        Label8.Size = New System.Drawing.Size(435, 35)
         Label8.TabIndex = 39
         Label8.Text = "  Options :"
         Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -215,30 +189,32 @@ Partial Class NewAnimeInterface
         'nSmartLink
         '
         Me.nSmartLink.AutoSize = True
+        Me.nSmartLink.BackColor = System.Drawing.SystemColors.Control
         Me.nSmartLink.Cursor = System.Windows.Forms.Cursors.Hand
         Me.nSmartLink.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.nSmartLink.FlatAppearance.BorderSize = 0
         Me.nSmartLink.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.nSmartLink.Location = New System.Drawing.Point(169, 335)
+        Me.nSmartLink.Location = New System.Drawing.Point(169, 333)
         Me.nSmartLink.Name = "nSmartLink"
         Me.nSmartLink.Size = New System.Drawing.Size(82, 20)
         Me.nSmartLink.TabIndex = 17
         Me.nSmartLink.Text = "Lien Smart"
-        Me.nSmartLink.UseVisualStyleBackColor = True
+        Me.nSmartLink.UseVisualStyleBackColor = False
         '
         'nFollow
         '
         Me.nFollow.AutoSize = True
+        Me.nFollow.BackColor = System.Drawing.SystemColors.Control
         Me.nFollow.Cursor = System.Windows.Forms.Cursors.Hand
         Me.nFollow.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.nFollow.FlatAppearance.BorderSize = 0
         Me.nFollow.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.nFollow.Location = New System.Drawing.Point(252, 335)
+        Me.nFollow.Location = New System.Drawing.Point(252, 333)
         Me.nFollow.Name = "nFollow"
         Me.nFollow.Size = New System.Drawing.Size(140, 20)
         Me.nFollow.TabIndex = 18
         Me.nFollow.Text = "Suivre chaque semaine"
-        Me.nFollow.UseVisualStyleBackColor = True
+        Me.nFollow.UseVisualStyleBackColor = False
         '
         'nCommentaire
         '
@@ -259,16 +235,17 @@ Partial Class NewAnimeInterface
         'nFinish
         '
         Me.nFinish.AutoSize = True
+        Me.nFinish.BackColor = System.Drawing.SystemColors.Control
         Me.nFinish.Cursor = System.Windows.Forms.Cursors.Hand
         Me.nFinish.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.nFinish.FlatAppearance.BorderSize = 0
         Me.nFinish.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.nFinish.Location = New System.Drawing.Point(390, 335)
+        Me.nFinish.Location = New System.Drawing.Point(390, 333)
         Me.nFinish.Name = "nFinish"
         Me.nFinish.Size = New System.Drawing.Size(68, 20)
         Me.nFinish.TabIndex = 27
         Me.nFinish.Text = "Terminé"
-        Me.nFinish.UseVisualStyleBackColor = True
+        Me.nFinish.UseVisualStyleBackColor = False
         '
         'nDate
         '
@@ -303,6 +280,7 @@ Partial Class NewAnimeInterface
         '
         Me.nAjouter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.nAjouter.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.nAjouter.Enabled = False
         Me.nAjouter.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.nAjouter.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
         Me.nAjouter.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
@@ -351,7 +329,6 @@ Partial Class NewAnimeInterface
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.Controls.Add(Label8)
         Me.Controls.Add(Label7)
         Me.Controls.Add(Label6)
         Me.Controls.Add(Label5)
@@ -370,13 +347,10 @@ Partial Class NewAnimeInterface
         Me.Controls.Add(Me.nFilter)
         Me.Controls.Add(Label1)
         Me.Controls.Add(Me.nRank)
-        Me.Controls.Add(PictureBox3)
-        Me.Controls.Add(PictureBox2)
         Me.Controls.Add(Me.nLienModifiable)
+        Me.Controls.Add(Label8)
         Me.Name = "NewAnimeInterface"
         Me.Size = New System.Drawing.Size(600, 375)
-        CType(PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

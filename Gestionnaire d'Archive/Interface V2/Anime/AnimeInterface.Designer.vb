@@ -22,20 +22,9 @@ Partial Class AnimeInterface
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Label1 As System.Windows.Forms.Label
-        Dim Label2 As System.Windows.Forms.Label
-        Dim Label3 As System.Windows.Forms.Label
-        Dim PictureBox11 As System.Windows.Forms.PictureBox
-        Dim PictureBox10 As System.Windows.Forms.PictureBox
-        Dim PictureBox9 As System.Windows.Forms.PictureBox
-        Dim PictureBox8 As System.Windows.Forms.PictureBox
-        Dim PictureBox7 As System.Windows.Forms.PictureBox
-        Dim PictureBox6 As System.Windows.Forms.PictureBox
-        Dim PictureBox5 As System.Windows.Forms.PictureBox
-        Dim PictureBox4 As System.Windows.Forms.PictureBox
-        Dim PictureBox1 As System.Windows.Forms.PictureBox
-        Dim PictureBox3 As System.Windows.Forms.PictureBox
-        Dim PictureBox2 As System.Windows.Forms.PictureBox
+        Me.lbEpisode = New System.Windows.Forms.Label()
+        Me.lbDate = New System.Windows.Forms.Label()
+        Me.lbLien = New System.Windows.Forms.Label()
         Me.aReturn = New System.Windows.Forms.Button()
         Me.aCloturer = New System.Windows.Forms.Button()
         Me.aEpisode = New System.Windows.Forms.TextBox()
@@ -53,176 +42,41 @@ Partial Class AnimeInterface
         Me.aPicture = New System.Windows.Forms.PictureBox()
         Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
         Me.aRank = New Gestionnaire_d_Archive.StarRanking()
-        Label1 = New System.Windows.Forms.Label()
-        Label2 = New System.Windows.Forms.Label()
-        Label3 = New System.Windows.Forms.Label()
-        PictureBox11 = New System.Windows.Forms.PictureBox()
-        PictureBox10 = New System.Windows.Forms.PictureBox()
-        PictureBox9 = New System.Windows.Forms.PictureBox()
-        PictureBox8 = New System.Windows.Forms.PictureBox()
-        PictureBox7 = New System.Windows.Forms.PictureBox()
-        PictureBox6 = New System.Windows.Forms.PictureBox()
-        PictureBox5 = New System.Windows.Forms.PictureBox()
-        PictureBox4 = New System.Windows.Forms.PictureBox()
-        PictureBox1 = New System.Windows.Forms.PictureBox()
-        PictureBox3 = New System.Windows.Forms.PictureBox()
-        PictureBox2 = New System.Windows.Forms.PictureBox()
-        CType(PictureBox11, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox10, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox9, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox8, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox7, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.aPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Label1
+        'lbEpisode
         '
-        Label1.BackColor = System.Drawing.SystemColors.Control
-        Label1.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
-        Label1.Location = New System.Drawing.Point(200, 60)
-        Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(86, 35)
-        Label1.TabIndex = 0
-        Label1.Text = "* Episode :"
-        Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lbEpisode.BackColor = System.Drawing.SystemColors.Control
+        Me.lbEpisode.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
+        Me.lbEpisode.Location = New System.Drawing.Point(200, 60)
+        Me.lbEpisode.Name = "lbEpisode"
+        Me.lbEpisode.Size = New System.Drawing.Size(86, 35)
+        Me.lbEpisode.TabIndex = 0
+        Me.lbEpisode.Text = "Episode :"
+        Me.lbEpisode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label2
+        'lbDate
         '
-        Label2.BackColor = System.Drawing.SystemColors.Control
-        Label2.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
-        Label2.Location = New System.Drawing.Point(200, 170)
-        Label2.Name = "Label2"
-        Label2.Size = New System.Drawing.Size(210, 25)
-        Label2.TabIndex = 30
-        Label2.Text = "* Date de sortie de la série :"
-        Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lbDate.BackColor = System.Drawing.SystemColors.Control
+        Me.lbDate.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.lbDate.Location = New System.Drawing.Point(200, 170)
+        Me.lbDate.Name = "lbDate"
+        Me.lbDate.Size = New System.Drawing.Size(210, 25)
+        Me.lbDate.TabIndex = 0
+        Me.lbDate.Text = "Date de sortie de la série :"
+        Me.lbDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label3
+        'lbLien
         '
-        Label3.BackColor = System.Drawing.SystemColors.Control
-        Label3.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
-        Label3.Location = New System.Drawing.Point(200, 205)
-        Label3.Name = "Label3"
-        Label3.Size = New System.Drawing.Size(63, 25)
-        Label3.TabIndex = 31
-        Label3.Text = "* Lien :"
-        Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'PictureBox11
-        '
-        PictureBox11.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox11.Location = New System.Drawing.Point(200, 230)
-        PictureBox11.Name = "PictureBox11"
-        PictureBox11.Size = New System.Drawing.Size(385, 10)
-        PictureBox11.TabIndex = 33
-        PictureBox11.TabStop = False
-        PictureBox11.Visible = False
-        '
-        'PictureBox10
-        '
-        PictureBox10.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox10.Location = New System.Drawing.Point(200, 160)
-        PictureBox10.Name = "PictureBox10"
-        PictureBox10.Size = New System.Drawing.Size(385, 10)
-        PictureBox10.TabIndex = 29
-        PictureBox10.TabStop = False
-        PictureBox10.Visible = False
-        '
-        'PictureBox9
-        '
-        PictureBox9.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox9.Location = New System.Drawing.Point(200, 260)
-        PictureBox9.Name = "PictureBox9"
-        PictureBox9.Size = New System.Drawing.Size(385, 10)
-        PictureBox9.TabIndex = 26
-        PictureBox9.TabStop = False
-        PictureBox9.Visible = False
-        '
-        'PictureBox8
-        '
-        PictureBox8.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox8.Location = New System.Drawing.Point(200, 195)
-        PictureBox8.Name = "PictureBox8"
-        PictureBox8.Size = New System.Drawing.Size(385, 10)
-        PictureBox8.TabIndex = 16
-        PictureBox8.TabStop = False
-        PictureBox8.Visible = False
-        '
-        'PictureBox7
-        '
-        PictureBox7.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox7.Location = New System.Drawing.Point(200, 0)
-        PictureBox7.Name = "PictureBox7"
-        PictureBox7.Size = New System.Drawing.Size(385, 15)
-        PictureBox7.TabIndex = 14
-        PictureBox7.TabStop = False
-        PictureBox7.Visible = False
-        '
-        'PictureBox6
-        '
-        PictureBox6.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox6.Location = New System.Drawing.Point(200, 360)
-        PictureBox6.Name = "PictureBox6"
-        PictureBox6.Size = New System.Drawing.Size(385, 15)
-        PictureBox6.TabIndex = 13
-        PictureBox6.TabStop = False
-        PictureBox6.Visible = False
-        '
-        'PictureBox5
-        '
-        PictureBox5.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox5.Location = New System.Drawing.Point(200, 315)
-        PictureBox5.Name = "PictureBox5"
-        PictureBox5.Size = New System.Drawing.Size(385, 10)
-        PictureBox5.TabIndex = 12
-        PictureBox5.TabStop = False
-        PictureBox5.Visible = False
-        '
-        'PictureBox4
-        '
-        PictureBox4.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox4.Location = New System.Drawing.Point(200, 50)
-        PictureBox4.Name = "PictureBox4"
-        PictureBox4.Size = New System.Drawing.Size(385, 10)
-        PictureBox4.TabIndex = 8
-        PictureBox4.TabStop = False
-        PictureBox4.Visible = False
-        '
-        'PictureBox1
-        '
-        PictureBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox1.Location = New System.Drawing.Point(200, 95)
-        PictureBox1.Name = "PictureBox1"
-        PictureBox1.Size = New System.Drawing.Size(385, 10)
-        PictureBox1.TabIndex = 7
-        PictureBox1.TabStop = False
-        PictureBox1.Visible = False
-        '
-        'PictureBox3
-        '
-        PictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox3.Location = New System.Drawing.Point(585, 0)
-        PictureBox3.Name = "PictureBox3"
-        PictureBox3.Size = New System.Drawing.Size(15, 375)
-        PictureBox3.TabIndex = 3
-        PictureBox3.TabStop = False
-        PictureBox3.Visible = False
-        '
-        'PictureBox2
-        '
-        PictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        PictureBox2.Location = New System.Drawing.Point(185, 0)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New System.Drawing.Size(15, 375)
-        PictureBox2.TabIndex = 1
-        PictureBox2.TabStop = False
-        PictureBox2.Visible = False
+        Me.lbLien.BackColor = System.Drawing.SystemColors.Control
+        Me.lbLien.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.lbLien.Location = New System.Drawing.Point(200, 205)
+        Me.lbLien.Name = "lbLien"
+        Me.lbLien.Size = New System.Drawing.Size(63, 25)
+        Me.lbLien.TabIndex = 0
+        Me.lbLien.Text = "Lien :"
+        Me.lbLien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'aReturn
         '
@@ -252,7 +106,7 @@ Partial Class AnimeInterface
         Me.aCloturer.Location = New System.Drawing.Point(200, 325)
         Me.aCloturer.Name = "aCloturer"
         Me.aCloturer.Size = New System.Drawing.Size(80, 35)
-        Me.aCloturer.TabIndex = 10
+        Me.aCloturer.TabIndex = 3
         Me.aCloturer.Text = "Cloturer"
         Me.aCloturer.UseVisualStyleBackColor = False
         '
@@ -285,7 +139,7 @@ Partial Class AnimeInterface
         Me.aTitle.Name = "aTitle"
         Me.aTitle.ShortcutsEnabled = False
         Me.aTitle.Size = New System.Drawing.Size(385, 35)
-        Me.aTitle.TabIndex = 15
+        Me.aTitle.TabIndex = 0
         Me.aTitle.TabStop = False
         Me.aTitle.Text = "Anime Panel Title"
         Me.aTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -300,7 +154,7 @@ Partial Class AnimeInterface
         Me.aSmartLink.Location = New System.Drawing.Point(200, 333)
         Me.aSmartLink.Name = "aSmartLink"
         Me.aSmartLink.Size = New System.Drawing.Size(82, 20)
-        Me.aSmartLink.TabIndex = 17
+        Me.aSmartLink.TabIndex = 0
         Me.aSmartLink.Text = "Lien Smart"
         Me.aSmartLink.UseVisualStyleBackColor = True
         '
@@ -314,7 +168,7 @@ Partial Class AnimeInterface
         Me.aFollow.Location = New System.Drawing.Point(283, 333)
         Me.aFollow.Name = "aFollow"
         Me.aFollow.Size = New System.Drawing.Size(140, 20)
-        Me.aFollow.TabIndex = 18
+        Me.aFollow.TabIndex = 0
         Me.aFollow.Text = "Suivre chaque semaine"
         Me.aFollow.UseVisualStyleBackColor = True
         '
@@ -331,7 +185,7 @@ Partial Class AnimeInterface
         Me.aLien.Location = New System.Drawing.Point(263, 205)
         Me.aLien.Name = "aLien"
         Me.aLien.Size = New System.Drawing.Size(322, 25)
-        Me.aLien.TabIndex = 22
+        Me.aLien.TabIndex = 1
         Me.aLien.TabStop = True
         Me.aLien.Text = "http://foo.fr/bar"
         Me.aLien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -364,7 +218,7 @@ Partial Class AnimeInterface
         Me.aFinish.Location = New System.Drawing.Point(421, 333)
         Me.aFinish.Name = "aFinish"
         Me.aFinish.Size = New System.Drawing.Size(68, 20)
-        Me.aFinish.TabIndex = 27
+        Me.aFinish.TabIndex = 0
         Me.aFinish.Text = "Terminé"
         Me.aFinish.UseVisualStyleBackColor = True
         '
@@ -380,7 +234,7 @@ Partial Class AnimeInterface
         Me.aDate.Location = New System.Drawing.Point(410, 170)
         Me.aDate.Name = "aDate"
         Me.aDate.Size = New System.Drawing.Size(175, 25)
-        Me.aDate.TabIndex = 28
+        Me.aDate.TabIndex = 0
         Me.aDate.Value = New Date(2016, 11, 1, 0, 0, 0, 0)
         '
         'aLienModifiable
@@ -407,7 +261,7 @@ Partial Class AnimeInterface
         Me.aFollowLabel.Location = New System.Drawing.Point(200, 240)
         Me.aFollowLabel.Name = "aFollowLabel"
         Me.aFollowLabel.Size = New System.Drawing.Size(385, 20)
-        Me.aFollowLabel.TabIndex = 35
+        Me.aFollowLabel.TabIndex = 0
         Me.aFollowLabel.Text = "L'épisode est sorti il y a ## jours"
         Me.aFollowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
@@ -425,7 +279,7 @@ Partial Class AnimeInterface
         Me.aModifier.Location = New System.Drawing.Point(501, 325)
         Me.aModifier.Name = "aModifier"
         Me.aModifier.Size = New System.Drawing.Size(84, 35)
-        Me.aModifier.TabIndex = 2
+        Me.aModifier.TabIndex = 3
         Me.aModifier.Text = "Modifier"
         Me.aModifier.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.aModifier.UseVisualStyleBackColor = False
@@ -445,7 +299,7 @@ Partial Class AnimeInterface
         Me.aNext.Name = "aNext"
         Me.aNext.Padding = New System.Windows.Forms.Padding(0, 0, 3, 3)
         Me.aNext.Size = New System.Drawing.Size(35, 35)
-        Me.aNext.TabIndex = 32
+        Me.aNext.TabIndex = 2
         Me.aNext.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.aNext.UseVisualStyleBackColor = False
         '
@@ -497,47 +351,25 @@ Partial Class AnimeInterface
         Me.Controls.Add(Me.aModifier)
         Me.Controls.Add(Me.aFollowLabel)
         Me.Controls.Add(Me.aCommentaire)
-        Me.Controls.Add(PictureBox11)
         Me.Controls.Add(Me.aNext)
-        Me.Controls.Add(Label3)
-        Me.Controls.Add(Label2)
-        Me.Controls.Add(PictureBox10)
+        Me.Controls.Add(Me.lbLien)
+        Me.Controls.Add(Me.lbDate)
         Me.Controls.Add(Me.aDate)
         Me.Controls.Add(Me.aFinish)
         Me.Controls.Add(Me.aFollow)
         Me.Controls.Add(Me.aSmartLink)
-        Me.Controls.Add(PictureBox9)
-        Me.Controls.Add(PictureBox8)
         Me.Controls.Add(Me.aTitle)
         Me.Controls.Add(Me.aEpisode)
         Me.Controls.Add(Me.aFilter)
-        Me.Controls.Add(Label1)
-        Me.Controls.Add(PictureBox7)
-        Me.Controls.Add(PictureBox6)
-        Me.Controls.Add(PictureBox5)
-        Me.Controls.Add(PictureBox4)
-        Me.Controls.Add(PictureBox1)
+        Me.Controls.Add(Me.lbEpisode)
         Me.Controls.Add(Me.aReturn)
         Me.Controls.Add(Me.aRank)
-        Me.Controls.Add(PictureBox3)
-        Me.Controls.Add(PictureBox2)
         Me.Controls.Add(Me.aPicture)
         Me.Controls.Add(Me.aLien)
         Me.Controls.Add(Me.aLienModifiable)
         Me.Controls.Add(Me.aCloturer)
         Me.Name = "AnimeInterface"
         Me.Size = New System.Drawing.Size(600, 375)
-        CType(PictureBox11, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox10, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox9, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox8, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox7, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.aPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -560,5 +392,8 @@ Partial Class AnimeInterface
     Friend WithEvents aNext As System.Windows.Forms.Button
     Friend WithEvents aLienModifiable As System.Windows.Forms.TextBox
     Friend WithEvents aFollowLabel As System.Windows.Forms.Label
+    Friend WithEvents lbEpisode As System.Windows.Forms.Label
+    Friend WithEvents lbDate As System.Windows.Forms.Label
+    Friend WithEvents lbLien As System.Windows.Forms.Label
 
 End Class

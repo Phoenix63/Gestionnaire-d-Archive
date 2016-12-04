@@ -58,14 +58,17 @@
         aTitle.Enabled = onUpdate
         aTitle.Cursor = IIf(onUpdate, Cursors.IBeam, Cursors.Default)
 
+        lbEpisode.Text = IIf(onUpdate, "* Episode :", "Epsiode :")
         aEpisode.Enabled = onUpdate
         aEpisode.Cursor = IIf(onUpdate, Cursors.IBeam, Cursors.Default)
         aRank.Enabled = onUpdate
 
         aFilter.Active = onUpdate
 
+        lbDate.Text = IIf(onUpdate, "* Date :", "Date :")
         aDate.Enabled = onUpdate
 
+        lbLien.Text = IIf(onUpdate, "* Lien :", "Lien :")
         aLien.Visible = Not onUpdate
         aLienModifiable.Visible = onUpdate
 
