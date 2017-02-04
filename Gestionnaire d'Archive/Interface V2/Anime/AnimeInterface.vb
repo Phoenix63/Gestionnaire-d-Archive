@@ -11,7 +11,7 @@
     Private Const COMMENTAIRE_HEIGHT_WITHOUT_FOLLOW As Integer = 75
     Private Const COMMENTAIRE_HEIGHT_WITH_FOLLOW As Integer = 45
 
-    Public Sub New(ByVal anime As Anime)
+    Public Sub New(ByRef anime As Anime)
 
         InitializeComponent()
         Me.BackColor = Color.Transparent
@@ -20,35 +20,41 @@
     End Sub
 
     Private Sub AnimeInterface_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         display()
+        AddHandler aSmartLink.CheckedChanged, AddressOf aSmartLink_CheckedChanged
+
     End Sub
 
 #Region " Display "
     Private Sub display()
 
-        aTitle.Text = _anime.getNom()
-        displayPicture(_anime.getNom())
+        aTitle.Text = _anime.Nom()
+        displayPicture(_anime.Nom())
 
-        aEpisode.Text = _anime.getEpisode()
-        aRank.Rank = Math.Min(Math.Max(1, _anime.getNote()), 5)
+        aEpisode.Text = _anime.Episode()
+        aRank.Rank = Math.Min(Math.Max(1, _anime.Note()), 5)
 
-        aFilter.fillItemList(_anime.getGenre(), ";")
+        aFilter.fillItemList(_anime.Genre(), ";")
 
-        Debug.Assert(_anime.getDate().ToString(aDate.CustomFormat) = New Date(2016, 10, 19).ToString(aDate.CustomFormat))
-        aDate.Value = _anime.getDate()
-        Debug.Assert(aDate.Value.ToString(aDate.CustomFormat) = _anime.getDate().ToString(aDate.CustomFormat))
+        aDate.Value = _anime.DateSortie()
+        Debug.Assert(aDate.Value.ToString(aDate.CustomFormat) = _anime.DateSortie().ToString(aDate.CustomFormat))
 
-        aLien.Text = _anime.getLien()
+        aLien.Text = _anime.Lien()
         aLienModifiable.Text = aLien.Text()
 
         displayFollowLabel()
         displaySmartLink()
 
-        aCommentaire.Text = _anime.getCommentaire()
+        aCommentaire.Text = _anime.Commentaire()
 
-        aSmartLink.Checked = _anime.getSmartLink()
-        aFollow.Checked = _anime.getFollow()
-        aFinish.Checked = _anime.getFinished()
+        aSmartLink.Checked = _anime.SmartLink()
+        aFollow.Checked = _anime.Follow()
+        aFinish.Checked = _anime.Finished()
+
+        TipSupprimer.SetToolTip(aSupprimer, "Supprimer")
+        TipModif.SetToolTip(aModifier, "Modifier/Valider")
+        TipLink.SetToolTip(aLien, aLien.Text)
 
         updateDisplay()
 
@@ -65,7 +71,7 @@
 
         aFilter.Active = onUpdate
 
-        lbDate.Text = IIf(onUpdate, "* Date :", "Date :")
+        lbDate.Text = IIf(onUpdate, "* Date de sortie de la série :", "Date de sortie de la série :")
         aDate.Enabled = onUpdate
 
         lbLien.Text = IIf(onUpdate, "* Lien :", "Lien :")
@@ -88,9 +94,24 @@
         aFinish.Visible = onUpdate
 
         aNext.Visible = Not onUpdate
+        aSupprimer.Visible = Not onUpdate
         aCloturer.Visible = Not onUpdate
 
-        aModifier.Text = IIf(onUpdate, "Valider", "Modifier")
+        If aFinish.Checked Then
+            aCloturer.Text = "Décloturer"
+            aCloturer.Image = My.Resources.decloturer
+            aCloturer.Width = 103
+        Else
+            aCloturer.Text = "Cloturer"
+            aCloturer.Image = My.Resources.cloturer
+            aCloturer.Width = 93
+        End If
+
+        If onUpdate Then
+            aModifier.Image = My.Resources.modif_ok
+        Else
+            aModifier.Image = My.Resources.modif
+        End If
 
     End Sub
     Private Sub displayPicture(name As String)
@@ -102,16 +123,17 @@
             aPicture.Image = New Bitmap(pictPath)
         Else
             aPicture.Image = My.Resources.defaultPic
+            'TODO: lancer recherche d'image sur serveur avec le nom de l'animé
         End If
 
     End Sub
     Private Sub displayFollowLabel()
-        If _anime.getFollow() Then
+        If _anime.Follow() Then
             aFollowLabel.Text = createFollowMessage()
         End If
     End Sub
     Private Sub displaySmartLink()
-        If _anime.getSmartLink() Then
+        If _anime.SmartLink() Then
             aLien.Text = createSmartLinkMessage()
         End If
     End Sub
@@ -122,9 +144,9 @@
 
         Dim ret As String
         Dim dateNow As Date = Now.Date
-        Dim dateCmp As Date = _anime.getDate()
+        Dim dateCmp As Date = _anime.DateSortie()
         Dim diff As Integer = DateDiff(DateInterval.Day, dateCmp, dateNow, FirstDayOfWeek.Monday) 'Date de sortie de l'animé - Date actuelle
-        Dim ep As Integer = _anime.getEpisode()
+        Dim ep As Integer = _anime.Episode()
         Dim nbEp As Integer = 1 + Math.Floor(diff / 7) 'Nb d'épisode depuis le début de l'animé
         Dim nextEp As Integer = (7 * (ep - 1)) - (diff Mod 7) - (7 * (nbEp - 1)) 'Prochain ep dans
 
@@ -144,16 +166,16 @@
     'TODO: A revoir
     Private Function createSmartLinkMessage() As String
 
-        Dim link As String = _anime.getLien()
+        Dim link As String = _anime.Lien()
 
         Dim localRegex As New System.Text.RegularExpressions.Regex("^[A-Z]:\\")
         Dim dirPath As String = IO.Path.GetDirectoryName(link)
         Dim filePath As String = IO.Path.GetFileName(link)
 
         If checkPath(filePath, "001") Then
-            filePath = filePath.Replace("001", normalize(3, _anime.getEpisode()))
+            filePath = filePath.Replace("001", normalize(3, _anime.Episode()))
         ElseIf checkPath(filePath, "01") Then
-            filePath = filePath.Replace("01", normalize(2, _anime.getEpisode()))
+            filePath = filePath.Replace("01", normalize(2, _anime.Episode()))
         ElseIf link.Contains("episode-") Then
 
             Dim epIndex As Integer, i As Integer
@@ -166,7 +188,7 @@
                 newLink += link(i)
             Next
 
-            newLink += "" & Me._anime.getEpisode()
+            newLink += "" & Me._anime.Episode()
             i = epIndex + 1
 
             While link(i) <> "-" Or i = link.Length
@@ -221,8 +243,8 @@
     End Function
 #End Region
 
-#Region " Validating function "
-    Private Function checkTextboxChange(sender As TextBox) As Boolean
+#Region " Validating constraint function "
+    Private Function validateTextbox(sender As TextBox) As Boolean
 
         Dim ret As Boolean = True
 
@@ -235,6 +257,8 @@
                     sender.BackColor = Color.FromArgb(200, 25, 25)
                     ret = False
                 End If
+            ElseIf (sender.Equals(aTitle)) Then
+                ret = V2_GUI.isNameExist(aTitle.Text)
             End If
 
         Else
@@ -245,17 +269,6 @@
         Return ret
 
     End Function
-    Private Function checkChange() As Boolean
-
-        Dim changeList() As Object = {aTitle, aEpisode, aLienModifiable}
-
-        For Each e In changeList
-            If Not checkTextboxChange(e) Then Return False
-        Next
-
-        Return True
-
-    End Function
 #End Region
 
 #Region " Handler "
@@ -264,16 +277,21 @@
         Dispose()
     End Sub
     Private Sub next_Click(sender As Object, e As EventArgs) Handles aNext.Click
+
         _anime.nextEpisode()
-        aEpisode.Text = _anime.getEpisode()
+        display()
+
     End Sub
     Private Sub aModifier_Click(sender As Object, e As EventArgs) Handles aModifier.Click
 
         If onUpdate Then
 
-            If (Not checkChange()) Then Exit Sub
+            ' On verifie que les box sont valide
+            For Each item In {aTitle, aEpisode, aLienModifiable}
+                If Not validateTextbox(item) Then Exit Sub
+            Next
 
-            _animeUpdated = New Anime(
+            Dim _animeUpdated As Anime = New Anime(
                 nom:=aTitle.Text,
                 lien:=aLienModifiable.Text,
                 episode:=CInt(aEpisode.Text),
@@ -286,30 +304,49 @@
                 finished:=aFinish.Checked
             )
 
-            If Not _anime.Equals(_animeUpdated) Then
-
-                aLien.Text = _animeUpdated.getLien()
-                If Not _anime.getNom().Equals(_animeUpdated.getNom()) Then
-                    displayPicture(_animeUpdated.getNom())
-                End If
-
-                'NOTE: Mettre à jours l'animé dans la db
-                _anime = _animeUpdated
-                displayFollowLabel()
-                displaySmartLink()
-
+            If Not _anime.Nom().Equals(_animeUpdated.Nom()) Then
+                _anime.Nom = _animeUpdated.Nom()
+                displayPicture(_anime.Nom())
+            End If
+            If Not _anime.Episode().Equals(_animeUpdated.Episode()) Then
+                _anime.Episode = _animeUpdated.Episode()
+            End If
+            If Not _anime.Note().Equals(_animeUpdated.Note()) Then
+                _anime.Note = _animeUpdated.Note()
+            End If
+            If Not _anime.Genre().Equals(_animeUpdated.Genre()) Then
+                _anime.Genre = _animeUpdated.Genre()
+            End If
+            If Not _anime.DateSortie().Equals(_animeUpdated.DateSortie()) Then
+                _anime.DateSortie = _animeUpdated.DateSortie()
+            End If
+            If Not _anime.Lien().Equals(_animeUpdated.Lien()) Then
+                _anime.Lien = _animeUpdated.Lien()
+                aLien.Text = _animeUpdated.Lien()
+            End If
+            If Not _anime.Commentaire().Equals(_animeUpdated.Commentaire()) Then
+                _anime.Commentaire = _animeUpdated.Commentaire()
+            End If
+            If Not _anime.SmartLink().Equals(_animeUpdated.SmartLink()) Then
+                _anime.SmartLink = _animeUpdated.SmartLink()
+            End If
+            If Not _anime.Follow().Equals(_animeUpdated.Follow()) Then
+                _anime.Follow = _animeUpdated.Follow()
+            End If
+            If Not _anime.Finished().Equals(_animeUpdated.Finished()) Then
+                _anime.Finished = _animeUpdated.Finished()
             End If
 
         End If
 
         onUpdate = Not onUpdate
-        updateDisplay()
+        display()
 
     End Sub
     Private Sub form_TextChanged(sender As Object, e As EventArgs) Handles aTitle.TextChanged, aEpisode.TextChanged, aLienModifiable.TextChanged
-        aModifier.Enabled = checkTextboxChange(sender)
+        aModifier.Enabled = validateTextbox(sender)
     End Sub
-    Private Sub aSmartLink_CheckedChanged(sender As Object, e As EventArgs) Handles aSmartLink.CheckedChanged
+    Private Sub aSmartLink_CheckedChanged(sender As Object, e As EventArgs)
         If sender.checked Then
             MsgBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, " & vbCrLf & _
                    "il est nécessaire que vous mettiez le lien du première épisode." & vbCrLf & vbCrLf & _
@@ -355,6 +392,33 @@
 
             End If
 
+        End If
+
+    End Sub
+    Private Sub aSupprimer_Click(sender As Object, e As EventArgs) Handles aSupprimer.Click
+
+        Dim resp As MsgBoxResult
+        resp = MsgBox("La suppression sera définitive, voulez-vous continuer ?", vbYesNo, "Suppression")
+        If (resp = MsgBoxResult.Yes) Then
+            MsgBox("Supprimé")
+            'delete anime
+            aReturn_Click(sender, e)
+        End If
+
+    End Sub
+    Private Sub aCloturer_Click(sender As Object, e As EventArgs) Handles aCloturer.Click
+
+        _anime.Finished = Not _anime.Finished()
+        aFinish.Checked = _anime.Finished
+
+        If Not _anime.Finished Then
+            aCloturer.Text = "Cloturer"
+            aCloturer.Image = My.Resources.cloturer
+            aCloturer.Width = 93
+        Else
+            aCloturer.Text = "Décloturer"
+            aCloturer.Image = My.Resources.decloturer
+            aCloturer.Width = 103
         End If
 
     End Sub

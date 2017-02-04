@@ -31,6 +31,7 @@ Partial Class AnimeCard
         '
         Me.cardName.AutoEllipsis = True
         Me.cardName.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.cardName.Cursor = System.Windows.Forms.Cursors.Hand
         Me.cardName.Font = New System.Drawing.Font("Palatino Linotype", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cardName.Location = New System.Drawing.Point(0, 165)
         Me.cardName.Name = "cardName"

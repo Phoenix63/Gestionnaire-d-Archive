@@ -300,6 +300,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cloturer.png" />
+    <None Include="Resources\supprimer.png" />
+    <None Include="Resources\modif-ok.png" />
+    <None Include="Resources\modif.png" />
+    <None Include="Resources\decloturer.png" />
+    <None Include="ico.jpg" />
     <Content Include="DataBase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

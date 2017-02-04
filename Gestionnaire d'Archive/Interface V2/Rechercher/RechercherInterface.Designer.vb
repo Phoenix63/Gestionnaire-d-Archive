@@ -22,45 +22,18 @@ Partial Class RechercherInterface
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.slider = New Gestionnaire_d_Archive.AnimeSlider()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.rTitle = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.slider = New Gestionnaire_d_Archive.AnimeSlider()
         Me.Panel1.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'PictureBox3
-        '
-        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.PictureBox3.Location = New System.Drawing.Point(585, 0)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(15, 375)
-        Me.PictureBox3.TabIndex = 3
-        Me.PictureBox3.TabStop = False
-        Me.PictureBox3.Visible = False
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(15, 375)
-        Me.PictureBox2.TabIndex = 1
-        Me.PictureBox2.TabStop = False
-        Me.PictureBox2.Visible = False
-        '
-        'slider
-        '
-        Me.slider.Location = New System.Drawing.Point(15, 140)
-        Me.slider.Name = "slider"
-        Me.slider.Size = New System.Drawing.Size(570, 220)
-        Me.slider.TabIndex = 22
         '
         'Panel1
         '
@@ -73,6 +46,15 @@ Partial Class RechercherInterface
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(570, 110)
         Me.Panel1.TabIndex = 24
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(259, 60)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(103, 13)
+        Me.Label1.TabIndex = 27
+        Me.Label1.Text = "Param de recherche"
         '
         'Button2
         '
@@ -116,31 +98,50 @@ Partial Class RechercherInterface
         Me.rTitle.TabIndex = 24
         Me.rTitle.Text = "Rechercher Panel Title"
         Me.rTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rTitle.Visible = False
         '
-        'Label1
+        'PictureBox2
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(259, 60)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(103, 13)
-        Me.Label1.TabIndex = 27
-        Me.Label1.Text = "Param de recherche"
+        Me.PictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(15, 375)
+        Me.PictureBox2.TabIndex = 1
+        Me.PictureBox2.TabStop = False
+        Me.PictureBox2.Visible = False
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.BackColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.PictureBox3.Location = New System.Drawing.Point(585, 0)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(15, 375)
+        Me.PictureBox3.TabIndex = 3
+        Me.PictureBox3.TabStop = False
+        Me.PictureBox3.Visible = False
+        '
+        'slider
+        '
+        Me.slider.Location = New System.Drawing.Point(15, 140)
+        Me.slider.Name = "slider"
+        Me.slider.Size = New System.Drawing.Size(570, 220)
+        Me.slider.TabIndex = 22
         '
         'RechercherInterface
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.slider)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox3)
-        Me.Controls.Add(Me.Panel1)
         Me.Name = "RechercherInterface"
         Me.Size = New System.Drawing.Size(600, 375)
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

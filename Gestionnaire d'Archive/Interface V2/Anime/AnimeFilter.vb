@@ -178,7 +178,7 @@ Public Class AnimeFilter
         End If
 
     End Sub
-    Public Function getActiveItem()
+    Public Function getActiveItem() As String
 
         Dim ret As String = ""
 

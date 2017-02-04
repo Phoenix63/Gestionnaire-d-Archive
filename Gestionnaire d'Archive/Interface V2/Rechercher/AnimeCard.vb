@@ -25,9 +25,9 @@
     Private Sub AnimeCard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim pictPath As String
-        pictPath = Application.StartupPath + "\PICTURES\" + _anime.getNom().ToLowerInvariant() + ".png"
+        pictPath = Application.StartupPath + "\PICTURES\" + _anime.Nom().ToLowerInvariant() + ".png"
 
-        cardName.Text = _anime.getNom()
+        cardName.Text = _anime.Nom()
         If (System.IO.File.Exists(pictPath)) Then
             cardFont.Image = New Bitmap(pictPath)
         Else

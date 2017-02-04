@@ -1,6 +1,8 @@
 ﻿Public Class RechercherInterface
     Inherits UserControl
 
+    Private animeList As List(Of Anime) = New List(Of Anime)
+
     ' Outer Event
     Public Event loadAnimeEvent(anime As Anime)
 
@@ -11,6 +13,36 @@
 
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
         Me.BackColor = Color.Transparent
+
+    End Sub
+
+    Private Sub RechercherInterface_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Dim view As DataView = New DataView(V2_GUI.data.Tables("data"))
+        view.Sort() = "Nom ASC"
+
+        Dim table As DataTable = view.ToTable
+
+        Try
+
+            table.BeginLoadData()
+            For Each line As DataRow In table.Rows
+                Me.animeList.Add(New Anime(line))
+            Next
+            table.EndLoadData()
+
+            displayAnime()
+
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical)
+        End Try
+
+    End Sub
+    Private Sub displayAnime()
+
+        slider.addAnime(Me.animeList)
+        slider.fillAnimeCard()
+        slider.displayIndex()
 
     End Sub
 
