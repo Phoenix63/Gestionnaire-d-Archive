@@ -30,6 +30,7 @@ Partial Class RechercherInterface
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.slider = New Gestionnaire_d_Archive.AnimeSlider()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -38,6 +39,7 @@ Partial Class RechercherInterface
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Cornsilk
+        Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
@@ -127,6 +129,22 @@ Partial Class RechercherInterface
         Me.slider.Size = New System.Drawing.Size(570, 220)
         Me.slider.TabIndex = 22
         '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button3.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.Button3.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.Button3.Location = New System.Drawing.Point(6, 78)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(92, 25)
+        Me.Button3.TabIndex = 28
+        Me.Button3.Text = "Terminé"
+        Me.Button3.UseVisualStyleBackColor = False
+        '
         'RechercherInterface
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -153,5 +171,6 @@ Partial Class RechercherInterface
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents rTitle As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Button3 As System.Windows.Forms.Button
 
 End Class

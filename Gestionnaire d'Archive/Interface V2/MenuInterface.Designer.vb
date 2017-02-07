@@ -32,6 +32,8 @@ Partial Class MenuInterface
         Me.mSignin = New System.Windows.Forms.Button()
         Me.mInfo = New System.Windows.Forms.Button()
         Me.mExit = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'mTitle
@@ -154,6 +156,15 @@ Partial Class MenuInterface
         Me.mExit.Text = "Quitter"
         Me.mExit.UseVisualStyleBackColor = False
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(150, 400)
+        Me.PictureBox1.TabIndex = 15
+        Me.PictureBox1.TabStop = False
+        '
         'MenuInterface
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -167,8 +178,10 @@ Partial Class MenuInterface
         Me.Controls.Add(Me.mClose)
         Me.Controls.Add(Me.mNew)
         Me.Controls.Add(Me.mTitle)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Name = "MenuInterface"
-        Me.Size = New System.Drawing.Size(150, 400)
+        Me.Size = New System.Drawing.Size(600, 400)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -181,5 +194,6 @@ Partial Class MenuInterface
     Friend WithEvents mSignin As System.Windows.Forms.Button
     Friend WithEvents mInfo As System.Windows.Forms.Button
     Friend WithEvents mExit As System.Windows.Forms.Button
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 
 End Class

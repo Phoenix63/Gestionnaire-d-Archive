@@ -300,6 +300,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\shader.png" />
     <None Include="Resources\cloturer.png" />
     <None Include="Resources\supprimer.png" />
     <None Include="Resources\modif-ok.png" />

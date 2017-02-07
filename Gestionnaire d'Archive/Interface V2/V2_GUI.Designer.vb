@@ -110,6 +110,7 @@ Partial Class V2_GUI
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Gestionnaire d'Archive"
+        Me.TransparencyKey = System.Drawing.Color.White
         Me.ResumeLayout(False)
 
     End Sub

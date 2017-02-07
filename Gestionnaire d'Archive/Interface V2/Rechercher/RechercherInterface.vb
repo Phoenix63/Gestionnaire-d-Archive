@@ -1,6 +1,7 @@
 ﻿Public Class RechercherInterface
     Inherits UserControl
 
+    Dim view As DataView
     Private animeList As List(Of Anime) = New List(Of Anime)
 
     ' Outer Event
@@ -14,14 +15,21 @@
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
         Me.BackColor = Color.Transparent
 
+        view = New DataView(V2_GUI.data.Tables("data"))
+        view.Sort() = "Nom ASC"
+
     End Sub
 
     Private Sub RechercherInterface_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Dim view As DataView = New DataView(V2_GUI.data.Tables("data"))
-        view.Sort() = "Nom ASC"
+        loadWithFilter("")
 
-        Dim table As DataTable = view.ToTable
+    End Sub
+    Private Sub loadWithFilter(ByVal filter As String)
+
+        view.RowFilter() = filter
+
+        Dim table As DataTable = View.ToTable
 
         Try
 
@@ -40,6 +48,7 @@
     End Sub
     Private Sub displayAnime()
 
+        slider.clearAnime()
         slider.addAnime(Me.animeList)
         slider.fillAnimeCard()
         slider.displayIndex()
@@ -72,6 +81,10 @@
 
     Public Sub loadAnime(anime As Anime) Handles slider.loadAnimeEvent
         RaiseEvent loadAnimeEvent(anime)
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        loadWithFilter("Fini = '1'")
     End Sub
 
 End Class
