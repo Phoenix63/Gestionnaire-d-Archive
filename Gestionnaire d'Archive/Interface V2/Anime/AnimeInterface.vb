@@ -5,6 +5,7 @@
     Private _anime As Anime = Nothing
     Private _animeUpdated As Anime = Nothing
     Private onUpdate As Boolean = False
+    Private _separator As String = Nothing
 
     Private Const COMMENTAIRE_TOP_WITHOUT_FOLLOW As Integer = 240
     Private Const COMMENTAIRE_TOP_WITH_FOLLOW As Integer = 270
@@ -16,6 +17,20 @@
         InitializeComponent()
         Me.BackColor = Color.Transparent
         _anime = anime
+
+        If _anime.Genre().Split("; ").Length > 1 Then
+            _separator = "; "
+        ElseIf _anime.Genre().Split(";").Length > 1 Then
+            _separator = ";"
+        ElseIf _anime.Genre().Split(", ").Length > 1 Then
+            _separator = ", "
+        ElseIf _anime.Genre().Split(",").Length > 1 Then
+            _separator = ","
+        Else
+            _separator = ";"
+        End If
+
+        Console.WriteLine("LOG: " & _separator & "|< " & _anime.Genre().Split(_separator)(0))
 
     End Sub
 
@@ -35,7 +50,7 @@
         aEpisode.Text = _anime.Episode()
         aRank.Rank = Math.Min(Math.Max(1, _anime.Note()), 5)
 
-        aFilter.fillItemList(_anime.Genre(), ";")
+        aFilter.fillItemList(_anime.Genre(), _separator)
 
         aDate.Value = _anime.DateSortie()
         Debug.Assert(aDate.Value.ToString(aDate.CustomFormat) = _anime.DateSortie().ToString(aDate.CustomFormat))
@@ -55,13 +70,15 @@
         TipSupprimer.SetToolTip(aSupprimer, "Supprimer")
         TipModif.SetToolTip(aModifier, "Modifier/Valider")
         TipLink.SetToolTip(aLien, aLien.Text)
+        TipLink.SetToolTip(aLienModifiable, aLienModifiable.Text)
+        TipLink.SetToolTip(aTitle, aTitle.Text)
 
         updateDisplay()
 
     End Sub
     Private Sub updateDisplay()
 
-        aTitle.Enabled = onUpdate
+        aTitle.ReadOnly = Not onUpdate
         aTitle.Cursor = IIf(onUpdate, Cursors.IBeam, Cursors.Default)
 
         lbEpisode.Text = IIf(onUpdate, "* Episode :", "Epsiode :")
@@ -244,6 +261,7 @@
 #End Region
 
 #Region " Validating constraint function "
+    Private titleTemp As String
     Private Function validateTextbox(sender As TextBox) As Boolean
 
         Dim ret As Boolean = True
@@ -258,7 +276,10 @@
                     ret = False
                 End If
             ElseIf (sender.Equals(aTitle)) Then
-                ret = V2_GUI.isNameExist(aTitle.Text)
+                If V2_GUI.isNameExist(aTitle.Text) And titleTemp <> "" And aTitle.Text <> titleTemp Then
+                    sender.BackColor = Color.FromArgb(200, 25, 25)
+                    ret = False
+                End If
             End If
 
         Else
@@ -337,6 +358,8 @@
                 _anime.Finished = _animeUpdated.Finished()
             End If
 
+        Else
+            titleTemp = aTitle.Text
         End If
 
         onUpdate = Not onUpdate
