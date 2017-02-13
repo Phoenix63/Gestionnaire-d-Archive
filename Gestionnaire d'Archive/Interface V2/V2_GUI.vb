@@ -1,4 +1,8 @@
-﻿Public Class V2_GUI
+﻿Imports System.Windows.Forms.Integration
+Imports System.Threading
+Imports Shader
+
+Public Class V2_GUI
     Inherits Form
 
     Private sInterface As SaveInterface = Nothing
@@ -6,6 +10,8 @@
     Private WithEvents rInterface As RechercherInterface = Nothing
     Private WithEvents aInterface As AnimeInterface = Nothing
     Private WithEvents nInterface As NewAnimeInterface = Nothing
+
+    Private WithEvents shader As ShaderScreen = New ShaderScreen()
 
     Private sqlCo As SqlConnection
     Public Shared data As DataSet = New DataSet()
@@ -18,6 +24,15 @@
         databaseInitialization()
         fillData()
 
+        MyBase.Controls.Add(shader)
+        With shader
+            .Size = New Point(450, 375)
+            .Zone = New Point(Me.Location.X + 150, Me.Location.Y + 25)
+            .Location = New Point(150, 25)
+            .Alpha = 30
+            .BringToFront()
+        End With
+
         rInterface = New RechercherInterface()
         pContainer.Controls.Add(rInterface)
         rInterface.SendToBack()
@@ -29,6 +44,7 @@
         If Not mInterface Is Nothing Then mInterface.Dispose()
         If Not rInterface Is Nothing Then rInterface.Dispose()
         If Not aInterface Is Nothing Then aInterface.Dispose()
+        If Not shader Is Nothing Then shader.Dispose()
 
         If Me.sqlCo.State.Equals(ConnectionState.Open) Then
             databaseClose()
@@ -36,7 +52,6 @@
         End If
 
     End Sub
-
 #End Region
 
 #Region " DB Function "
@@ -100,7 +115,7 @@
     Private Sub fillData()
 
         If isFirstCommit Then
-            MsgBox("Commiting")
+            'MsgBox("Commiting")
             'databaseCommit()
             isFirstCommit = False
         End If
@@ -125,7 +140,7 @@
     Public Shared Function isNameExist(ByVal name As String)
 
         Dim table As DataTable = data.Tables("data")
-        Dim row() As DataRow = table.Select("Nom = '" & Name & "'")
+        Dim row() As DataRow = table.Select("Nom = '" & name & "'")
 
         Return If(row.Length <> 0, True, False)
 
@@ -149,8 +164,18 @@
             mInterface.BringToFront()
         End If
 
+        Dim shaderThread As Thread = New Thread(AddressOf shader.picUpdate)
+        shaderThread.IsBackground = True
+        shaderThread.Start()
+
         mInterface.menuOpen()
 
+    End Sub
+    Private Sub V2_GUI_LocationChanged(sender As Object, e As EventArgs) Handles Me.LocationChanged
+        shader.Zone = New Point(Me.Location.X + 150, Me.Location.Y + 25)
+    End Sub
+    Private Sub shader_Click() Handles shader.Clicked
+        mInterface.menuClose()
     End Sub
 #End Region
 
@@ -182,6 +207,9 @@
     End Sub
     Private Sub appExit() Handles mInterface.exitEvent
         Close()
+    End Sub
+    Private Sub shader_fadeout() Handles mInterface.menuCloseEvent
+        shader.Visible = False
     End Sub
 #End Region
 
@@ -229,20 +257,20 @@
     Public MoveForm As Boolean
     Public MoveForm_MousePosition As Point
 
-    Public Sub MoveForm_MouseDown(sender As Object, e As MouseEventArgs) Handles title.MouseDown, MyBase.MouseDown
+    Public Sub MoveForm_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, title.MouseDown
         If e.Button = Windows.Forms.MouseButtons.Left Then
             MoveForm = True
             MoveForm_MousePosition = e.Location
         End If
     End Sub
 
-    Public Sub MoveForm_MouseMove(sender As Object, e As MouseEventArgs) Handles title.MouseMove, MyBase.MouseMove
+    Public Sub MoveForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, title.MouseMove
         If MoveForm Then
             Me.Location = Me.Location + (e.Location - MoveForm_MousePosition)
         End If
     End Sub
 
-    Public Sub MoveForm_MouseUp(sender As Object, e As MouseEventArgs) Handles title.MouseUp, MyBase.MouseUp
+    Public Sub MoveForm_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, title.MouseUp
         If e.Button = Windows.Forms.MouseButtons.Left Then
             MoveForm = False
         End If

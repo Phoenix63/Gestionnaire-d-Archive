@@ -180,7 +180,7 @@ Partial Class MenuInterface
         Me.Controls.Add(Me.mTitle)
         Me.Controls.Add(Me.PictureBox1)
         Me.Name = "MenuInterface"
-        Me.Size = New System.Drawing.Size(600, 400)
+        Me.Size = New System.Drawing.Size(150, 400)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

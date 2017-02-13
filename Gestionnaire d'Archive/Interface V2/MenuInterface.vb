@@ -25,6 +25,7 @@ Public Class MenuInterface
 
         Me.SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
         Me.SetStyle(ControlStyles.UserPaint, False)
+        Me.BackColor = Color.FromArgb(10, Color.Silver)
 
     End Sub
 
@@ -33,6 +34,7 @@ Public Class MenuInterface
     Public Event newEvent()
     Public Event loadEvent()
     Public Event exitEvent()
+    Public Event menuCloseEvent()
 
     ' La méthode GetInstance doit être Shared <=> Static
     Public Shared Function GetInstance() As MenuInterface
@@ -54,6 +56,7 @@ Public Class MenuInterface
         timerAnimation.Start()
     End Sub
     Public Sub menuClose()
+        RaiseEvent menuCloseEvent()
         mode = AnimationMode.Close
         timerAnimation.Start()
     End Sub
@@ -120,20 +123,20 @@ Public Class MenuInterface
     End Sub
 #End Region
 
-#Region " Make background transparent "
-    Protected Overrides ReadOnly Property CreateParams() As CreateParams
-        Get
-            Dim cp As CreateParams = MyBase.CreateParams
-            cp.ExStyle = cp.ExStyle Or &H20
-            Return cp
-        End Get
-    End Property
-    Protected Overrides Sub OnPaintBackground(e As PaintEventArgs)
-        ' call MyBase.OnPaintBackground(e) only if the backColor is not Color.Transparent
-        If Me.BackColor <> Color.Transparent Then
-            MyBase.OnPaintBackground(e)
-        End If
-    End Sub
-#End Region
+    '#Region " Make background transparent "
+    '    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+    '        Get
+    '            Dim cp As CreateParams = MyBase.CreateParams
+    '            cp.ExStyle = cp.ExStyle Or &H20
+    '            Return cp
+    '        End Get
+    '    End Property
+    '    Protected Overrides Sub OnPaintBackground(e As PaintEventArgs)
+    '        ' call MyBase.OnPaintBackground(e) only if the backColor is not Color.Transparent
+    '        If Me.BackColor <> Color.Transparent Then
+    '            MyBase.OnPaintBackground(e)
+    '        End If
+    '    End Sub
+    '#End Region
 
 End Class

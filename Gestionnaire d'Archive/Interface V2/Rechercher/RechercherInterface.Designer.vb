@@ -23,6 +23,7 @@ Partial Class RechercherInterface
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -30,7 +31,6 @@ Partial Class RechercherInterface
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.slider = New Gestionnaire_d_Archive.AnimeSlider()
-        Me.Button3 = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -48,6 +48,22 @@ Partial Class RechercherInterface
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(570, 110)
         Me.Panel1.TabIndex = 24
+        '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button3.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.Button3.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.Button3.Location = New System.Drawing.Point(6, 78)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(92, 25)
+        Me.Button3.TabIndex = 28
+        Me.Button3.Text = "Terminé"
+        Me.Button3.UseVisualStyleBackColor = False
         '
         'Label1
         '
@@ -128,22 +144,6 @@ Partial Class RechercherInterface
         Me.slider.Name = "slider"
         Me.slider.Size = New System.Drawing.Size(570, 220)
         Me.slider.TabIndex = 22
-        '
-        'Button3
-        '
-        Me.Button3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.Button3.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button3.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button3.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Button3.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button3.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.Button3.Location = New System.Drawing.Point(6, 78)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(92, 25)
-        Me.Button3.TabIndex = 28
-        Me.Button3.Text = "Terminé"
-        Me.Button3.UseVisualStyleBackColor = False
         '
         'RechercherInterface
         '
