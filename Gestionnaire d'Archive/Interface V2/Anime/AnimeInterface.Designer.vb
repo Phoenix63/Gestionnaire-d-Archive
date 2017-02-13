@@ -123,11 +123,11 @@ Partial Class AnimeInterface
         Me.aTitle.BackColor = System.Drawing.SystemColors.Control
         Me.aTitle.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.aTitle.Cursor = System.Windows.Forms.Cursors.Arrow
-        Me.aTitle.Enabled = False
         Me.aTitle.Font = New System.Drawing.Font("Palatino Linotype", 19.0!, System.Drawing.FontStyle.Bold)
         Me.aTitle.Location = New System.Drawing.Point(200, 15)
         Me.aTitle.MaxLength = 40
         Me.aTitle.Name = "aTitle"
+        Me.aTitle.ReadOnly = True
         Me.aTitle.ShortcutsEnabled = False
         Me.aTitle.Size = New System.Drawing.Size(385, 35)
         Me.aTitle.TabIndex = 0

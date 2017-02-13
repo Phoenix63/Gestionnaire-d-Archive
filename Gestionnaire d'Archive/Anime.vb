@@ -44,9 +44,9 @@
         Me._genre = dbRow("Genre")
         Me._commentaire = dbRow("Commentaire")
         Me._note = Integer.Parse(dbRow("Note"))
-        Me._follow = If(dbRow("Follow").Equals("1"), True, False)
-        Me._smartLink = If(dbRow("SmartLink").Equals("1"), True, False)
-        Me._finished = If(dbRow("Fini").Equals("1"), True, False)
+        Me._follow = If(dbRow("Follow").ToString() = "1", True, False)
+        Me._smartLink = If(dbRow("SmartLink").ToString() = "1", True, False)
+        Me._finished = If(dbRow("Fini").ToString() = "1", True, False)
 
     End Sub
 #End Region

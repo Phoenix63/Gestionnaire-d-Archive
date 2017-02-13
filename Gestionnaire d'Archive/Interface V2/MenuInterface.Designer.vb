@@ -80,6 +80,7 @@ Partial Class MenuInterface
         Me.mClose.TabIndex = 9
         Me.mClose.Text = "X"
         Me.mClose.UseVisualStyleBackColor = False
+        Me.mClose.Visible = False
         '
         'mLoad
         '

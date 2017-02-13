@@ -32,10 +32,17 @@
         End If
     End Sub
 
+    Public Sub displayAny()
+        clearAnime()
+        displaySlider()
+        Me.noResponse.Visible = True
+    End Sub
+
     Public Sub clearScreen()
         For Each e In list
             slider.Controls.Remove(e)
         Next
+        Me.noResponse.Visible = False
     End Sub
     Public Sub clearAnime()
         clearScreen()
@@ -48,6 +55,7 @@
         'location x : 30 + 120 * pos + 10 * pos
         Dim i As Integer
 
+        index = 0
         clearScreen()
         For i = 0 To list.Count - 1
 
@@ -85,7 +93,6 @@
     Private Sub sliderRight_Click(sender As Object, e As EventArgs) Handles sliderRight.Click
         slider_Click(1)
     End Sub
-
     Private Sub sliderLeft_Click(sender As Object, e As EventArgs) Handles sliderLeft.Click
         slider_Click(-1)
     End Sub

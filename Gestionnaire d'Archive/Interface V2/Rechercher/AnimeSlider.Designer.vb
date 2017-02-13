@@ -25,6 +25,7 @@ Partial Class AnimeSlider
         Me.sliderRight = New System.Windows.Forms.Button()
         Me.sliderLeft = New System.Windows.Forms.Button()
         Me.slider = New System.Windows.Forms.Panel()
+        Me.noResponse = New System.Windows.Forms.Label()
         Me.slider.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -65,6 +66,7 @@ Partial Class AnimeSlider
         'slider
         '
         Me.slider.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.slider.Controls.Add(Me.noResponse)
         Me.slider.Controls.Add(Me.sliderLeft)
         Me.slider.Controls.Add(Me.sliderRight)
         Me.slider.Location = New System.Drawing.Point(0, 0)
@@ -72,13 +74,25 @@ Partial Class AnimeSlider
         Me.slider.Size = New System.Drawing.Size(570, 220)
         Me.slider.TabIndex = 25
         '
+        'noResponse
+        '
+        Me.noResponse.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.noResponse.Font = New System.Drawing.Font("Century", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.noResponse.Location = New System.Drawing.Point(72, 88)
+        Me.noResponse.Name = "noResponse"
+        Me.noResponse.Size = New System.Drawing.Size(434, 39)
+        Me.noResponse.TabIndex = 25
+        Me.noResponse.Text = "Aucun résultat pour votre recherche"
+        Me.noResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.noResponse.Visible = False
+        '
         'AnimeSlider
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.slider)
         Me.Name = "AnimeSlider"
-        Me.Size = New System.Drawing.Size(648, 616)
+        Me.Size = New System.Drawing.Size(648, 317)
         Me.slider.ResumeLayout(False)
         Me.ResumeLayout(False)
 
@@ -86,5 +100,6 @@ Partial Class AnimeSlider
     Friend WithEvents sliderRight As System.Windows.Forms.Button
     Friend WithEvents sliderLeft As System.Windows.Forms.Button
     Friend WithEvents slider As System.Windows.Forms.Panel
+    Friend WithEvents noResponse As System.Windows.Forms.Label
 
 End Class

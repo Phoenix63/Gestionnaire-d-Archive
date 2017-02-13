@@ -206,6 +206,12 @@
     <Compile Include="Interface V2\MenuInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Interface V2\Rechercher\SearchFilter.Designer.vb">
+      <DependentUpon>SearchFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\SearchFilter.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Interface V2\SaveInterface.Designer.vb">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </Compile>
@@ -280,6 +286,9 @@
     <EmbeddedResource Include="Interface V2\MenuInterface.resx">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\SearchFilter.resx">
+      <DependentUpon>SearchFilter.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\SaveInterface.resx">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </EmbeddedResource>
@@ -315,6 +324,7 @@
   <ItemGroup>
     <Content Include="Resources\activestar.png" />
     <Content Include="Resources\inactivestar.png" />
+    <None Include="Resources\search.png" />
     <None Include="Resources\shader.png" />
     <None Include="Resources\cloturer.png" />
     <None Include="Resources\supprimer.png" />

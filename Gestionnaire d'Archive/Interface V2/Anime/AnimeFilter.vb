@@ -132,6 +132,14 @@ Public Class AnimeFilter
             If (value <> _active) Then RaiseEvent ActiveChanged(value)
         End Set
     End Property
+    Public Property Separator() As String
+        Get
+            Return _separator
+        End Get
+        Set(value As String)
+            _separator = value
+        End Set
+    End Property
 #End Region
 
 #Region " Handler "

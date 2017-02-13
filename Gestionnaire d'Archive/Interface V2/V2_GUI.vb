@@ -15,6 +15,7 @@ Public Class V2_GUI
 
     Private sqlCo As SqlConnection
     Public Shared data As DataSet = New DataSet()
+    Public Shared nameList As List(Of String) = New List(Of String)
 
 #Region " Main Functions "
     Private Sub V2_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -23,6 +24,7 @@ Public Class V2_GUI
 
         databaseInitialization()
         fillData()
+        updateNameList()
 
         MyBase.Controls.Add(shader)
         With shader
@@ -137,12 +139,23 @@ Public Class V2_GUI
         End Try
 
     End Sub
+    Public Shared Sub updateNameList()
+
+        Dim table As DataTable = data.Tables("data")
+        Dim row() As DataRow = table.Select("")
+
+        nameList.Clear()
+        For Each r As DataRow In row
+            nameList.Add(r.Item("Nom").ToString())
+        Next
+
+    End Sub
     Public Shared Function isNameExist(ByVal name As String)
 
         Dim table As DataTable = data.Tables("data")
         Dim row() As DataRow = table.Select("Nom = '" & name & "'")
 
-        Return If(row.Length <> 0, True, False)
+        Return If(row.Length > 0, True, False)
 
     End Function
 
