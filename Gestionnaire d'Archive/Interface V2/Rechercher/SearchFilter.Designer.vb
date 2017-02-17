@@ -31,6 +31,7 @@ Partial Class SearchFilter
         Me.Tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
+        Me.aOut = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'buildFilter
@@ -59,7 +60,7 @@ Partial Class SearchFilter
         Me.aFinish.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.aFinish.FlatAppearance.BorderSize = 0
         Me.aFinish.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aFinish.Location = New System.Drawing.Point(459, 77)
+        Me.aFinish.Location = New System.Drawing.Point(463, 77)
         Me.aFinish.Name = "aFinish"
         Me.aFinish.Size = New System.Drawing.Size(68, 20)
         Me.aFinish.TabIndex = 0
@@ -73,7 +74,7 @@ Partial Class SearchFilter
         Me.aFollow.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.aFollow.FlatAppearance.BorderSize = 0
         Me.aFollow.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aFollow.Location = New System.Drawing.Point(402, 77)
+        Me.aFollow.Location = New System.Drawing.Point(411, 77)
         Me.aFollow.Name = "aFollow"
         Me.aFollow.Size = New System.Drawing.Size(51, 20)
         Me.aFollow.TabIndex = 0
@@ -93,7 +94,7 @@ Partial Class SearchFilter
         Me.aName.MaxLength = 40
         Me.aName.Name = "aName"
         Me.aName.ShortcutsEnabled = False
-        Me.aName.Size = New System.Drawing.Size(378, 35)
+        Me.aName.Size = New System.Drawing.Size(341, 35)
         Me.aName.TabIndex = 0
         Me.aName.TabStop = False
         Me.aName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -126,15 +127,32 @@ Partial Class SearchFilter
         Me.aFilter.MinimumSize = New System.Drawing.Size(380, 54)
         Me.aFilter.Name = "aFilter"
         Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.aFilter.Separator = Nothing
         Me.aFilter.Size = New System.Drawing.Size(380, 54)
         Me.aFilter.TabIndex = 0
         Me.Tip.SetToolTip(Me.aFilter, "Genre")
+        '
+        'aOut
+        '
+        Me.aOut.AutoSize = True
+        Me.aOut.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aOut.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.aOut.FlatAppearance.BorderSize = 0
+        Me.aOut.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.aOut.Location = New System.Drawing.Point(355, 77)
+        Me.aOut.Name = "aOut"
+        Me.aOut.Size = New System.Drawing.Size(51, 20)
+        Me.aOut.TabIndex = 1
+        Me.aOut.TabStop = False
+        Me.aOut.Text = "Sorti"
+        Me.aOut.UseVisualStyleBackColor = True
         '
         'SearchFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Controls.Add(Me.aOut)
         Me.Controls.Add(Me.aName)
         Me.Controls.Add(Me.aFinish)
         Me.Controls.Add(Me.aFollow)
@@ -154,5 +172,6 @@ Partial Class SearchFilter
     Friend WithEvents aFollow As System.Windows.Forms.CheckBox
     Friend WithEvents aName As System.Windows.Forms.TextBox
     Friend WithEvents Tip As System.Windows.Forms.ToolTip
+    Friend WithEvents aOut As System.Windows.Forms.CheckBox
 
 End Class

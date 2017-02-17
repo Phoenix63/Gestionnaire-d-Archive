@@ -93,6 +93,7 @@
             finished:=nFinish.Checked
         )
 
+        'TODO:
         'Check qu'il n'existe pas
         'Lancer le script pour vérifier si il y a une image sur le serveur
         'Script retourne soit

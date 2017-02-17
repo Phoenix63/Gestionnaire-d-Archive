@@ -22,6 +22,7 @@ Partial Class V2_GUI
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(V2_GUI))
         Me.pContainer = New System.Windows.Forms.Panel()
         Me.pnl_header = New System.Windows.Forms.Panel()
@@ -29,6 +30,7 @@ Partial Class V2_GUI
         Me.bt_reduce = New System.Windows.Forms.Button()
         Me.bt_close = New System.Windows.Forms.Button()
         Me.title = New System.Windows.Forms.Label()
+        Me.AutoSave = New System.Windows.Forms.Timer(Me.components)
         Me.pnl_header.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -111,6 +113,10 @@ Partial Class V2_GUI
         Me.title.Text = "Titre de l'application"
         Me.title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'AutoSave
+        '
+        Me.AutoSave.Interval = 60000
+        '
         'V2_GUI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -143,4 +149,5 @@ Partial Class V2_GUI
     Friend WithEvents bt_reduce As System.Windows.Forms.Button
     Friend WithEvents bt_close As System.Windows.Forms.Button
     Friend WithEvents title As System.Windows.Forms.Label
+    Friend WithEvents AutoSave As System.Windows.Forms.Timer
 End Class

@@ -3,14 +3,15 @@
 
     Private sInterface As SaveInterface = Nothing
     Private _anime As Anime = Nothing
-    Private _animeUpdated As Anime = Nothing
-    Private onUpdate As Boolean = False
     Private _separator As String = Nothing
+    Private onUpdate As Boolean = False
 
     Private Const COMMENTAIRE_TOP_WITHOUT_FOLLOW As Integer = 240
     Private Const COMMENTAIRE_TOP_WITH_FOLLOW As Integer = 270
     Private Const COMMENTAIRE_HEIGHT_WITHOUT_FOLLOW As Integer = 75
     Private Const COMMENTAIRE_HEIGHT_WITH_FOLLOW As Integer = 45
+
+    Public Event AnimeUpdated()
 
     Public Sub New(ByRef anime As Anime)
 
@@ -293,13 +294,31 @@
 #End Region
 
 #Region " Handler "
+    Private aChanged As Boolean = False
     Private Sub aReturn_Click(sender As Object, e As EventArgs) Handles aReturn.Click
+
+        If (aChanged) Then RaiseEvent AnimeUpdated()
         Me.Parent.Controls.Remove(Me)
         Dispose()
+
     End Sub
     Private Sub next_Click(sender As Object, e As EventArgs) Handles aNext.Click
 
+        Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
+
         _anime.nextEpisode()
+        Try
+
+            row.BeginEdit()
+            row(4) = _anime.Episode()
+            row.EndEdit()
+
+            If (row.RowState = DataRowState.Modified) Then aChanged = True
+            Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+
+        Catch ex As Exception
+            Console.WriteLine("Next: " & ex.Message)
+        End Try
         display()
 
     End Sub
@@ -325,37 +344,64 @@
                 finished:=aFinish.Checked
             )
 
-            If Not _anime.Nom().Equals(_animeUpdated.Nom()) Then
-                _anime.Nom = _animeUpdated.Nom()
-                displayPicture(_anime.Nom())
-            End If
-            If Not _anime.Episode().Equals(_animeUpdated.Episode()) Then
-                _anime.Episode = _animeUpdated.Episode()
-            End If
-            If Not _anime.Note().Equals(_animeUpdated.Note()) Then
-                _anime.Note = _animeUpdated.Note()
-            End If
-            If Not _anime.Genre().Equals(_animeUpdated.Genre()) Then
-                _anime.Genre = _animeUpdated.Genre()
-            End If
-            If Not _anime.DateSortie().Equals(_animeUpdated.DateSortie()) Then
-                _anime.DateSortie = _animeUpdated.DateSortie()
-            End If
-            If Not _anime.Lien().Equals(_animeUpdated.Lien()) Then
-                _anime.Lien = _animeUpdated.Lien()
-                aLien.Text = _animeUpdated.Lien()
-            End If
-            If Not _anime.Commentaire().Equals(_animeUpdated.Commentaire()) Then
-                _anime.Commentaire = _animeUpdated.Commentaire()
-            End If
-            If Not _anime.SmartLink().Equals(_animeUpdated.SmartLink()) Then
-                _anime.SmartLink = _animeUpdated.SmartLink()
-            End If
-            If Not _anime.Follow().Equals(_animeUpdated.Follow()) Then
-                _anime.Follow = _animeUpdated.Follow()
-            End If
-            If Not _anime.Finished().Equals(_animeUpdated.Finished()) Then
-                _anime.Finished = _animeUpdated.Finished()
+            If (Not _anime.Equals(_animeUpdated)) Then
+
+                Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
+
+                Try
+
+                    row.BeginEdit()
+                    If Not _anime.Nom().Equals(_animeUpdated.Nom()) Then
+                        _anime.Nom = _animeUpdated.Nom()
+                        displayPicture(_anime.Nom())
+                        row(1) = _anime.Nom()
+                    End If
+                    If Not _anime.Episode().Equals(_animeUpdated.Episode()) Then
+                        _anime.Episode = _animeUpdated.Episode()
+                        row(4) = _anime.Episode()
+                    End If
+                    If Not _anime.Note().Equals(_animeUpdated.Note()) Then
+                        _anime.Note = _animeUpdated.Note()
+                        row(6) = _anime.Note()
+                    End If
+                    If Not _anime.Genre().Equals(_animeUpdated.Genre()) Then
+                        _anime.Genre = _animeUpdated.Genre()
+                        row(3) = _anime.Genre()
+                    End If
+                    If Not _anime.DateSortie().Equals(_animeUpdated.DateSortie()) Then
+                        _anime.DateSortie = _animeUpdated.DateSortie()
+                        row(5) = _anime.DateSortie().ToString(Anime.FORMAT)
+                    End If
+                    If Not _anime.Lien().Equals(_animeUpdated.Lien()) Then
+                        _anime.Lien = _animeUpdated.Lien()
+                        aLien.Text = _animeUpdated.Lien()
+                        row(2) = _anime.Lien()
+                    End If
+                    If Not _anime.Commentaire().Equals(_animeUpdated.Commentaire()) Then
+                        _anime.Commentaire = _animeUpdated.Commentaire()
+                        row(9) = _anime.Commentaire()
+                    End If
+                    If Not _anime.SmartLink().Equals(_animeUpdated.SmartLink()) Then
+                        _anime.SmartLink = _animeUpdated.SmartLink()
+                        row(8) = If(_anime.SmartLink(), "1", "0")
+                    End If
+                    If Not _anime.Follow().Equals(_animeUpdated.Follow()) Then
+                        _anime.Follow = _animeUpdated.Follow()
+                        row(7) = If(_anime.Follow(), "1", "0")
+                    End If
+                    If Not _anime.Finished().Equals(_animeUpdated.Finished()) Then
+                        _anime.Finished = _animeUpdated.Finished()
+                        row(10) = If(_anime.Finished(), "1", "0")
+                    End If
+                    row.EndEdit()
+
+                    If (row.RowState = DataRowState.Modified) Then aChanged = True
+                    Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+
+                Catch ex As Exception
+                    Console.WriteLine("Edit: " & ex.Message)
+                End Try
+
             End If
 
         Else
@@ -423,16 +469,46 @@
         Dim resp As MsgBoxResult
         resp = MsgBox("La suppression sera définitive, voulez-vous continuer ?", vbYesNo, "Suppression")
         If (resp = MsgBoxResult.Yes) Then
-            MsgBox("Supprimé")
-            'delete anime
+
+            Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
+
+            Try
+
+                row.BeginEdit()
+                row.Delete()
+                row.EndEdit()
+
+                If (row.RowState = DataRowState.Deleted) Then aChanged = True
+                Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+
+            Catch ex As Exception
+                Console.WriteLine("Supprmier: " & ex.Message)
+            End Try
+
             aReturn_Click(sender, e)
+
         End If
 
     End Sub
     Private Sub aCloturer_Click(sender As Object, e As EventArgs) Handles aCloturer.Click
 
         _anime.Finished = Not _anime.Finished()
-        aFinish.Checked = _anime.Finished
+        aFinish.Checked = _anime.Finished()
+
+        Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
+
+        Try
+
+            row.BeginEdit()
+            row(10) = If(_anime.Finished(), "1", "0")
+            row.EndEdit()
+
+            If (row.RowState = DataRowState.Modified) Then aChanged = True
+            Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+
+        Catch ex As Exception
+            Console.WriteLine("Cloturer: " & ex.Message)
+        End Try
 
         If Not _anime.Finished Then
             aCloturer.Text = "Cloturer"

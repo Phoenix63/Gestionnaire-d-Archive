@@ -1,19 +1,25 @@
 ﻿Public Class SearchFilter
 
-    Public Event FilterBuilt(ByVal value As String)
+    Public Event FilterBuilt(ByVal value As String, out As Boolean)
 
     Private Sub SearchFilter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         aFilter.fillItemList("", ";")
+        updateNameList()
+
+    End Sub
+
+    Public Sub updateNameList()
 
         Dim source As AutoCompleteStringCollection = New AutoCompleteStringCollection()
         source.AddRange(V2_GUI.nameList.ToArray())
 
-        aName.AutoCompleteCustomSource = source
+        MyBase.Invoke(Sub() aName.AutoCompleteCustomSource = source)
 
     End Sub
-
     Private Sub build()
+
+        'TODO: Filtre trop contraint => essayer de relacher
 
         Dim rank As Integer = aRank.Rank
         Dim gender As String = aFilter.getActiveItem()
@@ -24,7 +30,7 @@
         Dim query As String = ""
         If name.Equals("") Then
 
-            query = "Note >= '" & rank & "'" _
+            query = "Note >= '" & IIf(rank = 1, 0, rank) & "'" _
                 & " AND Follow = '" & IIf(follow, 1, 0) & "'" _
                 & " AND Fini = '" & IIf(finish, 1, 0) & "'"
 
@@ -48,9 +54,11 @@
             query = "Nom LIKE '" & name.ToLowerInvariant() & "%'"
         End If
 
-        RaiseEvent FilterBuilt(query)
+        RaiseEvent FilterBuilt(query, aOut.Checked())
 
     End Sub
+
+#Region " Handler "
     Private Sub buildFilter_Click(sender As Object, e As EventArgs) Handles buildFilter.Click
         build()
     End Sub
@@ -59,5 +67,12 @@
             build()
         End If
     End Sub
+    Private Sub aOut_CheckedChanged(sender As Object, e As EventArgs) Handles aOut.CheckedChanged
+        aFollow.Checked = sender.Checked()
+    End Sub
+    Private Sub aFollow_CheckedChanged(sender As Object, e As EventArgs) Handles aFollow.CheckedChanged
+        aOut.Checked = If(sender.Checked(), aOut.Checked, False)
+    End Sub
+#End Region
 
 End Class

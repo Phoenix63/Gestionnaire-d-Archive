@@ -14,7 +14,8 @@ Public Class V2_GUI
     Private WithEvents shader As ShaderScreen = New ShaderScreen()
 
     Private sqlCo As SqlConnection
-    Public Shared data As DataSet = New DataSet()
+    Private adaptater As SqlDataAdapter = Nothing
+    Public Shared data As DataSet = New DataSet("data")
     Public Shared nameList As List(Of String) = New List(Of String)
 
 #Region " Main Functions "
@@ -24,7 +25,6 @@ Public Class V2_GUI
 
         databaseInitialization()
         fillData()
-        updateNameList()
 
         MyBase.Controls.Add(shader)
         With shader
@@ -35,12 +35,17 @@ Public Class V2_GUI
             .BringToFront()
         End With
 
+        AutoSave.Start()
+
         rInterface = New RechercherInterface()
         pContainer.Controls.Add(rInterface)
         rInterface.SendToBack()
 
     End Sub
     Private Sub V2_Test_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
+
+        fillData()
+        My.Settings.Save()
 
         If Not sInterface Is Nothing Then sInterface.Dispose()
         If Not mInterface Is Nothing Then mInterface.Dispose()
@@ -87,6 +92,8 @@ Public Class V2_GUI
             Close()
         End If
 
+        adaptater = New SqlDataAdapter("SELECT * FROM data", sqlCo)
+
     End Sub
     Private Sub databaseOpen()
 
@@ -116,26 +123,49 @@ Public Class V2_GUI
     End Sub
     Private Sub fillData()
 
-        If isFirstCommit Then
-            'MsgBox("Commiting")
-            'databaseCommit()
-            isFirstCommit = False
-        End If
+        Console.WriteLine("LOG: filling...")
 
         Try
 
             databaseOpen()
 
-            Dim req As String = "SELECT * FROM data"
-            Dim command As New SqlCommand(req, sqlCo)
-            Dim adaptator As New SqlDataAdapter(command)
+            If Not isFirstCommit Then commitData() Else isFirstCommit = False
 
-            adaptator.Fill(data, "data")
+            data.Clear()
+            adaptater.Fill(data, "data")
 
             databaseClose()
 
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Erreur")
+        End Try
+
+        updateNameList()
+        If (Not rInterface Is Nothing) Then rInterface.updateNameList()
+
+    End Sub
+    Private Sub commitData()
+
+        Console.WriteLine("LOG: commiting...")
+
+        Try
+
+            Dim table As DataTable = data.Tables("data")
+            Dim adaptator = New SqlDataAdapter("SELECT * FROM data", sqlCo)
+            Dim cmdBuild As SqlCommandBuilder = New SqlCommandBuilder(adaptator)
+
+            adaptator.AcceptChangesDuringUpdate() = True
+            adaptator.DeleteCommand = cmdBuild.GetDeleteCommand(True)
+            adaptator.UpdateCommand = cmdBuild.GetUpdateCommand(True)
+            adaptator.InsertCommand = cmdBuild.GetInsertCommand(True)
+
+            Console.WriteLine("LOG: updated row = " & adaptator.Update(data, "data").ToString())
+
+            cmdBuild.Dispose()
+            adaptator.Dispose()
+
+        Catch ex As Exception
+            Console.WriteLine("Commit: " & ex.Message)
         End Try
 
     End Sub
@@ -206,7 +236,10 @@ Public Class V2_GUI
         nInterface.BringToFront()
 
     End Sub
-    Private Sub save() Handles mInterface.saveEvent
+    Private Async Sub save() Handles mInterface.saveEvent
+
+        Console.WriteLine("Saving...")
+        tick = 0
 
         If sInterface Is Nothing Then
             sInterface = SaveInterface.GetInstance()
@@ -217,6 +250,20 @@ Public Class V2_GUI
 
         sInterface.startAnimation()
 
+        ' Do save
+        Await Task.Run(
+             Sub()
+                 fillData()
+                 'If (Not rInterface Is Nothing) Then rInterface.reloadWithFilter() ' <= bug inter thread
+                 'Thread.Sleep(2000)
+             End Sub
+        )
+
+        sInterface.endAnimation()
+
+    End Sub
+    Private Sub animeUpdated() Handles aInterface.AnimeUpdated
+        save()
     End Sub
     Private Sub appExit() Handles mInterface.exitEvent
         Close()
@@ -227,7 +274,7 @@ Public Class V2_GUI
 #End Region
 
 #Region " RechercheEvent Handler "
-    Private Sub loadAnime(anime As Anime) Handles rInterface.loadAnimeEvent
+    Private Sub loadAnime(anime As Anime) Handles rInterface.LoadAnimeEvent
 
         If Not aInterface Is Nothing Then
             pContainer.Controls.Remove(aInterface)
@@ -243,22 +290,30 @@ Public Class V2_GUI
     End Sub
 #End Region
 
-#Region " UpdateAnimeEvent Handler "
-
 #Region " NewAnimeInterfaceEvent Handler "
     Private Sub addAnime(anime As Anime) Handles nInterface.newAnimeEvent
 
+        Console.WriteLine("LOG: Adding...")
 
+        Dim row As DataRow = data.Tables("data").NewRow()
+        row.BeginEdit()
+        row(1) = anime.Nom()
+        row(2) = anime.Lien()
+        row(3) = anime.Genre()
+        row(4) = anime.Episode()
+        row(5) = anime.DateSortie().ToString(anime.FORMAT)
+        row(6) = anime.Note()
+        row(7) = If(anime.Follow(), "1", "0")
+        row(8) = If(anime.SmartLink(), "1", "0")
+        row(9) = anime.Commentaire()
+        row(10) = If(anime.Finished(), "1", "0")
+        row.EndEdit()
+
+        data.Tables("data").Rows.Add(row)
+
+        fillData()
 
     End Sub
-#End Region
-
-#Region " AnimeInterfaceEvent Handler "
-    Private Sub updateAnime(anime As Anime) 'handles aInterface.updateAnimeEvent
-
-    End Sub
-#End Region
-
 #End Region
 
 #Region " Move Form "
@@ -289,6 +344,18 @@ Public Class V2_GUI
         End If
     End Sub
 
+#End Region
+
+#Region " AutoSave Function "
+    Private tick As Integer = 0
+    Private Const timeout As Integer = 1 'minute
+    Private Sub AutoSave_Tick(sender As Object, e As EventArgs) Handles AutoSave.Tick
+        tick += 1
+        If (tick = timeout) Then
+            tick = 0
+            save()
+        End If
+    End Sub
 #End Region
 
 End Class

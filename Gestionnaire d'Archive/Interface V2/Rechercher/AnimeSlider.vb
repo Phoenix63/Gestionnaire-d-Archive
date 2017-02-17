@@ -33,6 +33,7 @@
     End Sub
 
     Public Sub displayAny()
+        index = 0
         clearAnime()
         displaySlider()
         Me.noResponse.Visible = True

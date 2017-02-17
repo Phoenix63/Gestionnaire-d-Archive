@@ -32,14 +32,22 @@
     End Function
 
     Public Sub startAnimation()
-        Me.Visible = True
-        animateTickCount = 0
-        timerAnimation.Start()
+        MyBase.Invoke(
+            Sub()
+                Me.Visible = True
+                animateTickCount = 0
+                timerAnimation.Start()
+            End Sub
+        )
     End Sub
 
     Public Sub endAnimation()
-        Me.Visible = False
-        timerAnimation.Stop()
+        MyBase.Invoke(
+            Sub()
+                Me.Visible = False
+                timerAnimation.Stop()
+            End Sub
+        )
     End Sub
 
     Private Sub timerAnimation_Tick(sender As Object, e As EventArgs) Handles timerAnimation.Tick
