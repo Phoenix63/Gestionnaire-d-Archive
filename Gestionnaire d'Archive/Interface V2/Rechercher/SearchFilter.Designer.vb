@@ -23,15 +23,18 @@ Partial Class SearchFilter
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SearchFilter))
         Me.buildFilter = New System.Windows.Forms.Button()
         Me.aFinish = New System.Windows.Forms.CheckBox()
         Me.aFollow = New System.Windows.Forms.CheckBox()
         Me.aName = New System.Windows.Forms.TextBox()
         Me.Tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.aOut = New System.Windows.Forms.CheckBox()
+        Me.cbFini = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
-        Me.aOut = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cbSuivi = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'buildFilter
@@ -44,7 +47,7 @@ Partial Class SearchFilter
         Me.buildFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.buildFilter.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
         Me.buildFilter.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.search
-        Me.buildFilter.Location = New System.Drawing.Point(535, 75)
+        Me.buildFilter.Location = New System.Drawing.Point(535, 72)
         Me.buildFilter.Name = "buildFilter"
         Me.buildFilter.Padding = New System.Windows.Forms.Padding(0, 0, 2, 2)
         Me.buildFilter.Size = New System.Drawing.Size(30, 30)
@@ -60,12 +63,13 @@ Partial Class SearchFilter
         Me.aFinish.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.aFinish.FlatAppearance.BorderSize = 0
         Me.aFinish.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aFinish.Location = New System.Drawing.Point(463, 77)
+        Me.aFinish.Location = New System.Drawing.Point(465, 77)
         Me.aFinish.Name = "aFinish"
         Me.aFinish.Size = New System.Drawing.Size(68, 20)
         Me.aFinish.TabIndex = 0
         Me.aFinish.Text = "Terminé"
         Me.aFinish.UseVisualStyleBackColor = True
+        Me.aFinish.Visible = False
         '
         'aFollow
         '
@@ -74,13 +78,14 @@ Partial Class SearchFilter
         Me.aFollow.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.aFollow.FlatAppearance.BorderSize = 0
         Me.aFollow.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aFollow.Location = New System.Drawing.Point(411, 77)
+        Me.aFollow.Location = New System.Drawing.Point(409, 77)
         Me.aFollow.Name = "aFollow"
         Me.aFollow.Size = New System.Drawing.Size(51, 20)
         Me.aFollow.TabIndex = 0
         Me.aFollow.TabStop = False
         Me.aFollow.Text = "Suivi"
         Me.aFollow.UseVisualStyleBackColor = True
+        Me.aFollow.Visible = False
         '
         'aName
         '
@@ -93,18 +98,60 @@ Partial Class SearchFilter
         Me.aName.Location = New System.Drawing.Point(6, 69)
         Me.aName.MaxLength = 40
         Me.aName.Name = "aName"
-        Me.aName.ShortcutsEnabled = False
-        Me.aName.Size = New System.Drawing.Size(341, 35)
+        Me.aName.Size = New System.Drawing.Size(329, 35)
         Me.aName.TabIndex = 0
         Me.aName.TabStop = False
         Me.aName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.Tip.SetToolTip(Me.aName, "Filtre par nom (prioritaire sur les autres filtres)")
         '
+        'aOut
+        '
+        Me.aOut.AutoSize = True
+        Me.aOut.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aOut.FlatAppearance.BorderColor = System.Drawing.Color.White
+        Me.aOut.FlatAppearance.BorderSize = 0
+        Me.aOut.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
+        Me.aOut.Location = New System.Drawing.Point(342, 77)
+        Me.aOut.Name = "aOut"
+        Me.aOut.Size = New System.Drawing.Size(51, 20)
+        Me.aOut.TabIndex = 1
+        Me.aOut.TabStop = False
+        Me.aOut.Text = "Sorti"
+        Me.aOut.UseVisualStyleBackColor = True
+        '
+        'cbFini
+        '
+        Me.cbFini.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.cbFini.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cbFini.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cbFini.FormatString = "  "
+        Me.cbFini.FormattingEnabled = True
+        Me.cbFini.ItemHeight = 13
+        Me.cbFini.Items.AddRange(New Object() {"Aucun", "En cours", "Terminé"})
+        Me.cbFini.Location = New System.Drawing.Point(465, 84)
+        Me.cbFini.Name = "cbFini"
+        Me.cbFini.Size = New System.Drawing.Size(65, 21)
+        Me.cbFini.TabIndex = 2
+        Me.cbFini.Text = "Aucun"
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.SystemColors.MenuBar
+        Me.Label1.Font = New System.Drawing.Font("Palatino Linotype", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(465, 69)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
+        Me.Label1.Size = New System.Drawing.Size(65, 15)
+        Me.Label1.TabIndex = 3
+        Me.Label1.Text = "Etat"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
         'aRank
         '
-        Me.aRank.ActiveStar = CType(resources.GetObject("aRank.ActiveStar"), System.Drawing.Bitmap)
+        Me.aRank.ActiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.activestar
         Me.aRank.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aRank.InactiveStar = CType(resources.GetObject("aRank.InactiveStar"), System.Drawing.Bitmap)
+        Me.aRank.InactiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
         Me.aRank.Location = New System.Drawing.Point(7, 13)
         Me.aRank.Margin = New System.Windows.Forms.Padding(0)
         Me.aRank.MaximumSize = New System.Drawing.Size(175, 35)
@@ -127,31 +174,47 @@ Partial Class SearchFilter
         Me.aFilter.MinimumSize = New System.Drawing.Size(380, 54)
         Me.aFilter.Name = "aFilter"
         Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
-        Me.aFilter.Separator = Nothing
         Me.aFilter.Size = New System.Drawing.Size(380, 54)
         Me.aFilter.TabIndex = 0
         Me.Tip.SetToolTip(Me.aFilter, "Genre")
         '
-        'aOut
+        'Label2
         '
-        Me.aOut.AutoSize = True
-        Me.aOut.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aOut.FlatAppearance.BorderColor = System.Drawing.Color.White
-        Me.aOut.FlatAppearance.BorderSize = 0
-        Me.aOut.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aOut.Location = New System.Drawing.Point(355, 77)
-        Me.aOut.Name = "aOut"
-        Me.aOut.Size = New System.Drawing.Size(51, 20)
-        Me.aOut.TabIndex = 1
-        Me.aOut.TabStop = False
-        Me.aOut.Text = "Sorti"
-        Me.aOut.UseVisualStyleBackColor = True
+        Me.Label2.BackColor = System.Drawing.SystemColors.MenuBar
+        Me.Label2.Font = New System.Drawing.Font("Palatino Linotype", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Location = New System.Drawing.Point(393, 68)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
+        Me.Label2.Size = New System.Drawing.Size(65, 15)
+        Me.Label2.TabIndex = 5
+        Me.Label2.Text = "Suivi"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'cbSuivi
+        '
+        Me.cbSuivi.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.cbSuivi.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.cbSuivi.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cbSuivi.FormatString = "  "
+        Me.cbSuivi.FormattingEnabled = True
+        Me.cbSuivi.ItemHeight = 13
+        Me.cbSuivi.Items.AddRange(New Object() {"Aucun", "Oui", "Non"})
+        Me.cbSuivi.Location = New System.Drawing.Point(393, 83)
+        Me.cbSuivi.Name = "cbSuivi"
+        Me.cbSuivi.Size = New System.Drawing.Size(65, 21)
+        Me.cbSuivi.TabIndex = 4
+        Me.cbSuivi.Text = "Aucun"
         '
         'SearchFilter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.cbSuivi)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.cbFini)
         Me.Controls.Add(Me.aOut)
         Me.Controls.Add(Me.aName)
         Me.Controls.Add(Me.aFinish)
@@ -173,5 +236,9 @@ Partial Class SearchFilter
     Friend WithEvents aName As System.Windows.Forms.TextBox
     Friend WithEvents Tip As System.Windows.Forms.ToolTip
     Friend WithEvents aOut As System.Windows.Forms.CheckBox
+    Friend WithEvents cbFini As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents cbSuivi As System.Windows.Forms.ComboBox
 
 End Class

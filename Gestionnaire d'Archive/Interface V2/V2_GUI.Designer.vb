@@ -134,7 +134,6 @@ Partial Class V2_GUI
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "V2_GUI"
-        Me.ShowIcon = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Gestionnaire d'Archive"

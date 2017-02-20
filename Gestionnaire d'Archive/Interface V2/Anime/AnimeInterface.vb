@@ -19,19 +19,22 @@
         Me.BackColor = Color.Transparent
         _anime = anime
 
-        If _anime.Genre().Split("; ").Length > 1 Then
+        If Split(_anime.Genre(), "; ").Count > 1 Then
             _separator = "; "
-        ElseIf _anime.Genre().Split(";").Length > 1 Then
-            _separator = ";"
-        ElseIf _anime.Genre().Split(", ").Length > 1 Then
+        ElseIf Split(_anime.Genre(), ", ").Count > 1 Then
             _separator = ", "
-        ElseIf _anime.Genre().Split(",").Length > 1 Then
+        ElseIf Split(_anime.Genre(), ",").Count > 1 Then
             _separator = ","
         Else
             _separator = ";"
         End If
 
-        Console.WriteLine("LOG: " & _separator & "|< " & _anime.Genre().Split(_separator)(0))
+        Console.WriteLine("LOG: genre = " & anime.Genre())
+        Console.Write("LOG: (" & _separator & "): ")
+        For Each e In _anime.Genre().Split(_separator)
+            Console.Write(e & _separator)
+        Next
+        Console.WriteLine()
 
     End Sub
 
@@ -135,9 +138,30 @@
     Private Sub displayPicture(name As String)
 
         Dim pictPath As String
-        pictPath = Application.StartupPath + "\PICTURES\" + name.ToLowerInvariant() + ".png"
+        Dim pictFound As Boolean = False
+        Dim exts() As String = {".png", ".jpg", ".bmp"}
+        Dim formalizedName As String = ""
 
-        If (System.IO.File.Exists(pictPath)) Then
+        formalizedName = name.Replace(":", "") _
+                             .Replace("\", "") _
+                             .Replace("/", "") _
+                             .Replace("*", "") _
+                             .Replace("?", "") _
+                             .Replace(">", "") _
+                             .Replace("<", "") _
+                             .Replace("|", "") _
+                             .Replace(Chr(34), "") ' guillemet
+
+        pictPath = Application.StartupPath & "\PICTURES\" & formalizedName
+        For Each ext In exts
+            If (System.IO.File.Exists(pictPath & ext)) Then
+                pictPath = pictPath & ext
+                pictFound = True
+                Exit For
+            End If
+        Next
+
+        If (pictFound) Then
             aPicture.Image = New Bitmap(pictPath)
         Else
             aPicture.Image = My.Resources.defaultPic

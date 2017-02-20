@@ -85,6 +85,7 @@ Partial Class MenuInterface
         'mLoad
         '
         Me.mLoad.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mLoad.Enabled = False
         Me.mLoad.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.mLoad.FlatAppearance.BorderSize = 0
         Me.mLoad.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
@@ -115,6 +116,7 @@ Partial Class MenuInterface
         'mSignin
         '
         Me.mSignin.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mSignin.Enabled = False
         Me.mSignin.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.mSignin.FlatAppearance.BorderSize = 0
         Me.mSignin.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
@@ -130,6 +132,7 @@ Partial Class MenuInterface
         'mInfo
         '
         Me.mInfo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.mInfo.Enabled = False
         Me.mInfo.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.mInfo.FlatAppearance.BorderSize = 0
         Me.mInfo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption

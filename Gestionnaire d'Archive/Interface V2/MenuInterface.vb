@@ -30,11 +30,13 @@ Public Class MenuInterface
     End Sub
 
     ' Outer Event
-    Public Event saveEvent()
-    Public Event newEvent()
-    Public Event loadEvent()
-    Public Event exitEvent()
-    Public Event menuCloseEvent()
+    Public Event NewEvent()
+    Public Event SaveEvent()
+    Public Event LoadEvent()
+    Public Event SigninEvent()
+    Public Event InfoEvent()
+    Public Event ExitEvent()
+    Public Event MenuClosingEvent()
 
     ' La méthode GetInstance doit être Shared <=> Static
     Public Shared Function GetInstance() As MenuInterface
@@ -56,13 +58,13 @@ Public Class MenuInterface
         timerAnimation.Start()
     End Sub
     Public Sub menuClose()
-        RaiseEvent menuCloseEvent()
+        RaiseEvent MenuClosingEvent()
         mode = AnimationMode.Close
         timerAnimation.Start()
     End Sub
     Private Sub timerAnimation_Tick(sender As Object, e As EventArgs) Handles timerAnimation.Tick
 
-        Me.Invalidate(New Rectangle(New Point(150, 0), New Point(450, 400)), True)
+        'Me.Invalidate(New Rectangle(New Point(150, 0), New Point(450, 400)), True)
 
         If (mode = AnimationMode.Open) Then
             If (Me.Left = 0) Then
@@ -97,26 +99,28 @@ Public Class MenuInterface
         menuClose()
     End Sub
     Private Sub newClick(sender As Object, e As EventArgs) Handles mNew.Click
+        RaiseEvent NewEvent()
         menuClose()
-        RaiseEvent newEvent()
     End Sub
     Private Sub saveClick(sender As Object, e As EventArgs) Handles mSave.Click
+        RaiseEvent SaveEvent()
         menuClose()
-        RaiseEvent saveEvent()
     End Sub
     Private Sub loadClick(sender As Object, e As EventArgs) Handles mLoad.Click
+        RaiseEvent LoadEvent()
         menuClose()
-        RaiseEvent loadEvent()
     End Sub
     Private Sub signinClick(sender As Object, e As EventArgs) Handles mSignin.Click
+        RaiseEvent SigninEvent()
         menuClose()
     End Sub
     Private Sub infoClick(sender As Object, e As EventArgs) Handles mInfo.Click
+        RaiseEvent InfoEvent()
         menuClose()
     End Sub
     Private Sub exitClick(sender As Object, e As EventArgs) Handles mExit.Click
+        RaiseEvent ExitEvent()
         menuClose()
-        RaiseEvent exitEvent()
     End Sub
     Private Sub MenuInterface_Click(sender As Object, e As EventArgs) Handles MyBase.Click
         menuClose()

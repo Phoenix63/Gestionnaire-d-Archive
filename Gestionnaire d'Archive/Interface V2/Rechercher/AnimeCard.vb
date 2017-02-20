@@ -25,14 +25,36 @@
     Private Sub AnimeCard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Dim pictPath As String
-        pictPath = Application.StartupPath + "\PICTURES\" + _anime.Nom().ToLowerInvariant() + ".png"
+        Dim pictFound As Boolean = False
+        Dim exts() As String = {".png", ".jpg", ".bmp"}
+        Dim formalizedName As String = ""
 
-        cardName.Text = _anime.Nom()
-        If (System.IO.File.Exists(pictPath)) Then
+        formalizedName = _anime.Nom().Replace(":", "") _
+                                     .Replace("\", "") _
+                                     .Replace("/", "") _
+                                     .Replace("*", "") _
+                                     .Replace("?", "") _
+                                     .Replace(">", "") _
+                                     .Replace("<", "") _
+                                     .Replace("|", "") _
+                                     .Replace(Chr(34), "") ' guillemet
+
+        pictPath = Application.StartupPath & "\PICTURES\" & formalizedName
+        For Each ext In exts
+            If (System.IO.File.Exists(pictPath & ext)) Then
+                pictPath = pictPath & ext
+                pictFound = True
+                Exit For
+            End If
+        Next
+
+        If (pictFound) Then
             cardFont.Image = New Bitmap(pictPath)
         Else
             cardFont.Image = My.Resources.defaultPic
         End If
+
+        cardName.Text = _anime.Nom()
 
     End Sub
 

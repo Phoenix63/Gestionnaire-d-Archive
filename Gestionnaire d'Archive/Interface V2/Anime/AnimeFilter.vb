@@ -99,7 +99,7 @@ Public Class AnimeFilter
 
     Private itemList As New List(Of Item)
     Private _active As Boolean = False
-    Private _separator As String = Nothing
+    Private Const _separator As String = ";"
 
     ' Inner Event
     Private Event ActiveChanged(value As Boolean)
@@ -118,7 +118,6 @@ Public Class AnimeFilter
     Public Sub New(ByVal gender As String, ByVal separator As String)
 
         Me.New()
-        _separator = separator
         fillItemList(gender, separator)
 
     End Sub
@@ -132,13 +131,10 @@ Public Class AnimeFilter
             If (value <> _active) Then RaiseEvent ActiveChanged(value)
         End Set
     End Property
-    Public Property Separator() As String
+    Public ReadOnly Property Separator() As String
         Get
             Return _separator
         End Get
-        Set(value As String)
-            _separator = value
-        End Set
     End Property
 #End Region
 
@@ -169,7 +165,7 @@ Public Class AnimeFilter
 
         If itemList.Count = 0 Then
 
-            If _separator Is Nothing Then _separator = separator
+            'If _separator Is Nothing Then _separator = separator
 
             Dim item As Item
             Dim strSplitted As String() = Split(gender, separator)

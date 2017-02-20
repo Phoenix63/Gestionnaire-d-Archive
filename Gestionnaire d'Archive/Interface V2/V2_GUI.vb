@@ -14,7 +14,6 @@ Public Class V2_GUI
     Private WithEvents shader As ShaderScreen = New ShaderScreen()
 
     Private sqlCo As SqlConnection
-    Private adaptater As SqlDataAdapter = Nothing
     Public Shared data As DataSet = New DataSet("data")
     Public Shared nameList As List(Of String) = New List(Of String)
 
@@ -22,6 +21,13 @@ Public Class V2_GUI
     Private Sub V2_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.title.Text = Me.Text
+
+        If (Dir(Application.StartupPath & "\Uplauncher GA.new") <> "") Then
+
+            My.Computer.FileSystem.DeleteFile(Application.StartupPath & "\Uplauncher GA.exe")
+            My.Computer.FileSystem.RenameFile(Application.StartupPath & "\Uplauncher GA.new", "Uplauncher GA.exe")
+
+        End If
 
         databaseInitialization()
         fillData()
@@ -92,8 +98,6 @@ Public Class V2_GUI
             Close()
         End If
 
-        adaptater = New SqlDataAdapter("SELECT * FROM data", sqlCo)
-
     End Sub
     Private Sub databaseOpen()
 
@@ -130,6 +134,8 @@ Public Class V2_GUI
             databaseOpen()
 
             If Not isFirstCommit Then commitData() Else isFirstCommit = False
+
+            Dim adaptater As SqlDataAdapter = New SqlDataAdapter("SELECT * FROM data", sqlCo)
 
             data.Clear()
             adaptater.Fill(data, "data")
@@ -193,7 +199,7 @@ Public Class V2_GUI
 
 #Region " Header "
     Private Sub bt_close_Click(sender As Object, e As EventArgs) Handles bt_close.Click
-        appExit()
+        doAppExit()
     End Sub
     Private Sub bt_reduce_Click(sender As Object, e As EventArgs) Handles bt_reduce.Click
         Me.WindowState = FormWindowState.Minimized
@@ -223,7 +229,7 @@ Public Class V2_GUI
 #End Region
 
 #Region " MenuEvent Handler "
-    Private Sub newAnime() Handles mInterface.newEvent
+    Private Sub doNewAnimeInterface() Handles mInterface.NewEvent
 
         If Not nInterface Is Nothing Then
             pContainer.Controls.Remove(nInterface)
@@ -236,7 +242,7 @@ Public Class V2_GUI
         nInterface.BringToFront()
 
     End Sub
-    Private Async Sub save() Handles mInterface.saveEvent
+    Private Async Sub doSave() Handles mInterface.SaveEvent
 
         Console.WriteLine("Saving...")
         tick = 0
@@ -262,13 +268,19 @@ Public Class V2_GUI
         sInterface.endAnimation()
 
     End Sub
-    Private Sub animeUpdated() Handles aInterface.AnimeUpdated
-        save()
+    Private Sub doLoad() Handles mInterface.LoadEvent
+        'Not implemented
     End Sub
-    Private Sub appExit() Handles mInterface.exitEvent
+    Private Sub doSignin() Handles mInterface.SigninEvent
+        'Not implemented
+    End Sub
+    Private Sub doInfo() Handles mInterface.InfoEvent
+        'Not implemented
+    End Sub
+    Private Sub doAppExit() Handles mInterface.ExitEvent
         Close()
     End Sub
-    Private Sub shader_fadeout() Handles mInterface.menuCloseEvent
+    Private Sub doShaderFadeout() Handles mInterface.MenuClosingEvent
         shader.Visible = False
     End Sub
 #End Region
@@ -287,6 +299,12 @@ Public Class V2_GUI
         pContainer.Controls.Add(aInterface)
         aInterface.BringToFront()
 
+    End Sub
+#End Region
+
+#Region " AnimeInterfaceEvent Handler "
+    Private Sub animeUpdated() Handles aInterface.AnimeUpdated
+        doSave()
     End Sub
 #End Region
 
@@ -353,7 +371,7 @@ Public Class V2_GUI
         tick += 1
         If (tick = timeout) Then
             tick = 0
-            save()
+            doSave()
         End If
     End Sub
 #End Region

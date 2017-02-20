@@ -24,21 +24,17 @@
         Dim rank As Integer = aRank.Rank
         Dim gender As String = aFilter.getActiveItem()
         Dim name As String = aName.Text
-        Dim follow As Boolean = aFollow.Checked
-        Dim finish As Boolean = aFinish.Checked
+        'Dim follow As Boolean = aFollow.Checked
+        'Dim finish As Boolean = aFinish.Checked
 
         Dim query As String = ""
         If name.Equals("") Then
-
-            query = "Note >= '" & IIf(rank = 1, 0, rank) & "'" _
-                & " AND Follow = '" & IIf(follow, 1, 0) & "'" _
-                & " AND Fini = '" & IIf(finish, 1, 0) & "'"
 
             If Not gender.Equals("") Then
 
                 Dim genderSplit As String() = gender.Split(aFilter.Separator())
 
-                query = query & " AND ("
+                query = "("
                 For Each e As String In genderSplit
                     If e.Equals(genderSplit(0)) Then
                         query = query & "Genre LIKE '%" & e & "%'"
@@ -48,17 +44,31 @@
                 Next
                 query = query & ")"
 
+            Else
+                query = "Note >= '" & IIf(rank = 1, 0, rank) & "'"
+            End If
+
+            If cbSuivi.SelectedIndex() > 0 Then
+                query = query & " AND Follow = '" & IIf(cbSuivi.SelectedIndex() = 1, "1", "0") & "'"
+            End If
+
+            If cbFini.SelectedIndex() > 0 Then
+                query = query & " AND Fini = '" & IIf(cbFini.SelectedIndex() = 1, "0", "1") & "'"
             End If
 
         Else
-            query = "Nom LIKE '" & name.ToLowerInvariant() & "%'"
+                query = "Nom LIKE '" & name.ToLowerInvariant() & "%'"
         End If
+
+        Console.WriteLine("LOG: " & query)
+        Console.WriteLine("LOG: cbSuivi = " & cbSuivi.SelectedIndex & " - cbFini = " & cbFini.SelectedIndex)
 
         RaiseEvent FilterBuilt(query, aOut.Checked())
 
     End Sub
 
 #Region " Handler "
+    Private onOut As Boolean = False
     Private Sub buildFilter_Click(sender As Object, e As EventArgs) Handles buildFilter.Click
         build()
     End Sub
@@ -68,11 +78,29 @@
         End If
     End Sub
     Private Sub aOut_CheckedChanged(sender As Object, e As EventArgs) Handles aOut.CheckedChanged
-        aFollow.Checked = sender.Checked()
+
+        If aOut.Checked Then
+            cbSuivi.SelectedIndex = 1
+            cbFini.SelectedIndex = 1
+        ElseIf onOut Then
+            cbSuivi.SelectedIndex = 0
+            cbFini.SelectedIndex = 0
+        End If ' TODO: test
+
+        onOut = aOut.Checked()
+
     End Sub
     Private Sub aFollow_CheckedChanged(sender As Object, e As EventArgs) Handles aFollow.CheckedChanged
         aOut.Checked = If(sender.Checked(), aOut.Checked, False)
     End Sub
-#End Region
+    Private Sub cb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSuivi.SelectedIndexChanged, cbFini.SelectedIndexChanged
 
+        If onOut Then
+            aOut.Checked = False
+            onOut = False
+        End If
+
+    End Sub
+#End Region
+    
 End Class
