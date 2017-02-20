@@ -31,9 +31,9 @@ Partial Class SaveInterface
         'saveText
         '
         Me.saveText.Font = New System.Drawing.Font("Myriad Web Pro", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.saveText.Location = New System.Drawing.Point(-1, 25)
+        Me.saveText.Location = New System.Drawing.Point(0, 25)
         Me.saveText.Name = "saveText"
-        Me.saveText.Size = New System.Drawing.Size(202, 18)
+        Me.saveText.Size = New System.Drawing.Size(200, 18)
         Me.saveText.TabIndex = 0
         Me.saveText.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '

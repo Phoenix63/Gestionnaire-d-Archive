@@ -37,26 +37,29 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Gestionnaire d%27Archive.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>true</Prefer32Bit>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>Full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Gestionnaire d%27Archive.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DebugSymbols>true</DebugSymbols>
     <Prefer32Bit>true</Prefer32Bit>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -93,7 +96,7 @@
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>GAico.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\GAico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>GestionnaireArchiveCustomKey.pfx</ManifestKeyFile>
@@ -101,6 +104,11 @@
   <ItemGroup>
     <Reference Include="DLL Account">
       <HintPath>..\..\GA Cloud\GA Cloud\bin\Release\DLL Account.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Shader">
+      <HintPath>..\..\Shader\Shader\bin\Debug\Shader.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>True</Private>
@@ -110,9 +118,13 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.SqlServer" />
@@ -133,40 +145,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anime.vb" />
-    <Compile Include="AnimeSortiePanel.vb">
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="Interface V1\AnimeInterface\AnimeSortiePanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AnimeEnCoursPanel.vb">
+    <Compile Include="Interface V1\AnimeInterface\AnimeEnCoursPanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AnimeFiniPanel.vb">
+    <Compile Include="Interface V1\AnimeInterface\AnimeFiniPanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AnimePanel.vb">
+    <Compile Include="Interface V1\AnimeInterface\AnimePanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BasePanel.vb">
+    <Compile Include="Interface V1\BasePanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FinalizePanel.vb">
+    <Compile Include="Interface V1\FinalizePanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Interface V2\AnimeFilter.Designer.vb">
+    <Compile Include="Interface V2\Anime\AnimeFilter.Designer.vb">
       <DependentUpon>AnimeFilter.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\AnimeFilter.vb">
+    <Compile Include="Interface V2\Anime\AnimeFilter.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\RechercherInterface.Designer.vb">
+    <Compile Include="Interface V2\Anime\NewAnimeInterface.Designer.vb">
+      <DependentUpon>NewAnimeInterface.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Anime\NewAnimeInterface.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeCard.Designer.vb">
+      <DependentUpon>AnimeCard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeCard.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeSlider.Designer.vb">
+      <DependentUpon>AnimeSlider.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\AnimeSlider.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\RechercherInterface.Designer.vb">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\RechercherInterface.vb">
+    <Compile Include="Interface V2\Rechercher\RechercherInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\AnimeInterface.Designer.vb">
+    <Compile Include="Interface V2\Anime\AnimeInterface.Designer.vb">
       <DependentUpon>AnimeInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\AnimeInterface.vb">
+    <Compile Include="Interface V2\Anime\AnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\MenuInterface.Designer.vb">
@@ -175,16 +206,22 @@
     <Compile Include="Interface V2\MenuInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Interface V2\Rechercher\SearchFilter.Designer.vb">
+      <DependentUpon>SearchFilter.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Rechercher\SearchFilter.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Interface V2\SaveInterface.Designer.vb">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </Compile>
     <Compile Include="Interface V2\SaveInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\StarRanking.Designer.vb">
+    <Compile Include="Interface V2\Anime\StarRanking.Designer.vb">
       <DependentUpon>StarRanking.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\StarRanking.vb">
+    <Compile Include="Interface V2\Anime\StarRanking.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\V2_GUI.Designer.vb">
@@ -193,16 +230,16 @@
     <Compile Include="Interface V2\V2_GUI.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoadPanel.vb">
+    <Compile Include="Interface V1\LoadPanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Main.designer.vb">
+    <Compile Include="Interface V1\Main.designer.vb">
       <DependentUpon>Main.vb</DependentUpon>
     </Compile>
-    <Compile Include="Main.vb">
+    <Compile Include="Interface V1\Main.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModifierPanel.vb">
+    <Compile Include="Interface V1\SetInterface\ModifierPanel.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -220,36 +257,48 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="NouveauPanel.vb">
+    <Compile Include="Interface V1\SetInterface\NouveauPanel.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SetPanel.vb">
+    <Compile Include="Interface V1\SetInterface\SetPanel.vb">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Interface V2\AnimeFilter.resx">
+    <EmbeddedResource Include="Interface V2\Anime\AnimeFilter.resx">
       <DependentUpon>AnimeFilter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\RechercherInterface.resx">
+    <EmbeddedResource Include="Interface V2\Anime\NewAnimeInterface.resx">
+      <DependentUpon>NewAnimeInterface.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
+      <DependentUpon>AnimeCard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\AnimeSlider.resx">
+      <DependentUpon>AnimeSlider.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\RechercherInterface.resx">
       <DependentUpon>RechercherInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\AnimeInterface.resx">
+    <EmbeddedResource Include="Interface V2\Anime\AnimeInterface.resx">
       <DependentUpon>AnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\MenuInterface.resx">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Rechercher\SearchFilter.resx">
+      <DependentUpon>SearchFilter.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\SaveInterface.resx">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\StarRanking.resx">
+    <EmbeddedResource Include="Interface V2\Anime\StarRanking.resx">
       <DependentUpon>StarRanking.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\V2_GUI.resx">
       <DependentUpon>V2_GUI.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
+    <EmbeddedResource Include="Interface V1\Main.resx">
       <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -273,13 +322,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\activestar.png" />
+    <Content Include="Resources\inactivestar.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\shader.png" />
+    <None Include="Resources\cloturer.png" />
+    <None Include="Resources\supprimer.png" />
+    <None Include="Resources\modif-ok.png" />
+    <None Include="Resources\modif.png" />
+    <None Include="Resources\decloturer.png" />
+    <None Include="Resources\ico.jpg" />
     <Content Include="DataBase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="DataBase_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="GAico.ico" />
+    <Content Include="Resources\GAico.ico" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\option.png" />
     <None Include="PICTURES\default.png" />
   </ItemGroup>
   <ItemGroup>

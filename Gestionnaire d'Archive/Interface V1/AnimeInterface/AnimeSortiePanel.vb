@@ -15,9 +15,9 @@ Public Class AnimeSortiePanel
 
         Me.New(form)
 
-        If (Not anime.getFinished()) Then
+        If (Not anime.Finished()) Then
 
-            Me._animeList.Text = anime.getNom()
+            Me._animeList.Text = anime.Nom()
             Me._animeList.SelectedIndex = Me._animeList.FindString(Me._animeList.Text)
 
         End If
@@ -56,16 +56,16 @@ Public Class AnimeSortiePanel
                                             If(line("Fini") = "1", True))
 
                 Dim dateNow As Date = Now.Date
-                Dim dateCmp As Date = animeTemp.getDate()
+                Dim dateCmp As Date = animeTemp.DateSortie()
                 Dim diff As Integer = DateDiff(DateInterval.Day, dateCmp, dateNow, FirstDayOfWeek.Monday)
-                Dim ep As Integer = animeTemp.getEpisode()
+                Dim ep As Integer = animeTemp.Episode()
 
                 Dim nbEp As Integer = 1 + Math.Floor(diff / 7) 'Nb d'épisode depuis le début de l'animé
                 Dim nextEp As Integer = (7 * (ep - 1)) - (diff Mod 7) - (7 * (nbEp - 1)) 'Prochain ep dans
 
                 'L'animé n'est pas encore sorti, on le supprime de la view
                 If nextEp > 0 Then
-                    filter += " And Nom <> '" & animeTemp.getNom & "'"
+                    filter += " And Nom <> '" & animeTemp.Nom() & "'"
                 End If
 
             Next

@@ -99,6 +99,7 @@ Public Class AnimeFilter
 
     Private itemList As New List(Of Item)
     Private _active As Boolean = False
+    Private Const _separator As String = ";"
 
     ' Inner Event
     Private Event ActiveChanged(value As Boolean)
@@ -109,15 +110,15 @@ Public Class AnimeFilter
         InitializeComponent()
 
         ' Ajoutez une initialisation quelconque après l'appel InitializeComponent().
-        Me.MinimumSize = New Point(MyBase.Width, 79)
-        Me.MaximumSize = New Point(0, 79)
+        Me.MinimumSize = New Point(MyBase.Width, 54)
+        Me.MaximumSize = New Point(0, 54)
         Me.AutoScrollOffset = New Point(0, 25)
 
     End Sub
-    Public Sub New(ByVal gender As String)
+    Public Sub New(ByVal gender As String, ByVal separator As String)
 
         Me.New()
-        fillItemList(gender)
+        fillItemList(gender, separator)
 
     End Sub
 
@@ -129,6 +130,11 @@ Public Class AnimeFilter
         Set(value As Boolean)
             If (value <> _active) Then RaiseEvent ActiveChanged(value)
         End Set
+    End Property
+    Public ReadOnly Property Separator() As String
+        Get
+            Return _separator
+        End Get
     End Property
 #End Region
 
@@ -159,6 +165,8 @@ Public Class AnimeFilter
 
         If itemList.Count = 0 Then
 
+            'If _separator Is Nothing Then _separator = separator
+
             Dim item As Item
             Dim strSplitted As String() = Split(gender, separator)
 
@@ -174,6 +182,22 @@ Public Class AnimeFilter
         End If
 
     End Sub
+    Public Function getActiveItem() As String
+
+        Dim ret As String = ""
+
+        For Each i In itemList
+            If i.Active Then
+                If ret <> "" Then
+                    ret += _separator
+                End If
+                ret += i.Text
+            End If
+        Next
+
+        Return ret
+
+    End Function
     Private Shared Function CompareItemByActive(ByVal x As Item, ByVal y As Item) As Integer
 
         If x Is Nothing Then

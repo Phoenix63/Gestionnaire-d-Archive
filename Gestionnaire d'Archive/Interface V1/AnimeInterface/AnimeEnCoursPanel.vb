@@ -1,25 +1,23 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class AnimeFiniPanel
+Public Class AnimeEnCoursPanel
     Inherits AnimePanel
 
     Public Sub New(form As Form)
 
         MyBase.New(form)
 
-        Me._subtitle.Text = "Animé terminé"
-        Me._subtitle.ForeColor = Color.LightBlue
-
-        Me.Controls.Item("nom").Controls.RemoveByKey("nextEp")
+        Me._subtitle.Text = "Animé en cours"
+        Me._subtitle.ForeColor = Color.Green
 
     End Sub
     Public Sub New(form As Form, anime As Anime)
 
         Me.New(form)
 
-        If (anime.getFinished()) Then
+        If (Not anime.Finished()) Then
 
-            Me._animeList.Text = anime.getNom()
+            Me._animeList.Text = anime.Nom()
             Me._animeList.SelectedIndex = Me._animeList.FindString(Me._animeList.Text)
 
         End If
@@ -38,7 +36,7 @@ Public Class AnimeFiniPanel
         Try
 
             Me.dataView = New DataView(dataTable)
-            Me.dataView.RowFilter() = "Fini = '1'"
+            Me.dataView.RowFilter() = "Fini = '0'"
             Me.dataView.Sort() = "Nom ASC"
 
         Catch ex As Exception

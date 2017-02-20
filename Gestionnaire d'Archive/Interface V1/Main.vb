@@ -196,7 +196,7 @@ Public Class Main
     Public Function isDuplicateAnime(ByVal anime As Anime) As Boolean
 
         Dim table As DataTable = dataSet.Tables("data")
-        Dim row() As DataRow = table.Select("Nom = '" & anime.getNom() & "'")
+        Dim row() As DataRow = table.Select("Nom = '" & anime.Nom() & "'")
 
         Return If(row.Length <> 0, True, False)
 
@@ -337,7 +337,7 @@ Public Class Main
     End Sub
     Private Sub cloturer_Click(sender As Object, e As EventArgs) Handles cloturer.Click
 
-        Dim row As DataRow = dataSet.Tables("data").Select("Nom = '" & _basePanel._anime.getNom() & "'")(0)
+        Dim row As DataRow = dataSet.Tables("data").Select("Nom = '" & _basePanel._anime.Nom() & "'")(0)
 
         row.BeginEdit()
         row(10) = If(sender.text = "Cloturer", "1", "0")
@@ -348,7 +348,7 @@ Public Class Main
     End Sub
     Private Sub supprimer_Click(sender As Object, e As EventArgs) Handles supprimer.Click
 
-        Dim row As DataRow = dataSet.Tables("data").Select("Nom = '" & _basePanel._anime.getNom() & "'")(0)
+        Dim row As DataRow = dataSet.Tables("data").Select("Nom = '" & _basePanel._anime.Nom() & "'")(0)
         row.Delete()
 
         loadMenu()

@@ -312,14 +312,14 @@ Public MustInherit Class AnimePanel
                               If(dataView.Item(_animeList.SelectedIndex)("SmartLink") = "1", True),
                               If(dataView.Item(_animeList.SelectedIndex)("Fini") = "1", True))
 
-        _nom.Text = Me._anime.getNom()
+        _nom.Text = Me._anime.Nom()
         _lien.Text = smartLink()
-        _episode.Text = Me._anime.getEpisode().ToString()
+        _episode.Text = Me._anime.Episode().ToString()
         _follow.Text = follow()
-        _genre.Text = Me._anime.getGenre()
-        _date.Text = Me._anime.getDate().ToString(Anime.FORMAT)
-        _note.Text = Me._anime.getNote() & "/5"
-        _commentaire.Text = Me._anime.getCommentaire()
+        _genre.Text = Me._anime.Genre()
+        _date.Text = Me._anime.DateSortie().ToString(Anime.FORMAT)
+        _note.Text = Me._anime.Note() & "/5"
+        _commentaire.Text = Me._anime.Commentaire()
 
     End Sub
     Public Shared Sub setMenuEditionEnabled(Optional value As Boolean = False)
@@ -337,18 +337,18 @@ Public MustInherit Class AnimePanel
     End Sub
     Private Function smartLink() As String
 
-        Dim link As String = Me._anime.getLien()
+        Dim link As String = Me._anime.Lien()
 
-        If (Me._anime.getSmartLink()) Then
+        If (Me._anime.SmartLink()) Then
 
             Dim localRegex As New Regex("^[A-Z]:\\")
             Dim dirPath As String = IO.Path.GetDirectoryName(link)
             Dim filePath As String = IO.Path.GetFileName(link)
 
             If checkPath(filePath, "001") Then
-                filePath = filePath.Replace("001", normalize(3, Me._anime.getEpisode()))
+                filePath = filePath.Replace("001", normalize(3, Me._anime.Episode()))
             ElseIf checkPath(filePath, "01") Then
-                filePath = filePath.Replace("01", normalize(2, Me._anime.getEpisode()))
+                filePath = filePath.Replace("01", normalize(2, Me._anime.Episode()))
             ElseIf link.Contains("episode-") Then
 
                 Dim epIndex As Integer, i As Integer
@@ -361,7 +361,7 @@ Public MustInherit Class AnimePanel
                     newLink += link(i)
                 Next
 
-                newLink += "" & Me._anime.getEpisode()
+                newLink += "" & Me._anime.Episode()
                 i = epIndex + 1
 
                 While link(i) <> "-" Or i = link.Length
@@ -418,12 +418,12 @@ Public MustInherit Class AnimePanel
 
         Dim ret As String = ""
 
-        If _anime.getFollow() Then
+        If _anime.Follow() Then
 
             Dim dateNow As Date = Now.Date
-            Dim dateCmp As Date = _anime.getDate()
+            Dim dateCmp As Date = _anime.DateSortie()
             Dim diff As Integer = DateDiff(DateInterval.Day, dateCmp, dateNow, FirstDayOfWeek.Monday) 'Date de sortie de l'animé - Date actuelle
-            Dim ep As Integer = _anime.getEpisode()
+            Dim ep As Integer = _anime.Episode()
 
             Dim nbEp As Integer = 1 + Math.Floor(diff / 7) 'Nb d'épisode depuis le début de l'animé
             Dim nextEp As Integer = (7 * (ep - 1)) - (diff Mod 7) - (7 * (nbEp - 1)) 'Prochain ep dans
@@ -500,7 +500,7 @@ Public MustInherit Class AnimePanel
 
         Dim sfd As SaveFileDialog = Main.sfd
         sfd.Title() = "Exportation de l'animé"
-        sfd.FileName() = Me._anime.getNom()
+        sfd.FileName() = Me._anime.Nom()
 
         If (sfd.ShowDialog() = DialogResult.OK) Then
 
@@ -515,11 +515,11 @@ Public MustInherit Class AnimePanel
     End Sub
     Private Sub _nextEpsiodeClick(sender As Object, e As EventArgs)
 
-        Dim row As DataRow = Main.dataSet.Tables("data").Select("Nom = '" & Me._anime.getNom() & "'")(0)
+        Dim row As DataRow = Main.dataSet.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
         Me._anime.nextEpisode()
 
         row.BeginEdit()
-        row(4) = Me._anime.getEpisode()
+        row(4) = Me._anime.Episode()
         row.EndEdit()
 
         Main.loadMenu(Me._anime)

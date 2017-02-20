@@ -14,8 +14,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Gestionnaire de lien pour animé/manga")> 
 <Assembly: AssemblyCompany("PhoenixZ_Group")> 
 <Assembly: AssemblyProduct("Gestionnaire d'Archive")> 
-<Assembly: AssemblyCopyright("Copyright ©  2015")> 
-<Assembly: AssemblyTrademark("PhoenixZ_Groupe")> 
+<Assembly: AssemblyCopyright("Copyright ©  2015-2017")> 
+<Assembly: AssemblyTrademark("PhoenixZ_Group")> 
 
 <Assembly: ComVisible(True)> 
 

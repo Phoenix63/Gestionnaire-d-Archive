@@ -35,45 +35,103 @@
         Me._finished = finished
 
     End Sub
-#End Region
+    Public Sub New(ByVal dbRow As DataRow)
 
-#Region "Getter"
-    Public Function getNom() As String
-        Return Me._nom
-    End Function
-    Public Function getLien() As String
-        Return Me._lien
-    End Function
-    Public Function getEpisode() As Integer
-        Return Me._episode
-    End Function
-    Public Function getDate() As Date
-        Return Me._date
-    End Function
-    Public Function getGenre() As String
-        Return Me._genre
-    End Function
-    Public Function getCommentaire() As String
-        Return Me._commentaire
-    End Function
-    Public Function getNote() As Integer
-        Return Me._note
-    End Function
-    Public Function getFollow() As Boolean
-        Return Me._follow
-    End Function
-    Public Function getSmartLink() As Boolean
-        Return Me._smartLink
-    End Function
-    Public Function getFinished() As Boolean
-        Return Me._finished
-    End Function
-#End Region
+        Me._nom = dbRow("Nom")
+        Me._lien = dbRow("Url")
+        Me._episode = Integer.Parse(dbRow("Episode"))
+        Me._date = dbRow("Date")
+        Me._genre = dbRow("Genre")
+        Me._commentaire = dbRow("Commentaire")
+        Me._note = Integer.Parse(dbRow("Note"))
+        Me._follow = If(dbRow("Follow").ToString() = "1", True, False)
+        Me._smartLink = If(dbRow("SmartLink").ToString() = "1", True, False)
+        Me._finished = If(dbRow("Fini").ToString() = "1", True, False)
 
-#Region "Setter"
-    Public Sub setEpisode(ByVal value As Integer)
-        Me._episode = value
     End Sub
+#End Region
+
+#Region " Property "
+    Public Property Nom() As String
+        Get
+            Return Me._nom
+        End Get
+        Set(value As String)
+            Me._nom = value
+        End Set
+    End Property
+    Public Property Lien() As String
+        Get
+            Return Me._lien
+        End Get
+        Set(value As String)
+            Me._lien = value
+        End Set
+    End Property
+    Public Property Episode() As Integer
+        Get
+            Return Me._episode
+        End Get
+        Set(value As Integer)
+            Me._episode = value
+        End Set
+    End Property
+    Public Property DateSortie() As Date
+        Get
+            Return Me._date
+        End Get
+        Set(value As Date)
+            Me._date = value
+        End Set
+    End Property
+    Public Property Genre() As String
+        Get
+            Return Me._genre
+        End Get
+        Set(value As String)
+            Me._genre = value
+        End Set
+    End Property
+    Public Property Commentaire() As String
+        Get
+            Return Me._commentaire
+        End Get
+        Set(value As String)
+            Me._commentaire = value
+        End Set
+    End Property
+    Public Property Note() As Integer
+        Get
+            Return Me._note
+        End Get
+        Set(value As Integer)
+            Me._note = value
+        End Set
+    End Property
+    Public Property Follow() As Boolean
+        Get
+            Return Me._follow
+        End Get
+        Set(value As Boolean)
+            Me._follow = value
+        End Set
+    End Property
+    Public Property SmartLink() As Boolean
+        Get
+            Return Me._smartLink
+        End Get
+        Set(value As Boolean)
+            Me._smartLink = value
+        End Set
+    End Property
+    Public Property Finished() As Boolean
+        Get
+            Return Me._finished
+        End Get
+        Set(value As Boolean)
+            Me._finished = value
+        End Set
+    End Property
 #End Region
 
 #Region "Methode"
@@ -95,31 +153,31 @@
     Private Function sqlSerializeInsert() As String
 
         Return "(Nom, Url, Genre, Episode, Date, Note, Follow, SmartLink, Commentaire, Fini) VALUES ('" & _
-                                getNom() & "', '" & _
-                                getLien() & "', '" & _
-                                getGenre() & "', '" & _
-                                getEpisode() & "', '" & _
-                                getDate().ToString(Anime.FORMAT) & "', '" & _
-                                getNote() & "', '" & _
-                                If(getFinished(), 0, If(getFollow(), 1, 0)) & "', '" & _
-                                If(getSmartLink(), 1, 0) & "', '" & _
-                                getCommentaire().Replace("'", "''") & "', '" & _
-                                If(getFinished(), 1, 0) & "')"
+                                Nom() & "', '" & _
+                                Lien() & "', '" & _
+                                Genre() & "', '" & _
+                                Episode() & "', '" & _
+                                DateSortie().ToString(Anime.FORMAT) & "', '" & _
+                                Note() & "', '" & _
+                                If(Finished(), 0, If(Follow(), 1, 0)) & "', '" & _
+                                If(SmartLink(), 1, 0) & "', '" & _
+                                Commentaire().Replace("'", "''") & "', '" & _
+                                If(Finished(), 1, 0) & "')"
 
     End Function
     Private Function sqlSerializeUpdate() As String
 
-        Return "Nom = '" & getNom() & "', " & _
-                "Url = '" & getLien() & "', " & _
-                "Genre = '" & getGenre() & "', " & _
-                "Episode = '" & getEpisode() & "', " & _
-                "Date = '" & getDate().ToString(Anime.FORMAT) & "', " & _
-                "Note = '" & getNote() & "', " & _
-                "Follow = '" & If(getFinished(), 0, If(getFollow(), 1, 0)) & "', " & _
-                "SmartLink = '" & If(getFinished(), 0, If(getSmartLink(), 1, 0)) & "', " & _
-                "Commentaire = '" & getCommentaire().Replace("'", "''") & "', " & _
-                "Fini = '" & If(getFinished(), 1, 0) & "' " & _
-                "WHERE Nom = '" & getNom() & "'"
+        Return "Nom = '" & Nom() & "', " & _
+                "Url = '" & Lien() & "', " & _
+                "Genre = '" & Genre() & "', " & _
+                "Episode = '" & Episode() & "', " & _
+                "Date = '" & DateSortie().ToString(Anime.FORMAT) & "', " & _
+                "Note = '" & Note() & "', " & _
+                "Follow = '" & If(Finished(), 0, If(Follow(), 1, 0)) & "', " & _
+                "SmartLink = '" & If(Finished(), 0, If(SmartLink(), 1, 0)) & "', " & _
+                "Commentaire = '" & Commentaire().Replace("'", "''") & "', " & _
+                "Fini = '" & If(Finished(), 1, 0) & "' " & _
+                "WHERE Nom = '" & Nom() & "'"
 
     End Function
 #End Region
@@ -131,13 +189,13 @@
         ' Serialize the class into a string parsable by fileDeserialize() methode
         '
 
-        Return "Nom" & SEPARATOR & getNom() & vbCrLf _
-             & "Lien" & SEPARATOR & getLien() & vbCrLf _
-             & "Episode" & SEPARATOR & getEpisode() & vbCrLf _
-             & "Date" & SEPARATOR & getDate().ToString(Anime.FORMAT) & vbCrLf _
-             & "Genre" & SEPARATOR & getGenre() & vbCrLf _
-             & "Commentaire" & SEPARATOR & getCommentaire() & vbCrLf _
-             & "Note" & SEPARATOR & getNote()
+        Return "Nom" & SEPARATOR & Nom() & vbCrLf _
+             & "Lien" & SEPARATOR & Lien() & vbCrLf _
+             & "Episode" & SEPARATOR & Episode() & vbCrLf _
+             & "Date" & SEPARATOR & DateSortie().ToString(Anime.FORMAT) & vbCrLf _
+             & "Genre" & SEPARATOR & Genre() & vbCrLf _
+             & "Commentaire" & SEPARATOR & Commentaire() & vbCrLf _
+             & "Note" & SEPARATOR & Note()
 
     End Function
     Public Function fileFullSerialize() As String
@@ -147,9 +205,9 @@
         '
 
         Return fileSerialize() & vbCrLf _
-             & "Follow" & SEPARATOR & getFollow() & vbCrLf _
-             & "SmartLink" & SEPARATOR & getSmartLink() & vbCrLf _
-             & "Finished" & SEPARATOR & getFinished()
+             & "Follow" & SEPARATOR & Follow() & vbCrLf _
+             & "SmartLink" & SEPARATOR & SmartLink() & vbCrLf _
+             & "Finished" & SEPARATOR & Finished()
 
     End Function
     Public Shared Function fileDeserialize(ByVal file As String) As Anime
@@ -215,15 +273,30 @@
 #End Region
 
     Public Sub nextEpisode()
-        Me.setEpisode(Me.getEpisode() + 1)
+        Me.Episode = Me.Episode() + 1
     End Sub
     Public Function toArray() As Object()
 
-        Return {Me.getNom(), Me.getLien(), Me.getGenre(), Me.getEpisode(), Me.getDate().ToString(Anime.FORMAT),
-                Me.getNote(), Me.getFollow(), Me.getSmartLink(), Me.getCommentaire(), Me.getFinished()}
+        Return {Me.Nom(), Me.Lien(), Me.Genre(), Me.Episode(), Me.DateSortie().ToString(Anime.FORMAT),
+                Me.Note(), Me.Follow(), Me.SmartLink(), Me.Commentaire(), Me.Finished()}
 
     End Function
 
 #End Region
+
+    Public Overloads Function Equals(obj As Anime) As Boolean
+
+        Return Me._nom.Equals(obj.Nom()) And
+               Me._lien.Equals(obj.Lien()) And
+               Me._episode.Equals(obj.Episode()) And
+               Me._date.Equals(obj.DateSortie()) And
+               Me._genre.Equals(obj.Genre()) And
+               Me._commentaire.Equals(obj.Commentaire()) And
+               Me._note.Equals(obj.Note()) And
+               Me._follow.Equals(obj.Follow()) And
+               Me._smartLink.Equals(obj.SmartLink()) And
+               Me._finished.Equals(obj.Finished())
+
+    End Function
 
 End Class
