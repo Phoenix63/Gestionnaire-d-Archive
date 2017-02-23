@@ -323,6 +323,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\activestar.png" />
+    <None Include="Resources\pic_loading.png" />
+    <None Include="Resources\ic_add.png" />
+    <None Include="Resources\ic_information.png" />
+    <None Include="Resources\ic_login.png" />
+    <None Include="Resources\ic_menu.png" />
+    <None Include="Resources\ic_save.png" />
+    <None Include="Resources\ic_quit.png" />
+    <None Include="Resources\ic_delete.png" />
+    <None Include="Resources\ic_search.png" />
+    <None Include="Resources\ic_activestar.png" />
+    <None Include="Resources\ic_inactivestar.png" />
+    <None Include="Resources\ic_plus.png" />
+    <None Include="Resources\ic_back.png" />
+    <None Include="Resources\ic_valid.png" />
+    <None Include="Resources\ic_dimiss.png" />
+    <None Include="Resources\ic_settings.png" />
+    <None Include="Resources\ic_edit.png" />
+    <None Include="Resources\ic_editdimiss.png" />
+    <None Include="Resources\ic_editok.png" />
+    <None Include="Resources\ic_close.png" />
+    <None Include="Resources\ic_unclose.png" />
+    <None Include="Resources\ic_arrowleft.png" />
+    <None Include="Resources\ic_arrowright.png" />
+    <None Include="Resources\ic_imagechange.png" />
     <Content Include="Resources\inactivestar.png" />
     <None Include="Resources\search.png" />
     <None Include="Resources\shader.png" />

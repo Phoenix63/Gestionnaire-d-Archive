@@ -23,38 +23,20 @@ Partial Class SearchFilter
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.buildFilter = New System.Windows.Forms.Button()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SearchFilter))
         Me.aFinish = New System.Windows.Forms.CheckBox()
         Me.aFollow = New System.Windows.Forms.CheckBox()
         Me.aName = New System.Windows.Forms.TextBox()
-        Me.Tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
+        Me.buildFilter = New System.Windows.Forms.Button()
+        Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         Me.aOut = New System.Windows.Forms.CheckBox()
         Me.cbFini = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.aRank = New Gestionnaire_d_Archive.StarRanking()
-        Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cbSuivi = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
-        '
-        'buildFilter
-        '
-        Me.buildFilter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.buildFilter.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.buildFilter.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.buildFilter.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.buildFilter.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.buildFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.buildFilter.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.buildFilter.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.search
-        Me.buildFilter.Location = New System.Drawing.Point(535, 72)
-        Me.buildFilter.Name = "buildFilter"
-        Me.buildFilter.Padding = New System.Windows.Forms.Padding(0, 0, 2, 2)
-        Me.buildFilter.Size = New System.Drawing.Size(30, 30)
-        Me.buildFilter.TabIndex = 0
-        Me.buildFilter.TabStop = False
-        Me.Tip.SetToolTip(Me.buildFilter, "Rerchercher avec les filtres sélectionnés")
-        Me.buildFilter.UseVisualStyleBackColor = False
         '
         'aFinish
         '
@@ -102,7 +84,57 @@ Partial Class SearchFilter
         Me.aName.TabIndex = 0
         Me.aName.TabStop = False
         Me.aName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.Tip.SetToolTip(Me.aName, "Filtre par nom (prioritaire sur les autres filtres)")
+        Me.tip.SetToolTip(Me.aName, "Filtre par nom (prioritaire sur les autres filtres)")
+        '
+        'aFilter
+        '
+        Me.aFilter.Active = True
+        Me.aFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
+        Me.aFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.aFilter.Location = New System.Drawing.Point(184, 6)
+        Me.aFilter.Margin = New System.Windows.Forms.Padding(0)
+        Me.aFilter.MaximumSize = New System.Drawing.Size(0, 54)
+        Me.aFilter.MinimumSize = New System.Drawing.Size(380, 54)
+        Me.aFilter.Name = "aFilter"
+        Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.aFilter.Size = New System.Drawing.Size(380, 54)
+        Me.aFilter.TabIndex = 0
+        Me.tip.SetToolTip(Me.aFilter, "Genre")
+        '
+        'buildFilter
+        '
+        Me.buildFilter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.buildFilter.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.buildFilter.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.buildFilter.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.buildFilter.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.buildFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.buildFilter.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.buildFilter.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_search
+        Me.buildFilter.Location = New System.Drawing.Point(535, 72)
+        Me.buildFilter.Name = "buildFilter"
+        Me.buildFilter.Padding = New System.Windows.Forms.Padding(0, 0, 2, 2)
+        Me.buildFilter.Size = New System.Drawing.Size(30, 30)
+        Me.buildFilter.TabIndex = 0
+        Me.buildFilter.TabStop = False
+        Me.tip.SetToolTip(Me.buildFilter, "Rerchercher avec les filtres sélectionnés")
+        Me.buildFilter.UseVisualStyleBackColor = False
+        '
+        'aRank
+        '
+        Me.aRank.ActiveStar = CType(resources.GetObject("aRank.ActiveStar"), System.Drawing.Bitmap)
+        Me.aRank.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aRank.InactiveStar = CType(resources.GetObject("aRank.InactiveStar"), System.Drawing.Bitmap)
+        Me.aRank.Location = New System.Drawing.Point(5, 14)
+        Me.aRank.Margin = New System.Windows.Forms.Padding(0)
+        Me.aRank.MaximumSize = New System.Drawing.Size(175, 35)
+        Me.aRank.MinimumSize = New System.Drawing.Size(175, 35)
+        Me.aRank.Name = "aRank"
+        Me.aRank.Rank = 1
+        Me.aRank.Size = New System.Drawing.Size(175, 35)
+        Me.aRank.TabIndex = 0
+        Me.aRank.TabStop = False
+        Me.tip.SetToolTip(Me.aRank, "Classement")
         '
         'aOut
         '
@@ -117,6 +149,7 @@ Partial Class SearchFilter
         Me.aOut.TabIndex = 1
         Me.aOut.TabStop = False
         Me.aOut.Text = "Sorti"
+        Me.tip.SetToolTip(Me.aOut, "Si coché, appliquera la recherche aux séries actuellement sortie")
         Me.aOut.UseVisualStyleBackColor = True
         '
         'cbFini
@@ -133,6 +166,7 @@ Partial Class SearchFilter
         Me.cbFini.Size = New System.Drawing.Size(65, 21)
         Me.cbFini.TabIndex = 2
         Me.cbFini.Text = "Aucun"
+        Me.tip.SetToolTip(Me.cbFini, "Si utilisé, ajoutera le choix dans la recherche")
         '
         'Label1
         '
@@ -146,37 +180,7 @@ Partial Class SearchFilter
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Etat"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'aRank
-        '
-        Me.aRank.ActiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.activestar
-        Me.aRank.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aRank.InactiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
-        Me.aRank.Location = New System.Drawing.Point(7, 13)
-        Me.aRank.Margin = New System.Windows.Forms.Padding(0)
-        Me.aRank.MaximumSize = New System.Drawing.Size(175, 35)
-        Me.aRank.MinimumSize = New System.Drawing.Size(175, 35)
-        Me.aRank.Name = "aRank"
-        Me.aRank.Rank = 1
-        Me.aRank.Size = New System.Drawing.Size(175, 35)
-        Me.aRank.TabIndex = 0
-        Me.aRank.TabStop = False
-        Me.Tip.SetToolTip(Me.aRank, "Classement")
-        '
-        'aFilter
-        '
-        Me.aFilter.Active = True
-        Me.aFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
-        Me.aFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.aFilter.Location = New System.Drawing.Point(184, 6)
-        Me.aFilter.Margin = New System.Windows.Forms.Padding(0)
-        Me.aFilter.MaximumSize = New System.Drawing.Size(0, 54)
-        Me.aFilter.MinimumSize = New System.Drawing.Size(380, 54)
-        Me.aFilter.Name = "aFilter"
-        Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
-        Me.aFilter.Size = New System.Drawing.Size(380, 54)
-        Me.aFilter.TabIndex = 0
-        Me.Tip.SetToolTip(Me.aFilter, "Genre")
+        Me.tip.SetToolTip(Me.Label1, "Si utilisé, ajoutera le choix dans la recherche")
         '
         'Label2
         '
@@ -190,6 +194,7 @@ Partial Class SearchFilter
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "Suivi"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.tip.SetToolTip(Me.Label2, "Si utilisé, ajoutera le choix dans la recherche")
         '
         'cbSuivi
         '
@@ -205,6 +210,7 @@ Partial Class SearchFilter
         Me.cbSuivi.Size = New System.Drawing.Size(65, 21)
         Me.cbSuivi.TabIndex = 4
         Me.cbSuivi.Text = "Aucun"
+        Me.tip.SetToolTip(Me.cbSuivi, "Si utilisé, ajoutera le choix dans la recherche")
         '
         'SearchFilter
         '
@@ -234,7 +240,7 @@ Partial Class SearchFilter
     Friend WithEvents aFinish As System.Windows.Forms.CheckBox
     Friend WithEvents aFollow As System.Windows.Forms.CheckBox
     Friend WithEvents aName As System.Windows.Forms.TextBox
-    Friend WithEvents Tip As System.Windows.Forms.ToolTip
+    Friend WithEvents tip As System.Windows.Forms.ToolTip
     Friend WithEvents aOut As System.Windows.Forms.CheckBox
     Friend WithEvents cbFini As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label

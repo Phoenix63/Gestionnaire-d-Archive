@@ -1,7 +1,9 @@
-﻿Public Class AnimeInterface
+﻿Imports System.IO
+Imports System.Threading
+
+Public Class AnimeInterface
     Inherits UserControl
 
-    Private sInterface As SaveInterface = Nothing
     Private _anime As Anime = Nothing
     Private _separator As String = Nothing
     Private onUpdate As Boolean = False
@@ -11,7 +13,9 @@
     Private Const COMMENTAIRE_HEIGHT_WITHOUT_FOLLOW As Integer = 75
     Private Const COMMENTAIRE_HEIGHT_WITH_FOLLOW As Integer = 45
 
+    ' Outer Event
     Public Event AnimeUpdated()
+    Public Event PictureUpdated()
 
     Public Sub New(ByRef anime As Anime)
 
@@ -37,7 +41,6 @@
         Console.WriteLine()
 
     End Sub
-
     Private Sub AnimeInterface_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         display()
@@ -71,8 +74,6 @@
         aFollow.Checked = _anime.Follow()
         aFinish.Checked = _anime.Finished()
 
-        TipSupprimer.SetToolTip(aSupprimer, "Supprimer")
-        TipModif.SetToolTip(aModifier, "Modifier/Valider")
         TipLink.SetToolTip(aLien, aLien.Text)
         TipLink.SetToolTip(aLienModifiable, aLienModifiable.Text)
         TipLink.SetToolTip(aTitle, aTitle.Text)
@@ -114,24 +115,26 @@
         aFollow.Visible = onUpdate
         aFinish.Visible = onUpdate
 
+        aDimiss.Visible = onUpdate
+
         aNext.Visible = Not onUpdate
         aSupprimer.Visible = Not onUpdate
         aCloturer.Visible = Not onUpdate
 
         If aFinish.Checked Then
-            aCloturer.Text = "Décloturer"
-            aCloturer.Image = My.Resources.decloturer
-            aCloturer.Width = 103
+            aCloturer.Image = My.Resources.ic_unclose
+            tip.SetToolTip(aCloturer, "Faire passer la série de l'état fini à l'état en cours")
         Else
-            aCloturer.Text = "Cloturer"
-            aCloturer.Image = My.Resources.cloturer
-            aCloturer.Width = 93
+            aCloturer.Image = My.Resources.ic_close
+            tip.SetToolTip(aCloturer, "Faire passer la série de l'état en cours à l'état fini")
         End If
 
         If onUpdate Then
-            aModifier.Image = My.Resources.modif_ok
+            aModifier.Image = My.Resources.ic_editok
+            tip.SetToolTip(aModifier, "Valider")
         Else
-            aModifier.Image = My.Resources.modif
+            aModifier.Image = My.Resources.ic_edit
+            tip.SetToolTip(aModifier, "Modifier")
         End If
 
     End Sub
@@ -139,7 +142,7 @@
 
         Dim pictPath As String
         Dim pictFound As Boolean = False
-        Dim exts() As String = {".png", ".jpg", ".bmp"}
+        Dim exts() As String = {".jpg", ".png", ".bmp"}
         Dim formalizedName As String = ""
 
         formalizedName = name.Replace(":", "") _
@@ -162,7 +165,10 @@
         Next
 
         If (pictFound) Then
-            aPicture.Image = New Bitmap(pictPath)
+            Dim pic As FileStream = New FileStream(pictPath, FileMode.Open)
+            aPicture.Image = Image.FromStream(pic)
+            pic.Close()
+            pic.Dispose()
         Else
             aPicture.Image = My.Resources.defaultPic
             'TODO: lancer recherche d'image sur serveur avec le nom de l'animé
@@ -283,6 +289,16 @@
         Return ret
 
     End Function
+    Private Function normalizeName(ByVal name As String) As String
+
+        Dim formalizedName As String = ""
+
+        formalizedName = name.Replace(":", "").Replace("\", "").Replace("/", "").Replace("*", "").Replace("?", "") _
+                                     .Replace(">", "").Replace("<", "").Replace("|", "").Replace(Chr(34), "")
+
+        Return formalizedName
+
+    End Function
 #End Region
 
 #Region " Validating constraint function "
@@ -319,9 +335,16 @@
 
 #Region " Handler "
     Private aChanged As Boolean = False
+    Private picChanged As Boolean = False
+    Private genreTemp As String = ""
     Private Sub aReturn_Click(sender As Object, e As EventArgs) Handles aReturn.Click
 
+        Me.Visible = False
+
+        If (picChanged And Not aChanged) Then RaiseEvent PictureUpdated()
         If (aChanged) Then RaiseEvent AnimeUpdated()
+        Me.Refresh()
+
         Me.Parent.Controls.Remove(Me)
         Dispose()
 
@@ -376,9 +399,21 @@
 
                     row.BeginEdit()
                     If Not _anime.Nom().Equals(_animeUpdated.Nom()) Then
+
+                        For Each ext As String In {".png", ".jpg", ".bmp"}
+
+                            Dim currPath As String = Application.StartupPath & "\PICTURES\" & _anime.Nom() & ext
+                            Dim destPath As String = Application.StartupPath & "\PICTURES\" & _animeUpdated.Nom() & ext
+
+                            If Not System.IO.File.Exists(currPath) Then Continue For
+                            If System.IO.File.Exists(destPath) Then System.IO.File.Delete(destPath)
+                            My.Computer.FileSystem.RenameFile(currPath, _animeUpdated.Nom() & ext)
+
+                        Next
                         _anime.Nom = _animeUpdated.Nom()
                         displayPicture(_anime.Nom())
                         row(1) = _anime.Nom()
+
                     End If
                     If Not _anime.Episode().Equals(_animeUpdated.Episode()) Then
                         _anime.Episode = _animeUpdated.Episode()
@@ -430,8 +465,16 @@
 
         Else
             titleTemp = aTitle.Text
+            genreTemp = aFilter.getActiveItem()
         End If
 
+        onUpdate = Not onUpdate
+        display()
+
+    End Sub
+    Private Sub aDimiss_Click(sender As Object, e As EventArgs) Handles aDimiss.Click
+
+        aFilter.fillItemList(genreTemp, ";")
         onUpdate = Not onUpdate
         display()
 
@@ -535,14 +578,68 @@
         End Try
 
         If Not _anime.Finished Then
-            aCloturer.Text = "Cloturer"
-            aCloturer.Image = My.Resources.cloturer
-            aCloturer.Width = 93
+            'aCloturer.Text = "Cloturer"
+            aCloturer.Image = My.Resources.ic_close
+            'aCloturer.Width = 93
         Else
-            aCloturer.Text = "Décloturer"
-            aCloturer.Image = My.Resources.decloturer
-            aCloturer.Width = 103
+            'aCloturer.Text = "Décloturer"
+            aCloturer.Image = My.Resources.ic_unclose
+            'aCloturer.Width = 103
         End If
+
+    End Sub
+    Private Sub changePicture_Click(sender As Object, e As EventArgs) Handles changePicture.Click
+
+        Dim dialbox As OpenFileDialog = New OpenFileDialog()
+        dialbox.ValidateNames = True
+        dialbox.Title = "Changer l'image de la série"
+        dialbox.CheckFileExists = True
+        dialbox.Multiselect = False
+        dialbox.DefaultExt = "png"
+        dialbox.Filter = "Fichiers Image (*.jpg, *.bmp, *.png)|*.jpg;*.bmp;*.png"
+        dialbox.FilterIndex = 1
+
+        Dim result As DialogResult = dialbox.ShowDialog()
+
+        If result.Equals(DialogResult.Cancel) Then Exit Sub
+
+        Dim EXT_LENGTH As Integer = 4 '.xyz
+        Dim dir As String = Application.StartupPath & "\PICTURES\"
+        Dim pic As FileStream = New FileStream(dialbox.FileName, FileMode.Open)
+        Dim picToSave As Bitmap = Image.FromStream(pic)
+        Dim dest As String = dir & normalizeName(_anime.Nom()).ToLowerInvariant() & ".png"
+
+        Console.WriteLine("LOG: dir=" & dir & " exist? " & System.IO.Directory.Exists(dir))
+
+        If Not System.IO.Directory.Exists(dir) Then System.IO.Directory.CreateDirectory(dir)
+
+        Console.WriteLine("LOG: checking file")
+        For Each file In System.IO.Directory.GetFiles(dir, normalizeName(_anime.Nom()) & ".*", IO.SearchOption.TopDirectoryOnly)
+            Console.WriteLine(file & " => deleted")
+            System.IO.File.Delete(file)
+        Next
+
+        picChanged = True
+        picToSave.Save(dest)
+        Console.WriteLine("LOG: pic saved")
+
+        pic.Close()
+        pic.Dispose()
+
+        display()
+
+    End Sub
+    Private Sub deletePicture_Click(sender As Object, e As EventArgs) Handles deletePicture.Click
+
+        If aPicture.Image.Equals(My.Resources.defaultPic) Then Exit Sub
+
+        picChanged = True
+
+        Dim dir As String = Application.StartupPath & "\PICTURES\"
+        For Each file In System.IO.Directory.GetFiles(dir, normalizeName(_anime.Nom()) & ".*", IO.SearchOption.TopDirectoryOnly)
+            System.IO.File.Delete(file)
+        Next
+        display()
 
     End Sub
 #End Region

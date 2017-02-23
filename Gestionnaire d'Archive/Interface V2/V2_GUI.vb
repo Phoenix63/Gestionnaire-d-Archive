@@ -1,6 +1,7 @@
 ﻿Imports System.Windows.Forms.Integration
 Imports System.Threading
 Imports Shader
+Imports System.IO
 
 Public Class V2_GUI
     Inherits Form
@@ -14,13 +15,20 @@ Public Class V2_GUI
     Private WithEvents shader As ShaderScreen = New ShaderScreen()
 
     Private sqlCo As SqlConnection
+    Private ConsoleOut As TextWriter = Console.Out
+    Private Logger As StreamWriter = New StreamWriter("report.log", True)
     Public Shared data As DataSet = New DataSet("data")
     Public Shared nameList As List(Of String) = New List(Of String)
 
 #Region " Main Functions "
     Private Sub V2_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Control.CheckForIllegalCrossThreadCalls = False
+
         Me.title.Text = Me.Text
+
+        Console.SetOut(Logger)
+        Console.WriteLine("------New Session: {0}------", System.DateTime.Now.ToString("dd/MM/yyyy - H:mm:ss"))
 
         If (Dir(Application.StartupPath & "\Uplauncher GA.new") <> "") Then
 
@@ -63,6 +71,9 @@ Public Class V2_GUI
             databaseClose()
             Me.sqlCo.Dispose()
         End If
+
+        Logger.Close()
+        Console.SetOut(ConsoleOut)
 
     End Sub
 #End Region
@@ -260,8 +271,7 @@ Public Class V2_GUI
         Await Task.Run(
              Sub()
                  fillData()
-                 'If (Not rInterface Is Nothing) Then rInterface.reloadWithFilter() ' <= bug inter thread
-                 'Thread.Sleep(2000)
+                 sliderUpdate()
              End Sub
         )
 
@@ -272,6 +282,9 @@ Public Class V2_GUI
         'Not implemented
     End Sub
     Private Sub doSignin() Handles mInterface.SigninEvent
+        'Not implemented
+    End Sub
+    Private Sub doSettings() Handles mInterface.SettingsEvent
         'Not implemented
     End Sub
     Private Sub doInfo() Handles mInterface.InfoEvent
@@ -305,6 +318,14 @@ Public Class V2_GUI
 #Region " AnimeInterfaceEvent Handler "
     Private Sub animeUpdated() Handles aInterface.AnimeUpdated
         doSave()
+    End Sub
+    Private Sub sliderUpdate() Handles aInterface.PictureUpdated
+
+        If (Not rInterface Is Nothing) Then
+            Console.WriteLine("LOG: reloadSlider")
+            rInterface.reloadSlider()
+        End If
+
     End Sub
 #End Region
 

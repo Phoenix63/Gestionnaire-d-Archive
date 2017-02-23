@@ -22,6 +22,7 @@ Partial Class NewAnimeInterface
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim Label1 As System.Windows.Forms.Label
         Dim Label2 As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
@@ -30,7 +31,8 @@ Partial Class NewAnimeInterface
         Dim Label6 As System.Windows.Forms.Label
         Dim Label7 As System.Windows.Forms.Label
         Dim Label8 As System.Windows.Forms.Label
-        Me.nReturn = New System.Windows.Forms.Button()
+        Dim Label9 As System.Windows.Forms.Label
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NewAnimeInterface))
         Me.nEpisode = New System.Windows.Forms.TextBox()
         Me.nTitle = New System.Windows.Forms.TextBox()
         Me.nSmartLink = New System.Windows.Forms.CheckBox()
@@ -39,9 +41,12 @@ Partial Class NewAnimeInterface
         Me.nFinish = New System.Windows.Forms.CheckBox()
         Me.nDate = New System.Windows.Forms.DateTimePicker()
         Me.nLienModifiable = New System.Windows.Forms.TextBox()
-        Me.nAjouter = New System.Windows.Forms.Button()
         Me.nFilter = New Gestionnaire_d_Archive.AnimeFilter()
+        Me.nReturn = New System.Windows.Forms.Button()
+        Me.nAjouter = New System.Windows.Forms.Button()
         Me.nRank = New Gestionnaire_d_Archive.StarRanking()
+        Me.nDimiss = New System.Windows.Forms.Button()
+        Me.tip = New System.Windows.Forms.ToolTip(Me.components)
         Label1 = New System.Windows.Forms.Label()
         Label2 = New System.Windows.Forms.Label()
         Label3 = New System.Windows.Forms.Label()
@@ -50,11 +55,12 @@ Partial Class NewAnimeInterface
         Label6 = New System.Windows.Forms.Label()
         Label7 = New System.Windows.Forms.Label()
         Label8 = New System.Windows.Forms.Label()
+        Label9 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
         '
-        Label1.BackColor = System.Drawing.SystemColors.Control
+        Label1.BackColor = System.Drawing.SystemColors.ControlLight
         Label1.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label1.Location = New System.Drawing.Point(35, 60)
         Label1.Name = "Label1"
@@ -65,7 +71,7 @@ Partial Class NewAnimeInterface
         '
         'Label2
         '
-        Label2.BackColor = System.Drawing.SystemColors.Control
+        Label2.BackColor = System.Drawing.SystemColors.ControlLight
         Label2.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
         Label2.Location = New System.Drawing.Point(35, 170)
         Label2.Name = "Label2"
@@ -76,7 +82,7 @@ Partial Class NewAnimeInterface
         '
         'Label3
         '
-        Label3.BackColor = System.Drawing.SystemColors.Control
+        Label3.BackColor = System.Drawing.SystemColors.ControlLight
         Label3.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Bold)
         Label3.Location = New System.Drawing.Point(35, 205)
         Label3.Name = "Label3"
@@ -87,7 +93,7 @@ Partial Class NewAnimeInterface
         '
         'Label4
         '
-        Label4.BackColor = System.Drawing.SystemColors.Control
+        Label4.BackColor = System.Drawing.SystemColors.ControlLight
         Label4.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label4.Location = New System.Drawing.Point(35, 15)
         Label4.Name = "Label4"
@@ -98,7 +104,7 @@ Partial Class NewAnimeInterface
         '
         'Label5
         '
-        Label5.BackColor = System.Drawing.SystemColors.Control
+        Label5.BackColor = System.Drawing.SystemColors.ControlLight
         Label5.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label5.Location = New System.Drawing.Point(35, 105)
         Label5.Name = "Label5"
@@ -109,7 +115,7 @@ Partial Class NewAnimeInterface
         '
         'Label6
         '
-        Label6.BackColor = System.Drawing.SystemColors.Control
+        Label6.BackColor = System.Drawing.SystemColors.ControlLight
         Label6.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label6.Location = New System.Drawing.Point(248, 60)
         Label6.Name = "Label6"
@@ -120,7 +126,7 @@ Partial Class NewAnimeInterface
         '
         'Label7
         '
-        Label7.BackColor = System.Drawing.SystemColors.Control
+        Label7.BackColor = System.Drawing.SystemColors.ControlLight
         Label7.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label7.Location = New System.Drawing.Point(35, 240)
         Label7.Name = "Label7"
@@ -131,30 +137,24 @@ Partial Class NewAnimeInterface
         '
         'Label8
         '
-        Label8.BackColor = System.Drawing.SystemColors.Control
+        Label8.BackColor = System.Drawing.SystemColors.ControlLight
         Label8.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Label8.Location = New System.Drawing.Point(35, 325)
         Label8.Name = "Label8"
-        Label8.Size = New System.Drawing.Size(435, 35)
+        Label8.Size = New System.Drawing.Size(120, 35)
         Label8.TabIndex = 39
         Label8.Text = "  Options :"
         Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'nReturn
+        'Label9
         '
-        Me.nReturn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.nReturn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.nReturn.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.nReturn.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.nReturn.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.nReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.nReturn.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.nReturn.Location = New System.Drawing.Point(3, 3)
-        Me.nReturn.Name = "nReturn"
-        Me.nReturn.Size = New System.Drawing.Size(25, 25)
-        Me.nReturn.TabIndex = 3
-        Me.nReturn.Text = "<"
-        Me.nReturn.UseVisualStyleBackColor = False
+        Label9.BackColor = System.Drawing.SystemColors.Control
+        Label9.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
+        Label9.Location = New System.Drawing.Point(155, 325)
+        Label9.Name = "Label9"
+        Label9.Size = New System.Drawing.Size(315, 35)
+        Label9.TabIndex = 41
+        Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'nEpisode
         '
@@ -170,6 +170,7 @@ Partial Class NewAnimeInterface
         Me.nEpisode.TabIndex = 0
         Me.nEpisode.TabStop = False
         Me.nEpisode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.tip.SetToolTip(Me.nEpisode, "(Requis) Numéro de l'épisode")
         '
         'nTitle
         '
@@ -185,6 +186,7 @@ Partial Class NewAnimeInterface
         Me.nTitle.TabIndex = 15
         Me.nTitle.TabStop = False
         Me.nTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.tip.SetToolTip(Me.nTitle, "(Requis) Nom de la série")
         '
         'nSmartLink
         '
@@ -199,6 +201,8 @@ Partial Class NewAnimeInterface
         Me.nSmartLink.Size = New System.Drawing.Size(82, 20)
         Me.nSmartLink.TabIndex = 17
         Me.nSmartLink.Text = "Lien Smart"
+        Me.tip.SetToolTip(Me.nSmartLink, "Si coché, le logiciel essayera de changer votre lien en fonction de l'épisode cou" & _
+        "rant")
         Me.nSmartLink.UseVisualStyleBackColor = False
         '
         'nFollow
@@ -214,6 +218,8 @@ Partial Class NewAnimeInterface
         Me.nFollow.Size = New System.Drawing.Size(140, 20)
         Me.nFollow.TabIndex = 18
         Me.nFollow.Text = "Suivre chaque semaine"
+        Me.tip.SetToolTip(Me.nFollow, "Si coché, vous indiquera si votre série est sortie ou dans combien de temps elle " & _
+        "sortira (basé sur la date de sortie de la série)")
         Me.nFollow.UseVisualStyleBackColor = False
         '
         'nCommentaire
@@ -231,6 +237,7 @@ Partial Class NewAnimeInterface
         Me.nCommentaire.Size = New System.Drawing.Size(410, 75)
         Me.nCommentaire.TabIndex = 25
         Me.nCommentaire.TabStop = False
+        Me.tip.SetToolTip(Me.nCommentaire, "Zone de commentaire pour vous")
         '
         'nFinish
         '
@@ -245,6 +252,7 @@ Partial Class NewAnimeInterface
         Me.nFinish.Size = New System.Drawing.Size(68, 20)
         Me.nFinish.TabIndex = 27
         Me.nFinish.Text = "Terminé"
+        Me.tip.SetToolTip(Me.nFinish, "Si coché, ajoutera la série comme fini")
         Me.nFinish.UseVisualStyleBackColor = False
         '
         'nDate
@@ -260,6 +268,7 @@ Partial Class NewAnimeInterface
         Me.nDate.Name = "nDate"
         Me.nDate.Size = New System.Drawing.Size(175, 25)
         Me.nDate.TabIndex = 28
+        Me.tip.SetToolTip(Me.nDate, "(Requis) Date de sortie")
         Me.nDate.Value = New Date(2016, 11, 1, 0, 0, 0, 0)
         '
         'nLienModifiable
@@ -275,26 +284,8 @@ Partial Class NewAnimeInterface
         Me.nLienModifiable.Size = New System.Drawing.Size(410, 25)
         Me.nLienModifiable.TabIndex = 34
         Me.nLienModifiable.TabStop = False
-        '
-        'nAjouter
-        '
-        Me.nAjouter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.nAjouter.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.nAjouter.Enabled = False
-        Me.nAjouter.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.nAjouter.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.nAjouter.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.nAjouter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.nAjouter.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.nAjouter.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.modifier
-        Me.nAjouter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.nAjouter.Location = New System.Drawing.Point(480, 325)
-        Me.nAjouter.Name = "nAjouter"
-        Me.nAjouter.Size = New System.Drawing.Size(84, 35)
-        Me.nAjouter.TabIndex = 2
-        Me.nAjouter.Text = "Ajouter"
-        Me.nAjouter.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.nAjouter.UseVisualStyleBackColor = False
+        Me.tip.SetToolTip(Me.nLienModifiable, "(Requis) Lien vers la série, peut être une site web ou un chemin sur votre disque" & _
+        "")
         '
         'nFilter
         '
@@ -309,12 +300,52 @@ Partial Class NewAnimeInterface
         Me.nFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.nFilter.Size = New System.Drawing.Size(410, 54)
         Me.nFilter.TabIndex = 0
+        Me.tip.SetToolTip(Me.nFilter, "Genre de la série")
+        '
+        'nReturn
+        '
+        Me.nReturn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.nReturn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.nReturn.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.nReturn.FlatAppearance.BorderSize = 0
+        Me.nReturn.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.nReturn.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.nReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.nReturn.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.nReturn.Image = CType(resources.GetObject("nReturn.Image"), System.Drawing.Image)
+        Me.nReturn.Location = New System.Drawing.Point(3, 3)
+        Me.nReturn.Name = "nReturn"
+        Me.nReturn.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
+        Me.nReturn.Size = New System.Drawing.Size(25, 25)
+        Me.nReturn.TabIndex = 40
+        Me.tip.SetToolTip(Me.nReturn, "Retour")
+        Me.nReturn.UseVisualStyleBackColor = False
+        '
+        'nAjouter
+        '
+        Me.nAjouter.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.nAjouter.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.nAjouter.Enabled = False
+        Me.nAjouter.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.nAjouter.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.nAjouter.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.nAjouter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.nAjouter.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.nAjouter.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_valid
+        Me.nAjouter.Location = New System.Drawing.Point(527, 325)
+        Me.nAjouter.Name = "nAjouter"
+        Me.nAjouter.Padding = New System.Windows.Forms.Padding(0, 0, 2, 0)
+        Me.nAjouter.Size = New System.Drawing.Size(35, 35)
+        Me.nAjouter.TabIndex = 2
+        Me.nAjouter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.tip.SetToolTip(Me.nAjouter, "Valider")
+        Me.nAjouter.UseVisualStyleBackColor = False
         '
         'nRank
         '
-        Me.nRank.ActiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.activestar
+        Me.nRank.ActiveStar = CType(resources.GetObject("nRank.ActiveStar"), System.Drawing.Bitmap)
         Me.nRank.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.nRank.InactiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
+        Me.nRank.InactiveStar = CType(resources.GetObject("nRank.InactiveStar"), System.Drawing.Bitmap)
         Me.nRank.Location = New System.Drawing.Point(376, 60)
         Me.nRank.Margin = New System.Windows.Forms.Padding(0)
         Me.nRank.MaximumSize = New System.Drawing.Size(175, 35)
@@ -323,16 +354,37 @@ Partial Class NewAnimeInterface
         Me.nRank.Rank = 1
         Me.nRank.Size = New System.Drawing.Size(175, 35)
         Me.nRank.TabIndex = 0
+        Me.tip.SetToolTip(Me.nRank, "Note")
+        '
+        'nDimiss
+        '
+        Me.nDimiss.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.nDimiss.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.nDimiss.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.nDimiss.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.nDimiss.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.nDimiss.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.nDimiss.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.nDimiss.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_dimiss
+        Me.nDimiss.Location = New System.Drawing.Point(481, 325)
+        Me.nDimiss.Name = "nDimiss"
+        Me.nDimiss.Padding = New System.Windows.Forms.Padding(0, 0, 2, 0)
+        Me.nDimiss.Size = New System.Drawing.Size(35, 35)
+        Me.nDimiss.TabIndex = 42
+        Me.nDimiss.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.tip.SetToolTip(Me.nDimiss, "Annuler")
+        Me.nDimiss.UseVisualStyleBackColor = False
         '
         'NewAnimeInterface
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Controls.Add(Me.nDimiss)
+        Me.Controls.Add(Me.nReturn)
         Me.Controls.Add(Label7)
         Me.Controls.Add(Label6)
         Me.Controls.Add(Label5)
-        Me.Controls.Add(Me.nReturn)
         Me.Controls.Add(Label4)
         Me.Controls.Add(Me.nAjouter)
         Me.Controls.Add(Me.nCommentaire)
@@ -349,6 +401,7 @@ Partial Class NewAnimeInterface
         Me.Controls.Add(Me.nRank)
         Me.Controls.Add(Me.nLienModifiable)
         Me.Controls.Add(Label8)
+        Me.Controls.Add(Label9)
         Me.Name = "NewAnimeInterface"
         Me.Size = New System.Drawing.Size(600, 375)
         Me.ResumeLayout(False)
@@ -356,7 +409,6 @@ Partial Class NewAnimeInterface
 
     End Sub
     Friend WithEvents nRank As Gestionnaire_d_Archive.StarRanking
-    Friend WithEvents nReturn As System.Windows.Forms.Button
     Friend WithEvents nAjouter As System.Windows.Forms.Button
     Friend WithEvents nFilter As Gestionnaire_d_Archive.AnimeFilter
     Friend WithEvents nEpisode As System.Windows.Forms.TextBox
@@ -367,5 +419,8 @@ Partial Class NewAnimeInterface
     Friend WithEvents nFinish As System.Windows.Forms.CheckBox
     Friend WithEvents nDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents nLienModifiable As System.Windows.Forms.TextBox
+    Friend WithEvents nReturn As System.Windows.Forms.Button
+    Friend WithEvents nDimiss As System.Windows.Forms.Button
+    Friend WithEvents tip As System.Windows.Forms.ToolTip
 
 End Class

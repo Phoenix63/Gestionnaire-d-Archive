@@ -26,11 +26,11 @@ Partial Class V2_GUI
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(V2_GUI))
         Me.pContainer = New System.Windows.Forms.Panel()
         Me.pnl_header = New System.Windows.Forms.Panel()
-        Me.bt_menu = New System.Windows.Forms.Button()
         Me.bt_reduce = New System.Windows.Forms.Button()
         Me.bt_close = New System.Windows.Forms.Button()
         Me.title = New System.Windows.Forms.Label()
         Me.AutoSave = New System.Windows.Forms.Timer(Me.components)
+        Me.bt_menu = New System.Windows.Forms.Button()
         Me.pnl_header.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -54,21 +54,6 @@ Partial Class V2_GUI
         Me.pnl_header.Name = "pnl_header"
         Me.pnl_header.Size = New System.Drawing.Size(600, 25)
         Me.pnl_header.TabIndex = 10
-        '
-        'bt_menu
-        '
-        Me.bt_menu.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.bt_menu.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.bt_menu.FlatAppearance.BorderSize = 0
-        Me.bt_menu.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.bt_menu.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.bt_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.bt_menu.Location = New System.Drawing.Point(0, 0)
-        Me.bt_menu.Name = "bt_menu"
-        Me.bt_menu.Size = New System.Drawing.Size(49, 25)
-        Me.bt_menu.TabIndex = 11
-        Me.bt_menu.Text = "Menu"
-        Me.bt_menu.UseVisualStyleBackColor = False
         '
         'bt_reduce
         '
@@ -116,6 +101,22 @@ Partial Class V2_GUI
         'AutoSave
         '
         Me.AutoSave.Interval = 60000
+        '
+        'bt_menu
+        '
+        Me.bt_menu.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.bt_menu.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.bt_menu.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.bt_menu.FlatAppearance.BorderSize = 0
+        Me.bt_menu.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.bt_menu.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.bt_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bt_menu.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_menu
+        Me.bt_menu.Location = New System.Drawing.Point(0, 0)
+        Me.bt_menu.Name = "bt_menu"
+        Me.bt_menu.Size = New System.Drawing.Size(49, 25)
+        Me.bt_menu.TabIndex = 11
+        Me.bt_menu.UseVisualStyleBackColor = False
         '
         'V2_GUI
         '

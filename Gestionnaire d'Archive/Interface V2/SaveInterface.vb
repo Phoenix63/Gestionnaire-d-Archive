@@ -15,7 +15,6 @@
         Me.BringToFront()
         Me.Visible = False
     End Sub
-
     ' La méthode GetInstance doit être Shared <=> Static
     Public Shared Function GetInstance() As SaveInterface
 
@@ -31,6 +30,7 @@
 
     End Function
 
+#Region " Function "
     Public Sub startAnimation()
         MyBase.Invoke(
             Sub()
@@ -40,7 +40,6 @@
             End Sub
         )
     End Sub
-
     Public Sub endAnimation()
         MyBase.Invoke(
             Sub()
@@ -49,7 +48,9 @@
             End Sub
         )
     End Sub
+#End Region
 
+#Region " Handler "
     Private Sub timerAnimation_Tick(sender As Object, e As EventArgs) Handles timerAnimation.Tick
 
         If (animateTickCount Mod 4 = 0) Then
@@ -61,5 +62,6 @@
         animateTickCount += 1
 
     End Sub
+#End Region
 
 End Class

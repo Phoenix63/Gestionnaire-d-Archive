@@ -17,6 +17,16 @@ Public Class MenuInterface
     Private Shared ReadOnly mylock As New Object()
     Private mode As AnimationMode = AnimationMode.Open
 
+    ' Outer Event
+    Public Event NewEvent()
+    Public Event SaveEvent()
+    Public Event LoadEvent()
+    Public Event SigninEvent()
+    Public Event SettingsEvent()
+    Public Event InfoEvent()
+    Public Event ExitEvent()
+    Public Event MenuClosingEvent()
+
     ' Le constructeur est Private pour que l'on ne puisse pas faire de New SaveInterface
     Private Sub New()
 
@@ -28,16 +38,6 @@ Public Class MenuInterface
         Me.BackColor = Color.FromArgb(10, Color.Silver)
 
     End Sub
-
-    ' Outer Event
-    Public Event NewEvent()
-    Public Event SaveEvent()
-    Public Event LoadEvent()
-    Public Event SigninEvent()
-    Public Event InfoEvent()
-    Public Event ExitEvent()
-    Public Event MenuClosingEvent()
-
     ' La méthode GetInstance doit être Shared <=> Static
     Public Shared Function GetInstance() As MenuInterface
 
@@ -53,6 +53,19 @@ Public Class MenuInterface
 
     End Function
 
+#Region " Property "
+    <Description("Change the menu's title.")>
+    Property Title() As String
+        Get
+            Return mTitle.Text
+        End Get
+        Set(ByVal value As String)
+            mTitle.Text = value
+        End Set
+    End Property
+#End Region
+
+#Region " Function "
     Public Sub menuOpen()
         mode = AnimationMode.Open
         timerAnimation.Start()
@@ -62,9 +75,38 @@ Public Class MenuInterface
         mode = AnimationMode.Close
         timerAnimation.Start()
     End Sub
-    Private Sub timerAnimation_Tick(sender As Object, e As EventArgs) Handles timerAnimation.Tick
+#End Region
 
-        'Me.Invalidate(New Rectangle(New Point(150, 0), New Point(450, 400)), True)
+#Region " Handler "
+    Private Sub newClick(sender As Object, e As EventArgs) Handles mNew.Click
+        RaiseEvent NewEvent()
+        menuClose()
+    End Sub
+    Private Sub saveClick(sender As Object, e As EventArgs) Handles mSave.Click
+        RaiseEvent SaveEvent()
+        menuClose()
+    End Sub
+    Private Sub loadClick(sender As Object, e As EventArgs) Handles mLoad.Click
+        RaiseEvent LoadEvent()
+        menuClose()
+    End Sub
+    Private Sub signinClick(sender As Object, e As EventArgs) Handles mSignin.Click
+        RaiseEvent SigninEvent()
+        menuClose()
+    End Sub
+    Private Sub settingsClick(sender As Object, e As EventArgs) Handles mSettings.Click
+        RaiseEvent SettingsEvent()
+        menuClose()
+    End Sub
+    Private Sub infoClick(sender As Object, e As EventArgs) Handles mInfo.Click
+        RaiseEvent InfoEvent()
+        menuClose()
+    End Sub
+    Private Sub exitClick(sender As Object, e As EventArgs) Handles mExit.Click
+        RaiseEvent ExitEvent()
+        menuClose()
+    End Sub
+    Private Sub timerAnimation_Tick(sender As Object, e As EventArgs) Handles timerAnimation.Tick
 
         If (mode = AnimationMode.Open) Then
             If (Me.Left = 0) Then
@@ -83,64 +125,6 @@ Public Class MenuInterface
         End If
 
     End Sub
-
-    <Description("Change the menu's title.")>
-    Property Title() As String
-        Get
-            Return mTitle.Text
-        End Get
-        Set(ByVal value As String)
-            mTitle.Text = value
-        End Set
-    End Property
-
-#Region " Menu Handler "
-    Private Sub closeClick(sender As Object, e As EventArgs) Handles mClose.Click
-        menuClose()
-    End Sub
-    Private Sub newClick(sender As Object, e As EventArgs) Handles mNew.Click
-        RaiseEvent NewEvent()
-        menuClose()
-    End Sub
-    Private Sub saveClick(sender As Object, e As EventArgs) Handles mSave.Click
-        RaiseEvent SaveEvent()
-        menuClose()
-    End Sub
-    Private Sub loadClick(sender As Object, e As EventArgs) Handles mLoad.Click
-        RaiseEvent LoadEvent()
-        menuClose()
-    End Sub
-    Private Sub signinClick(sender As Object, e As EventArgs) Handles mSignin.Click
-        RaiseEvent SigninEvent()
-        menuClose()
-    End Sub
-    Private Sub infoClick(sender As Object, e As EventArgs) Handles mInfo.Click
-        RaiseEvent InfoEvent()
-        menuClose()
-    End Sub
-    Private Sub exitClick(sender As Object, e As EventArgs) Handles mExit.Click
-        RaiseEvent ExitEvent()
-        menuClose()
-    End Sub
-    Private Sub MenuInterface_Click(sender As Object, e As EventArgs) Handles MyBase.Click
-        menuClose()
-    End Sub
 #End Region
-
-    '#Region " Make background transparent "
-    '    Protected Overrides ReadOnly Property CreateParams() As CreateParams
-    '        Get
-    '            Dim cp As CreateParams = MyBase.CreateParams
-    '            cp.ExStyle = cp.ExStyle Or &H20
-    '            Return cp
-    '        End Get
-    '    End Property
-    '    Protected Overrides Sub OnPaintBackground(e As PaintEventArgs)
-    '        ' call MyBase.OnPaintBackground(e) only if the backColor is not Color.Transparent
-    '        If Me.BackColor <> Color.Transparent Then
-    '            MyBase.OnPaintBackground(e)
-    '        End If
-    '    End Sub
-    '#End Region
 
 End Class

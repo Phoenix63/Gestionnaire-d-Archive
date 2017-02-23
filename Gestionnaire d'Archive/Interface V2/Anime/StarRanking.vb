@@ -27,6 +27,7 @@ Public Class StarRanking
 
         End Sub
 
+#Region " Property "
         Public Property Active As Boolean
             Get
                 Return _active
@@ -41,6 +42,7 @@ Public Class StarRanking
                 Return _pic
             End Get
         End Property
+#End Region
 
     End Class
 
@@ -56,9 +58,9 @@ Public Class StarRanking
 
     ' Variable
     ' @_inactiveStar : image for unselected star
-    Private Shared _inactiveStar As Bitmap = New Bitmap(My.Resources.inactivestar)
+    Private Shared _inactiveStar As Bitmap = New Bitmap(My.Resources.ic_inactivestar)
     ' @_activeStar :   image for selected star
-    Private Shared _activeStar As Bitmap = New Bitmap(My.Resources.activestar)
+    Private Shared _activeStar As Bitmap = New Bitmap(My.Resources.ic_activestar)
     ' @_rank :         number of selected star
     Private _rank As UInteger = 1
     ' @_lastRank :     last number of selected star before an update

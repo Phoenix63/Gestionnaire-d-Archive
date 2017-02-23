@@ -148,10 +148,79 @@
   <data name="cloturer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cloturer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="shader" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\shader.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="search" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_information" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_login" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_menu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_quit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_quit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_activestar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_activestar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_arrowleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_arrowleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_arrowright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_arrowright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_dimiss" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_dimiss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_editdimiss" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_editdimiss.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_editok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_editok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_inactivestar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_inactivestar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_unclose" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_unclose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_valid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_valid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ic_imagechange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ic_imagechange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pic_loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pic_loading.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

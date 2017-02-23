@@ -1,5 +1,6 @@
 ﻿Public Class SearchFilter
 
+    ' Outer Event
     Public Event FilterBuilt(ByVal value As String, out As Boolean)
 
     Private Sub SearchFilter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -9,6 +10,7 @@
 
     End Sub
 
+#Region " Function "
     Public Sub updateNameList()
 
         Dim source As AutoCompleteStringCollection = New AutoCompleteStringCollection()
@@ -19,13 +21,9 @@
     End Sub
     Private Sub build()
 
-        'TODO: Filtre trop contraint => essayer de relacher
-
         Dim rank As Integer = aRank.Rank
         Dim gender As String = aFilter.getActiveItem()
         Dim name As String = aName.Text
-        'Dim follow As Boolean = aFollow.Checked
-        'Dim finish As Boolean = aFinish.Checked
 
         Dim query As String = ""
         If name.Equals("") Then
@@ -57,7 +55,7 @@
             End If
 
         Else
-                query = "Nom LIKE '" & name.ToLowerInvariant() & "%'"
+            query = "Nom LIKE '" & name.ToLowerInvariant() & "%'"
         End If
 
         Console.WriteLine("LOG: " & query)
@@ -66,6 +64,7 @@
         RaiseEvent FilterBuilt(query, aOut.Checked())
 
     End Sub
+#End Region
 
 #Region " Handler "
     Private onOut As Boolean = False
@@ -85,7 +84,7 @@
         ElseIf onOut Then
             cbSuivi.SelectedIndex = 0
             cbFini.SelectedIndex = 0
-        End If ' TODO: test
+        End If
 
         onOut = aOut.Checked()
 
@@ -94,13 +93,11 @@
         aOut.Checked = If(sender.Checked(), aOut.Checked, False)
     End Sub
     Private Sub cb_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbSuivi.SelectedIndexChanged, cbFini.SelectedIndexChanged
-
         If onOut Then
             aOut.Checked = False
             onOut = False
         End If
-
     End Sub
 #End Region
-    
+
 End Class

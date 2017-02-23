@@ -1,6 +1,7 @@
 ﻿Public Class NewAnimeInterface
     Inherits UserControl
 
+    ' Outer Event
     Public Event newAnimeEvent(anime As Anime)
 
     Public Sub New()
@@ -9,9 +10,8 @@
         Me.BackColor = Color.Transparent
 
     End Sub
-
     Private Sub AnimeInterface_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        nFilter.fillItemList("null", ";")
+        nFilter.fillItemList("", ";")
     End Sub
 
 #Region " Functions "
@@ -55,7 +55,7 @@
         nTitle.Clear()
         nEpisode.Clear()
         nRank.Rank = 1
-        nFilter = New AnimeFilter("null", ";")
+        nFilter = New AnimeFilter("", ";")
         nDate.Value = Date.Now
         nLienModifiable.Clear()
         nCommentaire.Clear()
@@ -103,6 +103,9 @@
         RaiseEvent newAnimeEvent(anime)
         clear()
 
+    End Sub
+    Private Sub nDimiss_Click(sender As Object, e As EventArgs) Handles nDimiss.Click
+        clear()
     End Sub
     Private Sub form_TextChanged(sender As Object, e As EventArgs) Handles nTitle.TextChanged, nEpisode.TextChanged, nLienModifiable.TextChanged
         nAjouter.Enabled = checkTextboxChange(sender)
