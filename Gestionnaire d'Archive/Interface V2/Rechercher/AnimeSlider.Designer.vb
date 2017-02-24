@@ -23,15 +23,19 @@ Partial Class AnimeSlider
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.slider = New System.Windows.Forms.Panel()
+        Me.loading = New System.Windows.Forms.PictureBox()
         Me.noResponse = New System.Windows.Forms.Label()
         Me.sliderLeft = New System.Windows.Forms.Button()
         Me.sliderRight = New System.Windows.Forms.Button()
+        Me.worker = New System.ComponentModel.BackgroundWorker()
         Me.slider.SuspendLayout()
+        CType(Me.loading, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'slider
         '
         Me.slider.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.slider.Controls.Add(Me.loading)
         Me.slider.Controls.Add(Me.noResponse)
         Me.slider.Controls.Add(Me.sliderLeft)
         Me.slider.Controls.Add(Me.sliderRight)
@@ -39,6 +43,17 @@ Partial Class AnimeSlider
         Me.slider.Name = "slider"
         Me.slider.Size = New System.Drawing.Size(570, 220)
         Me.slider.TabIndex = 25
+        '
+        'loading
+        '
+        Me.loading.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.pic_loading
+        Me.loading.Location = New System.Drawing.Point(187, 10)
+        Me.loading.Name = "loading"
+        Me.loading.Size = New System.Drawing.Size(200, 200)
+        Me.loading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.loading.TabIndex = 26
+        Me.loading.TabStop = False
+        Me.loading.Visible = False
         '
         'noResponse
         '
@@ -88,6 +103,11 @@ Partial Class AnimeSlider
         Me.sliderRight.UseVisualStyleBackColor = False
         Me.sliderRight.Visible = False
         '
+        'worker
+        '
+        Me.worker.WorkerReportsProgress = True
+        Me.worker.WorkerSupportsCancellation = True
+        '
         'AnimeSlider
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -96,6 +116,7 @@ Partial Class AnimeSlider
         Me.Name = "AnimeSlider"
         Me.Size = New System.Drawing.Size(648, 317)
         Me.slider.ResumeLayout(False)
+        CType(Me.loading, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -103,5 +124,7 @@ Partial Class AnimeSlider
     Friend WithEvents sliderLeft As System.Windows.Forms.Button
     Friend WithEvents slider As System.Windows.Forms.Panel
     Friend WithEvents noResponse As System.Windows.Forms.Label
+    Friend WithEvents worker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents loading As System.Windows.Forms.PictureBox
 
 End Class

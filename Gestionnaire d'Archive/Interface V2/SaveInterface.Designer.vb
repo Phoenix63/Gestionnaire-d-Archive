@@ -22,34 +22,32 @@ Partial Class SaveInterface
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Me.saveText = New System.Windows.Forms.Label()
-        Me.timerAnimation = New System.Windows.Forms.Timer(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'saveText
-        '
-        Me.saveText.Font = New System.Drawing.Font("Myriad Web Pro", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.saveText.Location = New System.Drawing.Point(0, 25)
-        Me.saveText.Name = "saveText"
-        Me.saveText.Size = New System.Drawing.Size(200, 18)
-        Me.saveText.TabIndex = 0
-        Me.saveText.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'timerAnimation
-        '
-        Me.timerAnimation.Interval = 500
         '
         'Label1
         '
+        Me.Label1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label1.Font = New System.Drawing.Font("Myriad Web Pro", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(-1, 8)
+        Me.Label1.Location = New System.Drawing.Point(0, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(202, 18)
+        Me.Label1.Size = New System.Drawing.Size(200, 25)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Sauvegarde en cours"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PictureBox1.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.pic_wait
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 25)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(200, 25)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
         '
         'SaveInterface
         '
@@ -57,15 +55,15 @@ Partial Class SaveInterface
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.saveText)
         Me.Name = "SaveInterface"
         Me.Size = New System.Drawing.Size(200, 50)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents saveText As System.Windows.Forms.Label
-    Private WithEvents timerAnimation As System.Windows.Forms.Timer
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 
 End Class

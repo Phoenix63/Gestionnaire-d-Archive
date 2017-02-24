@@ -15,8 +15,7 @@
 
         Dim source As AutoCompleteStringCollection = New AutoCompleteStringCollection()
         source.AddRange(V2_GUI.nameList.ToArray())
-
-        MyBase.Invoke(Sub() aName.AutoCompleteCustomSource = source)
+        aName.AutoCompleteCustomSource = source
 
     End Sub
     Private Sub build()

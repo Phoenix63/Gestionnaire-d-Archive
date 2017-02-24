@@ -15,6 +15,7 @@ Public Class V2_GUI
     Private WithEvents shader As ShaderScreen = New ShaderScreen()
 
     Private sqlCo As SqlConnection
+    Private historyList As New List(Of Anime)
     Private ConsoleOut As TextWriter = Console.Out
     Private Logger As StreamWriter = New StreamWriter("report.log", True)
     Public Shared data As DataSet = New DataSet("data")
@@ -51,9 +52,11 @@ Public Class V2_GUI
 
         AutoSave.Start()
 
-        rInterface = New RechercherInterface()
-        pContainer.Controls.Add(rInterface)
-        rInterface.SendToBack()
+        loadHistory()
+
+        'rInterface = New RechercherInterface()
+        'pContainer.Controls.Add(rInterface)
+        'rInterface.SendToBack()
 
     End Sub
     Private Sub V2_Test_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
@@ -253,7 +256,13 @@ Public Class V2_GUI
         nInterface.BringToFront()
 
     End Sub
-    Private Async Sub doSave() Handles mInterface.SaveEvent
+    Private Sub doLoad() Handles mInterface.LoadEvent
+
+        If Not aInterface Is Nothing Then aInterface.Dispose()
+        loadSearchInterface()
+
+    End Sub
+    Private Sub doSave() Handles mInterface.SaveEvent
 
         Console.WriteLine("Saving...")
         tick = 0
@@ -267,19 +276,17 @@ Public Class V2_GUI
 
         sInterface.startAnimation()
 
+        fillData()
         ' Do save
-        Await Task.Run(
-             Sub()
-                 fillData()
-                 sliderUpdate()
-             End Sub
-        )
+        'Await Task.Run(
+        '     Sub()
+        '         fillData()
+        '         'sliderUpdate()
+        '     End Sub
+        ')
 
         sInterface.endAnimation()
 
-    End Sub
-    Private Sub doLoad() Handles mInterface.LoadEvent
-        'Not implemented
     End Sub
     Private Sub doSignin() Handles mInterface.SigninEvent
         'Not implemented
@@ -288,7 +295,15 @@ Public Class V2_GUI
         'Not implemented
     End Sub
     Private Sub doInfo() Handles mInterface.InfoEvent
-        'Not implemented
+
+        Dim infobox As InformationBox = New InformationBox()
+        infobox.Text = Me.Text
+        infobox.ShowIcon = True
+        infobox.Icon = Me.Icon
+        infobox.Version = "v2.1.0 (beta)"
+        infobox.Comments = "Gestionnaire d'Archive" & vbCrLf & "Application pour la gestion de série." & vbCrLf & vbCrLf & "Si une erreur survient, contactez le support en joignant le fichier 'report.log'"
+        infobox.ShowDialog()
+
     End Sub
     Private Sub doAppExit() Handles mInterface.ExitEvent
         Close()
@@ -299,7 +314,7 @@ Public Class V2_GUI
 #End Region
 
 #Region " RechercheEvent Handler "
-    Private Sub loadAnime(anime As Anime) Handles rInterface.LoadAnimeEvent
+    Private Sub loadAnime(anime As Anime) Handles rInterface.LoadAnimeEvent, history.loadAnimeEvent
 
         If Not aInterface Is Nothing Then
             pContainer.Controls.Remove(aInterface)
@@ -316,8 +331,12 @@ Public Class V2_GUI
 #End Region
 
 #Region " AnimeInterfaceEvent Handler "
-    Private Sub animeUpdated() Handles aInterface.AnimeUpdated
+    Private Sub animeUpdated(anime As Anime) Handles aInterface.AnimeUpdated
+
+        addHistory(anime)
         doSave()
+        sliderUpdate()
+
     End Sub
     Private Sub sliderUpdate() Handles aInterface.PictureUpdated
 
@@ -387,13 +406,62 @@ Public Class V2_GUI
 
 #Region " AutoSave Function "
     Private tick As Integer = 0
-    Private Const timeout As Integer = 1 'minute
+    Private Const timeout As Integer = 15 'minute
     Private Sub AutoSave_Tick(sender As Object, e As EventArgs) Handles AutoSave.Tick
         tick += 1
         If (tick = timeout) Then
             tick = 0
             doSave()
         End If
+    End Sub
+#End Region
+
+#Region " Accueil "
+    Private Sub addHistory(anime As Anime)
+
+        Dim currentID As Integer = CInt(data.Tables("data").Select("Nom = '" & anime.Nom() & "'")(0).Item("Id"))
+
+        For Each e In historyList.ToList
+            Dim hID As Integer = CInt(data.Tables("data").Select("Nom = '" & e.Nom() & "'")(0).Item("Id"))
+            If (currentID.Equals(hID)) Then historyList.Remove(e)
+        Next
+
+        historyList.Add(anime)
+
+    End Sub
+    Private Sub loadHistory() Handles rInterface.HistoryUpdated
+
+        history.clearScreen()
+        history.addAnime(historyList)
+        Console.WriteLine("LOG: loading history")
+        history.displayAnime()
+        Console.WriteLine("LOG: displaying history")
+
+    End Sub
+    Private Sub loadSearchInterface()
+
+        pAccueil.Visible = False
+        If rInterface Is Nothing Then
+            rInterface = New RechercherInterface()
+            pContainer.Controls.Add(rInterface)
+            rInterface.SendToBack()
+        End If
+        rInterface.Visible = True
+        pAccueil.SendToBack()
+        pAccueil.Visible = True
+
+    End Sub
+    Private Sub quickOut_Click(sender As Object, e As EventArgs) Handles quickOut.Click
+        loadSearchInterface()
+        rInterface.loadWithFilter("Fini = '0' AND Follow = '1'", True)
+    End Sub
+    Private Sub quickCurrent_Click(sender As Object, e As EventArgs) Handles quickCurrent.Click
+        loadSearchInterface()
+        rInterface.loadWithFilter("Fini = '0'", False)
+    End Sub
+    Private Sub quickEnded_Click(sender As Object, e As EventArgs) Handles quickEnded.Click
+        loadSearchInterface()
+        rInterface.loadWithFilter("Fini = '1'", False)
     End Sub
 #End Region
 

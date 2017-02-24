@@ -3,6 +3,7 @@
 
     Private oldFilter As String = ""
     Private oldOut As Boolean = False
+    Private oldIndex As Integer = 0
 
     Private index As Integer = 0
     Private cardList As List(Of AnimeCard) = New List(Of AnimeCard)
@@ -35,11 +36,12 @@
             Next
         End If
     End Sub
-    Private Delegate Sub dFillWithFilter(ByVal filter As String, ByVal out As Boolean)
-    Private Sub fillWithFilter(ByVal filter As String, ByVal out As Boolean)
+    Private Delegate Sub dFillWithFilter(ByVal filter As String, ByVal out As Boolean, i As Integer)
+    Private Sub fillWithFilter(ByVal filter As String, ByVal out As Boolean, Optional i As Integer = 0)
 
         oldFilter = filter
         oldOut = out
+        index = i
 
         Dim view As DataView = New DataView(V2_GUI.data.Tables("data"))
         view.Sort() = "Nom ASC"
@@ -47,53 +49,61 @@
 
         Dim table As DataTable = view.ToTable
 
-        clearScreen()
-
         If table.Rows.Count = 0 Then
             displayAny()
         Else
+            Console.WriteLine("LOG: start processing")
+            fillWithFilterProcessing(table, out)
+            Console.WriteLine("LOG: end processing")
+        End If
 
-            Try
-                table.BeginLoadData()
-                Select Case out
-                    Case True
-                        For Each line As DataRow In table.Rows
-                            Dim a As Anime = New Anime(line)
-                            Dim diff As Integer = DateDiff(DateInterval.Day, a.DateSortie(), Now.Date, FirstDayOfWeek.Monday)
-                            Dim nb As Integer = 1 + Math.Floor(diff / 7) 'Nb d'épisode depuis le début
-                            If ((7 * (a.Episode() - 1)) - (diff Mod 7) - (7 * (nb - 1)) <= 0) Then
-                                addAnime(a)
-                            End If
-                        Next
+    End Sub
+    Private Sub fillWithFilterProcessing(ByVal table As DataTable, ByVal out As Boolean)
 
-                    Case Else
-                        For Each line As DataRow In table.Rows
-                            addAnime(New Anime(line))
-                        Next
-                End Select
-                table.EndLoadData()
+        Try
+            table.BeginLoadData()
+            Select Case out
+                Case True
+                    Console.WriteLine("LOG: processing. . .")
+                    For Each line As DataRow In table.Rows
+                        Dim a As Anime = New Anime(line)
+                        Dim diff As Integer = DateDiff(DateInterval.Day, a.DateSortie(), Now.Date, FirstDayOfWeek.Monday)
+                        Dim nb As Integer = 1 + Math.Floor(diff / 7) 'Nb d'épisode depuis le début
+                        If ((7 * (a.Episode() - 1)) - (diff Mod 7) - (7 * (nb - 1)) <= 0) Then
+                            addAnime(a)
+                        End If
+                    Next
 
-                fillCardList()
-                displayIndex()
+                Case Else
+                    Console.WriteLine("LOG: processing. . .")
+                    For Each line As DataRow In table.Rows
+                        addAnime(New Anime(line))
+                    Next
+            End Select
+            table.EndLoadData()
 
-            Catch ex As Exception
-                Console.WriteLine("LOG: fillAnimeList - " & ex.Message)
-            End Try
+        Catch ex As Exception
+            Console.WriteLine("LOG: fillAnimeList - " & ex.Message)
+        End Try
+
+    End Sub
+    Public Sub loadWithFilter(ByVal filter As String, ByVal out As Boolean, Optional i As Integer = 0)
+
+        If Not worker.IsBusy Then
+
+            oldFilter = filter
+            oldOut = out
+            oldIndex = i
+            clearScreen()
+            loading.Visible = True
+
+            worker.RunWorkerAsync()
 
         End If
 
     End Sub
-    Public Sub loadWithFilter(ByVal filter As String, ByVal out As Boolean)
-
-        'Me.BeginInvoke(New dFillWithFilter(AddressOf fillWithFilter), filter, out)
-
-        Dim worker As New Threading.Thread(Sub() Me.BeginInvoke(New dFillWithFilter(AddressOf fillWithFilter), filter, out))
-        worker.IsBackground = True
-        worker.Start()
-
-    End Sub
     Public Sub reloadWithFilter()
-        loadWithFilter(oldFilter, oldOut)
+        loadWithFilter(oldFilter, oldOut, oldIndex)
     End Sub
     Private Delegate Sub dFillCardList()
     Private Sub fillCardList()
@@ -111,12 +121,18 @@
             aCard.BringToFront()
 
         Next
-        displaySlider()
 
     End Sub
 #End Region
 
 #Region " Display "
+    Public Sub displayAnime()
+
+        cardList.Reverse()
+        fillCardList()
+        displayIndex()
+
+    End Sub
     Private Sub displayAny()
         clearScreen()
         Me.noResponse.Visible = True
@@ -131,7 +147,7 @@
         If cardList.Count <= (index + 1) * 4 Then sliderRight.Visible = False Else sliderRight.Visible = True
         If index > 0 Then sliderLeft.Visible = True Else sliderLeft.Visible = False
     End Sub
-    Private Sub clearScreen()
+    Public Sub clearScreen()
 
         index = 0
         For Each e In cardList
@@ -160,7 +176,21 @@
     Private Sub sliderLeft_Click(sender As Object, e As EventArgs) Handles sliderLeft.Click
         slider_Click(-1)
     End Sub
+    Private Sub worker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles worker.DoWork
+
+        fillWithFilter(oldFilter, oldOut, oldIndex)
+
+    End Sub
+    Private Sub worker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles worker.RunWorkerCompleted
+
+        fillCardList()
+        displaySlider()
+        displayIndex()
+        loading.Visible = False
+
+    End Sub
     Private Sub loadAnime(anime As Anime)
+        oldIndex = index
         RaiseEvent loadAnimeEvent(anime)
     End Sub
 #End Region

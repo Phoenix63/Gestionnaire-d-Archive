@@ -7,7 +7,6 @@
     ' Variable locale pour stocker une référence vers l'instance
     Private Shared instance As SaveInterface = Nothing
     Private Shared ReadOnly mylock As New Object()
-    Private animateTickCount As Integer = 0
 
     ' Le constructeur est Private pour que l'on ne puisse pas faire de New SaveInterface
     Private Sub New()
@@ -32,35 +31,10 @@
 
 #Region " Function "
     Public Sub startAnimation()
-        MyBase.Invoke(
-            Sub()
-                Me.Visible = True
-                animateTickCount = 0
-                timerAnimation.Start()
-            End Sub
-        )
+        Me.Visible = True
     End Sub
     Public Sub endAnimation()
-        MyBase.Invoke(
-            Sub()
-                Me.Visible = False
-                timerAnimation.Stop()
-            End Sub
-        )
-    End Sub
-#End Region
-
-#Region " Handler "
-    Private Sub timerAnimation_Tick(sender As Object, e As EventArgs) Handles timerAnimation.Tick
-
-        If (animateTickCount Mod 4 = 0) Then
-            animateTickCount = 0
-            saveText.Text = ""
-        Else
-            saveText.Text += ". "
-        End If
-        animateTickCount += 1
-
+        Me.Visible = False
     End Sub
 #End Region
 

@@ -176,6 +176,12 @@
     <Compile Include="Interface V2\Anime\NewAnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Interface V2\InformationBox.Designer.vb">
+      <DependentUpon>InformationBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\InformationBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Interface V2\Rechercher\AnimeCard.Designer.vb">
       <DependentUpon>AnimeCard.vb</DependentUpon>
     </Compile>
@@ -271,6 +277,9 @@
     <EmbeddedResource Include="Interface V2\Anime\NewAnimeInterface.resx">
       <DependentUpon>NewAnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\InformationBox.resx">
+      <DependentUpon>InformationBox.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
       <DependentUpon>AnimeCard.vb</DependentUpon>
     </EmbeddedResource>
@@ -323,6 +332,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\activestar.png" />
+    <None Include="Resources\pic_wait.gif" />
+    <None Include="Resources\pic_loading.gif" />
     <None Include="Resources\pic_loading.png" />
     <None Include="Resources\ic_add.png" />
     <None Include="Resources\ic_information.png" />

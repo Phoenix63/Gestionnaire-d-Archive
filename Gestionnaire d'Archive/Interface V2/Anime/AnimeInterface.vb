@@ -14,7 +14,7 @@ Public Class AnimeInterface
     Private Const COMMENTAIRE_HEIGHT_WITH_FOLLOW As Integer = 45
 
     ' Outer Event
-    Public Event AnimeUpdated()
+    Public Event AnimeUpdated(anime As Anime)
     Public Event PictureUpdated()
 
     Public Sub New(ByRef anime As Anime)
@@ -342,8 +342,8 @@ Public Class AnimeInterface
         Me.Visible = False
 
         If (picChanged And Not aChanged) Then RaiseEvent PictureUpdated()
-        If (aChanged) Then RaiseEvent AnimeUpdated()
-        Me.Refresh()
+        If (aChanged) Then RaiseEvent AnimeUpdated(_anime)
+        'Me.Refresh()
 
         Me.Parent.Controls.Remove(Me)
         Dispose()
