@@ -176,10 +176,10 @@
     <Compile Include="Interface V2\Anime\NewAnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\InformationBox.Designer.vb">
+    <Compile Include="Interface V2\Menu\InformationBox.Designer.vb">
       <DependentUpon>InformationBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\InformationBox.vb">
+    <Compile Include="Interface V2\Menu\InformationBox.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interface V2\Rechercher\AnimeCard.Designer.vb">
@@ -206,10 +206,10 @@
     <Compile Include="Interface V2\Anime\AnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\MenuInterface.Designer.vb">
+    <Compile Include="Interface V2\Menu\MenuInterface.Designer.vb">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\MenuInterface.vb">
+    <Compile Include="Interface V2\Menu\MenuInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\Rechercher\SearchFilter.Designer.vb">
@@ -218,10 +218,10 @@
     <Compile Include="Interface V2\Rechercher\SearchFilter.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\SaveInterface.Designer.vb">
+    <Compile Include="Interface V2\Menu\SaveInterface.Designer.vb">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\SaveInterface.vb">
+    <Compile Include="Interface V2\Menu\SaveInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\Anime\StarRanking.Designer.vb">
@@ -277,7 +277,7 @@
     <EmbeddedResource Include="Interface V2\Anime\NewAnimeInterface.resx">
       <DependentUpon>NewAnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\InformationBox.resx">
+    <EmbeddedResource Include="Interface V2\Menu\InformationBox.resx">
       <DependentUpon>InformationBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
@@ -292,13 +292,13 @@
     <EmbeddedResource Include="Interface V2\Anime\AnimeInterface.resx">
       <DependentUpon>AnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\MenuInterface.resx">
+    <EmbeddedResource Include="Interface V2\Menu\MenuInterface.resx">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\SearchFilter.resx">
       <DependentUpon>SearchFilter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\SaveInterface.resx">
+    <EmbeddedResource Include="Interface V2\Menu\SaveInterface.resx">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Anime\StarRanking.resx">

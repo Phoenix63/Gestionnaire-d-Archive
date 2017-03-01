@@ -165,7 +165,6 @@ Partial Class NewAnimeInterface
         Me.nEpisode.Location = New System.Drawing.Point(155, 60)
         Me.nEpisode.MaxLength = 4
         Me.nEpisode.Name = "nEpisode"
-        Me.nEpisode.ShortcutsEnabled = False
         Me.nEpisode.Size = New System.Drawing.Size(58, 35)
         Me.nEpisode.TabIndex = 0
         Me.nEpisode.TabStop = False
@@ -181,7 +180,6 @@ Partial Class NewAnimeInterface
         Me.nTitle.Location = New System.Drawing.Point(155, 15)
         Me.nTitle.MaxLength = 40
         Me.nTitle.Name = "nTitle"
-        Me.nTitle.ShortcutsEnabled = False
         Me.nTitle.Size = New System.Drawing.Size(410, 35)
         Me.nTitle.TabIndex = 15
         Me.nTitle.TabStop = False
@@ -280,7 +278,6 @@ Partial Class NewAnimeInterface
         Me.nLienModifiable.Location = New System.Drawing.Point(155, 205)
         Me.nLienModifiable.MaxLength = 200
         Me.nLienModifiable.Name = "nLienModifiable"
-        Me.nLienModifiable.ShortcutsEnabled = False
         Me.nLienModifiable.Size = New System.Drawing.Size(410, 25)
         Me.nLienModifiable.TabIndex = 34
         Me.nLienModifiable.TabStop = False

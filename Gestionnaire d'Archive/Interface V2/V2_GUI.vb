@@ -53,15 +53,13 @@ Public Class V2_GUI
         AutoSave.Start()
 
         loadHistory()
-
-        'rInterface = New RechercherInterface()
-        'pContainer.Controls.Add(rInterface)
-        'rInterface.SendToBack()
+        displayHistory()
 
     End Sub
     Private Sub V2_Test_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
 
         fillData()
+        saveHistory()
         My.Settings.Save()
 
         If Not sInterface Is Nothing Then sInterface.Dispose()
@@ -75,6 +73,8 @@ Public Class V2_GUI
             Me.sqlCo.Dispose()
         End If
 
+        Console.WriteLine("------Session ended: {0}------", System.DateTime.Now.ToString("dd/MM/yyyy - H:mm:ss"))
+        Console.WriteLine()
         Logger.Close()
         Console.SetOut(ConsoleOut)
 
@@ -208,7 +208,6 @@ Public Class V2_GUI
         Return If(row.Length > 0, True, False)
 
     End Function
-
 #End Region
 
 #Region " Header "
@@ -275,16 +274,7 @@ Public Class V2_GUI
         End If
 
         sInterface.startAnimation()
-
         fillData()
-        ' Do save
-        'Await Task.Run(
-        '     Sub()
-        '         fillData()
-        '         'sliderUpdate()
-        '     End Sub
-        ')
-
         sInterface.endAnimation()
 
     End Sub
@@ -300,7 +290,7 @@ Public Class V2_GUI
         infobox.Text = Me.Text
         infobox.ShowIcon = True
         infobox.Icon = Me.Icon
-        infobox.Version = "v2.1.0 (beta)"
+        infobox.Version = "v2.1.1 (beta)"
         infobox.Comments = "Gestionnaire d'Archive" & vbCrLf & "Application pour la gestion de série." & vbCrLf & vbCrLf & "Si une erreur survient, contactez le support en joignant le fichier 'report.log'"
         infobox.ShowDialog()
 
@@ -321,7 +311,6 @@ Public Class V2_GUI
             aInterface.Dispose()
         End If
 
-        Debug.Assert(Not anime Is Nothing)
         aInterface = New AnimeInterface(anime)
 
         pContainer.Controls.Add(aInterface)
@@ -417,6 +406,26 @@ Public Class V2_GUI
 #End Region
 
 #Region " Accueil "
+    Private Sub loadHistory()
+
+        'HACK
+        For i As Integer = 1 To 4
+            If (Dir(Application.StartupPath & "\data.ga" & i) <> "") Then
+                historyList.Add(Anime.fileDeserialize(Application.StartupPath & "\data.ga"))
+            End If
+        Next i
+
+    End Sub
+    Private Sub saveHistory()
+
+        'HACK
+        For i As Integer = 1 To historyList.Count
+            My.Computer.FileSystem.WriteAllText(Application.StartupPath & "\data.ga" & i,
+                                                historyList(i).fileFullSerialize(),
+                                                False)
+        Next i
+
+    End Sub
     Private Sub addHistory(anime As Anime)
 
         Dim currentID As Integer = CInt(data.Tables("data").Select("Nom = '" & anime.Nom() & "'")(0).Item("Id"))
@@ -425,11 +434,10 @@ Public Class V2_GUI
             Dim hID As Integer = CInt(data.Tables("data").Select("Nom = '" & e.Nom() & "'")(0).Item("Id"))
             If (currentID.Equals(hID)) Then historyList.Remove(e)
         Next
-
         historyList.Add(anime)
 
     End Sub
-    Private Sub loadHistory() Handles rInterface.HistoryUpdated
+    Private Sub displayHistory() Handles rInterface.HistoryUpdated
 
         history.clearScreen()
         history.addAnime(historyList)
@@ -446,6 +454,7 @@ Public Class V2_GUI
             pContainer.Controls.Add(rInterface)
             rInterface.SendToBack()
         End If
+        rInterface.loadWithFilter("", False)
         rInterface.Visible = True
         pAccueil.SendToBack()
         pAccueil.Visible = True

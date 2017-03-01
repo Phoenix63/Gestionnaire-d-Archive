@@ -88,8 +88,8 @@
             genre:=nFilter.getActiveItem(),
             commentaire:=nCommentaire.Text,
             note:=nRank.Rank,
-            smartLink:=nSmartLink.Checked,
-            follow:=nFollow.Checked,
+            smartLink:=IIf(nFinish.Checked, False, nSmartLink.Checked),
+            follow:=IIf(nFinish.Checked, False, nFollow.Checked),
             finished:=nFinish.Checked
         )
 

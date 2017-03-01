@@ -46,12 +46,12 @@ Partial Class AnimeInterface
         Me.aNext = New System.Windows.Forms.Button()
         Me.aReturn = New System.Windows.Forms.Button()
         Me.aPicture = New System.Windows.Forms.PictureBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
-        Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         Me.pictureCM = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.changePicture = New System.Windows.Forms.ToolStripMenuItem()
         Me.deletePicture = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
+        Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         CType(Me.aPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pictureCM.SuspendLayout()
         Me.SuspendLayout()
@@ -99,7 +99,6 @@ Partial Class AnimeInterface
         Me.aEpisode.Location = New System.Drawing.Point(286, 60)
         Me.aEpisode.MaxLength = 4
         Me.aEpisode.Name = "aEpisode"
-        Me.aEpisode.ShortcutsEnabled = False
         Me.aEpisode.Size = New System.Drawing.Size(58, 35)
         Me.aEpisode.TabIndex = 0
         Me.aEpisode.TabStop = False
@@ -225,7 +224,6 @@ Partial Class AnimeInterface
         Me.aLienModifiable.Location = New System.Drawing.Point(263, 205)
         Me.aLienModifiable.MaxLength = 200
         Me.aLienModifiable.Name = "aLienModifiable"
-        Me.aLienModifiable.ShortcutsEnabled = False
         Me.aLienModifiable.Size = New System.Drawing.Size(322, 25)
         Me.aLienModifiable.TabIndex = 34
         Me.aLienModifiable.TabStop = False
@@ -369,6 +367,26 @@ Partial Class AnimeInterface
         Me.aPicture.TabIndex = 0
         Me.aPicture.TabStop = False
         '
+        'pictureCM
+        '
+        Me.pictureCM.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.changePicture, Me.deletePicture})
+        Me.pictureCM.Name = "ContextMenuStrip1"
+        Me.pictureCM.Size = New System.Drawing.Size(162, 48)
+        '
+        'changePicture
+        '
+        Me.changePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_imagechange
+        Me.changePicture.Name = "changePicture"
+        Me.changePicture.Size = New System.Drawing.Size(161, 22)
+        Me.changePicture.Text = "Changer l'image"
+        '
+        'deletePicture
+        '
+        Me.deletePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_delete
+        Me.deletePicture.Name = "deletePicture"
+        Me.deletePicture.Size = New System.Drawing.Size(161, 22)
+        Me.deletePicture.Text = "Supprimer"
+        '
         'Button2
         '
         Me.Button2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -418,26 +436,6 @@ Partial Class AnimeInterface
         Me.aRank.Rank = 1
         Me.aRank.Size = New System.Drawing.Size(175, 35)
         Me.aRank.TabIndex = 0
-        '
-        'pictureCM
-        '
-        Me.pictureCM.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.changePicture, Me.deletePicture})
-        Me.pictureCM.Name = "ContextMenuStrip1"
-        Me.pictureCM.Size = New System.Drawing.Size(162, 70)
-        '
-        'changePicture
-        '
-        Me.changePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_imagechange
-        Me.changePicture.Name = "changePicture"
-        Me.changePicture.Size = New System.Drawing.Size(161, 22)
-        Me.changePicture.Text = "Changer l'image"
-        '
-        'deletePicture
-        '
-        Me.deletePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_delete
-        Me.deletePicture.Name = "deletePicture"
-        Me.deletePicture.Size = New System.Drawing.Size(161, 22)
-        Me.deletePicture.Text = "Supprimer"
         '
         'AnimeInterface
         '

@@ -386,8 +386,8 @@ Public Class AnimeInterface
                 genre:=aFilter.getActiveItem(),
                 commentaire:=aCommentaire.Text,
                 note:=aRank.Rank,
-                smartLink:=aSmartLink.Checked,
-                follow:=aFollow.Checked,
+                smartLink:=IIf(aFinish.Checked, False, aSmartLink.Checked),
+                follow:=IIf(aFinish.Checked, False, aFollow.Checked),
                 finished:=aFinish.Checked
             )
 
@@ -567,7 +567,11 @@ Public Class AnimeInterface
         Try
 
             row.BeginEdit()
-            row(10) = If(_anime.Finished(), "1", "0")
+            If (_anime.Finished()) Then
+                row(8) = "0"
+                row(9) = "0"
+            End If
+            row(10) = IIf(_anime.Finished(), "1", "0")
             row.EndEdit()
 
             If (row.RowState = DataRowState.Modified) Then aChanged = True
