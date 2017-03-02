@@ -259,6 +259,7 @@ Public Class V2_GUI
 
         If Not aInterface Is Nothing Then aInterface.Dispose()
         loadSearchInterface()
+        rInterface.loadWithFilter("", False)
 
     End Sub
     Private Sub doSave() Handles mInterface.SaveEvent
@@ -332,6 +333,8 @@ Public Class V2_GUI
         If (Not rInterface Is Nothing) Then
             Console.WriteLine("LOG: reloadSlider")
             rInterface.reloadSlider()
+        Else
+            displayHistory()
         End If
 
     End Sub
@@ -410,8 +413,9 @@ Public Class V2_GUI
 
         'HACK
         For i As Integer = 1 To 4
-            If (Dir(Application.StartupPath & "\data.ga" & i) <> "") Then
-                historyList.Add(Anime.fileDeserialize(Application.StartupPath & "\data.ga"))
+            Dim path As String = Application.StartupPath & "\data.ga" & i
+            If (Dir(path) <> "") Then
+                historyList.Add(Anime.fileDeserialize(My.Computer.FileSystem.ReadAllText(path)))
             End If
         Next i
 
@@ -419,9 +423,9 @@ Public Class V2_GUI
     Private Sub saveHistory()
 
         'HACK
-        For i As Integer = 1 To historyList.Count
+        For i As Integer = 1 To Math.Min(historyList.Count, 4)
             My.Computer.FileSystem.WriteAllText(Application.StartupPath & "\data.ga" & i,
-                                                historyList(i).fileFullSerialize(),
+                                                historyList(i - 1).fileFullSerialize(),
                                                 False)
         Next i
 
@@ -454,7 +458,6 @@ Public Class V2_GUI
             pContainer.Controls.Add(rInterface)
             rInterface.SendToBack()
         End If
-        rInterface.loadWithFilter("", False)
         rInterface.Visible = True
         pAccueil.SendToBack()
         pAccueil.Visible = True
