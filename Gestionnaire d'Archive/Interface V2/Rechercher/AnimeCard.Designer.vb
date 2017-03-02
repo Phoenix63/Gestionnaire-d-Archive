@@ -22,8 +22,10 @@ Partial Class AnimeCard
     'Ne la modifiez pas à l'aide de l'éditeur de code.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.cardName = New System.Windows.Forms.Label()
         Me.cardFont = New System.Windows.Forms.PictureBox()
+        Me.tip = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.cardFont, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -66,5 +68,6 @@ Partial Class AnimeCard
     End Sub
     Friend WithEvents cardFont As System.Windows.Forms.PictureBox
     Friend WithEvents cardName As System.Windows.Forms.Label
+    Friend WithEvents tip As System.Windows.Forms.ToolTip
 
 End Class

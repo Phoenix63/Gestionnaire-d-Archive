@@ -176,6 +176,12 @@
     <Compile Include="Interface V2\Anime\NewAnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Interface V2\Menu\InformationBox.Designer.vb">
+      <DependentUpon>InformationBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Menu\InformationBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Interface V2\Rechercher\AnimeCard.Designer.vb">
       <DependentUpon>AnimeCard.vb</DependentUpon>
     </Compile>
@@ -200,10 +206,10 @@
     <Compile Include="Interface V2\Anime\AnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\MenuInterface.Designer.vb">
+    <Compile Include="Interface V2\Menu\MenuInterface.Designer.vb">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\MenuInterface.vb">
+    <Compile Include="Interface V2\Menu\MenuInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\Rechercher\SearchFilter.Designer.vb">
@@ -212,10 +218,10 @@
     <Compile Include="Interface V2\Rechercher\SearchFilter.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\SaveInterface.Designer.vb">
+    <Compile Include="Interface V2\Menu\SaveInterface.Designer.vb">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\SaveInterface.vb">
+    <Compile Include="Interface V2\Menu\SaveInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\Anime\StarRanking.Designer.vb">
@@ -271,6 +277,9 @@
     <EmbeddedResource Include="Interface V2\Anime\NewAnimeInterface.resx">
       <DependentUpon>NewAnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Menu\InformationBox.resx">
+      <DependentUpon>InformationBox.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
       <DependentUpon>AnimeCard.vb</DependentUpon>
     </EmbeddedResource>
@@ -283,13 +292,13 @@
     <EmbeddedResource Include="Interface V2\Anime\AnimeInterface.resx">
       <DependentUpon>AnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\MenuInterface.resx">
+    <EmbeddedResource Include="Interface V2\Menu\MenuInterface.resx">
       <DependentUpon>MenuInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\SearchFilter.resx">
       <DependentUpon>SearchFilter.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\SaveInterface.resx">
+    <EmbeddedResource Include="Interface V2\Menu\SaveInterface.resx">
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Anime\StarRanking.resx">
@@ -323,6 +332,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\activestar.png" />
+    <None Include="Resources\pic_wait.gif" />
+    <None Include="Resources\pic_loading.gif" />
+    <None Include="Resources\pic_loading.png" />
+    <None Include="Resources\ic_add.png" />
+    <None Include="Resources\ic_information.png" />
+    <None Include="Resources\ic_login.png" />
+    <None Include="Resources\ic_menu.png" />
+    <None Include="Resources\ic_save.png" />
+    <None Include="Resources\ic_quit.png" />
+    <None Include="Resources\ic_delete.png" />
+    <None Include="Resources\ic_search.png" />
+    <None Include="Resources\ic_activestar.png" />
+    <None Include="Resources\ic_inactivestar.png" />
+    <None Include="Resources\ic_plus.png" />
+    <None Include="Resources\ic_back.png" />
+    <None Include="Resources\ic_valid.png" />
+    <None Include="Resources\ic_dimiss.png" />
+    <None Include="Resources\ic_settings.png" />
+    <None Include="Resources\ic_edit.png" />
+    <None Include="Resources\ic_editdimiss.png" />
+    <None Include="Resources\ic_editok.png" />
+    <None Include="Resources\ic_close.png" />
+    <None Include="Resources\ic_unclose.png" />
+    <None Include="Resources\ic_arrowleft.png" />
+    <None Include="Resources\ic_arrowright.png" />
+    <None Include="Resources\ic_imagechange.png" />
     <Content Include="Resources\inactivestar.png" />
     <None Include="Resources\search.png" />
     <None Include="Resources\shader.png" />

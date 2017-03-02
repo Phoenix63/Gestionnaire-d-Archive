@@ -161,25 +161,24 @@ Public Class AnimeFilter
     End Sub
 #End Region
 
+#Region " Function "
     Public Sub fillItemList(ByVal gender As String, ByVal separator As String)
 
-        If itemList.Count = 0 Then
+        If itemList.Count > 0 And Me.getActiveItem().Equals(gender) Then Exit Sub
 
-            'If _separator Is Nothing Then _separator = separator
+        itemList.Clear()
 
-            Dim item As Item
-            Dim strSplitted As String() = Split(gender, separator)
+        Dim item As Item
+        Dim strSplitted As String() = Split(gender, separator)
 
-            Debug.Assert(Not strSplitted Is Nothing, "Genre vide")
+        Debug.Assert(Not strSplitted Is Nothing, "Genre vide")
 
-            For Each i In ITEM_LIST_ENUM
-                item = IIf(strSplitted.Contains(i), New Item(i, True), New Item(i))
-                itemList.Add(item)
-            Next
+        For Each i In ITEM_LIST_ENUM
+            item = IIf(strSplitted.Contains(i), New Item(i, True), New Item(i))
+            itemList.Add(item)
+        Next
 
-            showItem()
-
-        End If
+        showItem()
 
     End Sub
     Public Function getActiveItem() As String
@@ -238,5 +237,6 @@ Public Class AnimeFilter
         Next
 
     End Sub
+#End Region
 
 End Class

@@ -27,7 +27,6 @@ Partial Class AnimeInterface
         Me.lbEpisode = New System.Windows.Forms.Label()
         Me.lbDate = New System.Windows.Forms.Label()
         Me.lbLien = New System.Windows.Forms.Label()
-        Me.aReturn = New System.Windows.Forms.Button()
         Me.aEpisode = New System.Windows.Forms.TextBox()
         Me.aTitle = New System.Windows.Forms.TextBox()
         Me.aSmartLink = New System.Windows.Forms.CheckBox()
@@ -38,18 +37,23 @@ Partial Class AnimeInterface
         Me.aDate = New System.Windows.Forms.DateTimePicker()
         Me.aLienModifiable = New System.Windows.Forms.TextBox()
         Me.aFollowLabel = New System.Windows.Forms.Label()
+        Me.tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.aCloturer = New System.Windows.Forms.Button()
+        Me.aDimiss = New System.Windows.Forms.Button()
         Me.aSupprimer = New System.Windows.Forms.Button()
+        Me.TipLink = New System.Windows.Forms.ToolTip(Me.components)
         Me.aModifier = New System.Windows.Forms.Button()
         Me.aNext = New System.Windows.Forms.Button()
+        Me.aReturn = New System.Windows.Forms.Button()
         Me.aPicture = New System.Windows.Forms.PictureBox()
+        Me.pictureCM = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.changePicture = New System.Windows.Forms.ToolStripMenuItem()
+        Me.deletePicture = New System.Windows.Forms.ToolStripMenuItem()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.aCloturer = New System.Windows.Forms.Button()
-        Me.TipSupprimer = New System.Windows.Forms.ToolTip(Me.components)
-        Me.TipModif = New System.Windows.Forms.ToolTip(Me.components)
-        Me.TipLink = New System.Windows.Forms.ToolTip(Me.components)
         Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
         Me.aRank = New Gestionnaire_d_Archive.StarRanking()
         CType(Me.aPicture, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pictureCM.SuspendLayout()
         Me.SuspendLayout()
         '
         'lbEpisode
@@ -85,22 +89,6 @@ Partial Class AnimeInterface
         Me.lbLien.Text = "Lien :"
         Me.lbLien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'aReturn
-        '
-        Me.aReturn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.aReturn.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aReturn.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.aReturn.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.aReturn.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.aReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.aReturn.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.aReturn.Location = New System.Drawing.Point(3, 3)
-        Me.aReturn.Name = "aReturn"
-        Me.aReturn.Size = New System.Drawing.Size(25, 25)
-        Me.aReturn.TabIndex = 3
-        Me.aReturn.Text = "<"
-        Me.aReturn.UseVisualStyleBackColor = False
-        '
         'aEpisode
         '
         Me.aEpisode.BackColor = System.Drawing.SystemColors.Control
@@ -111,7 +99,6 @@ Partial Class AnimeInterface
         Me.aEpisode.Location = New System.Drawing.Point(286, 60)
         Me.aEpisode.MaxLength = 4
         Me.aEpisode.Name = "aEpisode"
-        Me.aEpisode.ShortcutsEnabled = False
         Me.aEpisode.Size = New System.Drawing.Size(58, 35)
         Me.aEpisode.TabIndex = 0
         Me.aEpisode.TabStop = False
@@ -155,7 +142,7 @@ Partial Class AnimeInterface
         Me.aFollow.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.aFollow.FlatAppearance.BorderSize = 0
         Me.aFollow.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aFollow.Location = New System.Drawing.Point(302, 333)
+        Me.aFollow.Location = New System.Drawing.Point(288, 333)
         Me.aFollow.Name = "aFollow"
         Me.aFollow.Size = New System.Drawing.Size(140, 20)
         Me.aFollow.TabIndex = 0
@@ -205,7 +192,7 @@ Partial Class AnimeInterface
         Me.aFinish.FlatAppearance.BorderColor = System.Drawing.Color.White
         Me.aFinish.FlatAppearance.BorderSize = 0
         Me.aFinish.Font = New System.Drawing.Font("Palatino Linotype", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.aFinish.Location = New System.Drawing.Point(454, 333)
+        Me.aFinish.Location = New System.Drawing.Point(434, 333)
         Me.aFinish.Name = "aFinish"
         Me.aFinish.Size = New System.Drawing.Size(68, 20)
         Me.aFinish.TabIndex = 0
@@ -237,7 +224,6 @@ Partial Class AnimeInterface
         Me.aLienModifiable.Location = New System.Drawing.Point(263, 205)
         Me.aLienModifiable.MaxLength = 200
         Me.aLienModifiable.Name = "aLienModifiable"
-        Me.aLienModifiable.ShortcutsEnabled = False
         Me.aLienModifiable.Size = New System.Drawing.Size(322, 25)
         Me.aLienModifiable.TabIndex = 34
         Me.aLienModifiable.TabStop = False
@@ -256,6 +242,45 @@ Partial Class AnimeInterface
         Me.aFollowLabel.Text = "L'épisode est sorti il y a ## jours"
         Me.aFollowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'aCloturer
+        '
+        Me.aCloturer.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.aCloturer.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aCloturer.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.aCloturer.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.aCloturer.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.aCloturer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.aCloturer.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.aCloturer.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_close
+        Me.aCloturer.Location = New System.Drawing.Point(200, 325)
+        Me.aCloturer.Name = "aCloturer"
+        Me.aCloturer.Padding = New System.Windows.Forms.Padding(0, 0, 1, 0)
+        Me.aCloturer.Size = New System.Drawing.Size(35, 35)
+        Me.aCloturer.TabIndex = 3
+        Me.aCloturer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.aCloturer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.tip.SetToolTip(Me.aCloturer, "Faire passer la série de l'état en cours à l'état fini")
+        Me.aCloturer.UseVisualStyleBackColor = False
+        '
+        'aDimiss
+        '
+        Me.aDimiss.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.aDimiss.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aDimiss.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.aDimiss.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.aDimiss.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.aDimiss.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.aDimiss.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.aDimiss.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_editdimiss
+        Me.aDimiss.Location = New System.Drawing.Point(506, 325)
+        Me.aDimiss.Name = "aDimiss"
+        Me.aDimiss.Size = New System.Drawing.Size(35, 35)
+        Me.aDimiss.TabIndex = 37
+        Me.aDimiss.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.tip.SetToolTip(Me.aDimiss, "Annuler les changements")
+        Me.aDimiss.UseVisualStyleBackColor = False
+        Me.aDimiss.Visible = False
+        '
         'aSupprimer
         '
         Me.aSupprimer.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -265,14 +290,15 @@ Partial Class AnimeInterface
         Me.aSupprimer.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
         Me.aSupprimer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.aSupprimer.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.aSupprimer.Image = CType(resources.GetObject("aSupprimer.Image"), System.Drawing.Image)
-        Me.aSupprimer.Location = New System.Drawing.Point(511, 325)
+        Me.aSupprimer.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_delete
+        Me.aSupprimer.Location = New System.Drawing.Point(506, 325)
         Me.aSupprimer.Name = "aSupprimer"
         Me.aSupprimer.Padding = New System.Windows.Forms.Padding(0, 0, 2, 0)
         Me.aSupprimer.Size = New System.Drawing.Size(35, 35)
         Me.aSupprimer.TabIndex = 35
         Me.aSupprimer.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.aSupprimer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.tip.SetToolTip(Me.aSupprimer, "Supprimer la série")
         Me.aSupprimer.UseVisualStyleBackColor = False
         '
         'aModifier
@@ -284,10 +310,10 @@ Partial Class AnimeInterface
         Me.aModifier.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
         Me.aModifier.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.aModifier.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.aModifier.Image = CType(resources.GetObject("aModifier.Image"), System.Drawing.Image)
-        Me.aModifier.Location = New System.Drawing.Point(552, 325)
+        Me.aModifier.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_edit
+        Me.aModifier.Location = New System.Drawing.Point(550, 325)
         Me.aModifier.Name = "aModifier"
-        Me.aModifier.Size = New System.Drawing.Size(33, 35)
+        Me.aModifier.Size = New System.Drawing.Size(35, 35)
         Me.aModifier.TabIndex = 3
         Me.aModifier.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.aModifier.UseVisualStyleBackColor = False
@@ -302,18 +328,37 @@ Partial Class AnimeInterface
         Me.aNext.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
         Me.aNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.aNext.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.aNext.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.plus
+        Me.aNext.Image = CType(resources.GetObject("aNext.Image"), System.Drawing.Image)
+        Me.aNext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.aNext.Location = New System.Drawing.Point(344, 60)
         Me.aNext.Name = "aNext"
-        Me.aNext.Padding = New System.Windows.Forms.Padding(0, 0, 3, 3)
         Me.aNext.Size = New System.Drawing.Size(35, 35)
         Me.aNext.TabIndex = 2
-        Me.aNext.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.aNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.aNext.UseVisualStyleBackColor = False
+        '
+        'aReturn
+        '
+        Me.aReturn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.aReturn.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aReturn.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.aReturn.FlatAppearance.BorderSize = 0
+        Me.aReturn.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.aReturn.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.aReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.aReturn.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.aReturn.Image = CType(resources.GetObject("aReturn.Image"), System.Drawing.Image)
+        Me.aReturn.Location = New System.Drawing.Point(3, 3)
+        Me.aReturn.Name = "aReturn"
+        Me.aReturn.Padding = New System.Windows.Forms.Padding(0, 0, 3, 0)
+        Me.aReturn.Size = New System.Drawing.Size(25, 25)
+        Me.aReturn.TabIndex = 3
+        Me.aReturn.UseVisualStyleBackColor = False
         '
         'aPicture
         '
         Me.aPicture.BackColor = System.Drawing.SystemColors.Control
+        Me.aPicture.ContextMenuStrip = Me.pictureCM
         Me.aPicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.defaultPic
         Me.aPicture.Location = New System.Drawing.Point(15, 15)
         Me.aPicture.Name = "aPicture"
@@ -321,6 +366,26 @@ Partial Class AnimeInterface
         Me.aPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.aPicture.TabIndex = 0
         Me.aPicture.TabStop = False
+        '
+        'pictureCM
+        '
+        Me.pictureCM.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.changePicture, Me.deletePicture})
+        Me.pictureCM.Name = "ContextMenuStrip1"
+        Me.pictureCM.Size = New System.Drawing.Size(162, 48)
+        '
+        'changePicture
+        '
+        Me.changePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_imagechange
+        Me.changePicture.Name = "changePicture"
+        Me.changePicture.Size = New System.Drawing.Size(161, 22)
+        Me.changePicture.Text = "Changer l'image"
+        '
+        'deletePicture
+        '
+        Me.deletePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_delete
+        Me.deletePicture.Name = "deletePicture"
+        Me.deletePicture.Size = New System.Drawing.Size(161, 22)
+        Me.deletePicture.Text = "Supprimer"
         '
         'Button2
         '
@@ -333,7 +398,7 @@ Partial Class AnimeInterface
         Me.Button2.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
         Me.Button2.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.modifier
         Me.Button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button2.Location = New System.Drawing.Point(418, 325)
+        Me.Button2.Location = New System.Drawing.Point(342, 325)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(87, 35)
         Me.Button2.TabIndex = 36
@@ -342,26 +407,6 @@ Partial Class AnimeInterface
         Me.Button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.Button2.UseVisualStyleBackColor = False
         Me.Button2.Visible = False
-        '
-        'aCloturer
-        '
-        Me.aCloturer.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
-        Me.aCloturer.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aCloturer.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.aCloturer.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.aCloturer.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.aCloturer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.aCloturer.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.aCloturer.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.cloturer
-        Me.aCloturer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.aCloturer.Location = New System.Drawing.Point(200, 325)
-        Me.aCloturer.Name = "aCloturer"
-        Me.aCloturer.Size = New System.Drawing.Size(93, 35)
-        Me.aCloturer.TabIndex = 3
-        Me.aCloturer.Text = "Cloturer"
-        Me.aCloturer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.aCloturer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.aCloturer.UseVisualStyleBackColor = False
         '
         'aFilter
         '
@@ -379,10 +424,10 @@ Partial Class AnimeInterface
         '
         'aRank
         '
-        Me.aRank.ActiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.activestar
+        Me.aRank.ActiveStar = CType(resources.GetObject("aRank.ActiveStar"), System.Drawing.Bitmap)
         Me.aRank.Cursor = System.Windows.Forms.Cursors.Hand
         Me.aRank.Enabled = False
-        Me.aRank.InactiveStar = Global.Gestionnaire_d_Archive.My.Resources.Resources.inactivestar
+        Me.aRank.InactiveStar = CType(resources.GetObject("aRank.InactiveStar"), System.Drawing.Bitmap)
         Me.aRank.Location = New System.Drawing.Point(400, 60)
         Me.aRank.Margin = New System.Windows.Forms.Padding(0)
         Me.aRank.MaximumSize = New System.Drawing.Size(175, 35)
@@ -397,6 +442,8 @@ Partial Class AnimeInterface
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Controls.Add(Me.aCloturer)
+        Me.Controls.Add(Me.aDimiss)
         Me.Controls.Add(Me.aSupprimer)
         Me.Controls.Add(Me.aModifier)
         Me.Controls.Add(Me.aFollowLabel)
@@ -415,13 +462,13 @@ Partial Class AnimeInterface
         Me.Controls.Add(Me.aReturn)
         Me.Controls.Add(Me.aRank)
         Me.Controls.Add(Me.aPicture)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.aCloturer)
         Me.Controls.Add(Me.aLien)
         Me.Controls.Add(Me.aLienModifiable)
+        Me.Controls.Add(Me.Button2)
         Me.Name = "AnimeInterface"
         Me.Size = New System.Drawing.Size(600, 375)
         CType(Me.aPicture, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pictureCM.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -448,8 +495,11 @@ Partial Class AnimeInterface
     Friend WithEvents lbLien As System.Windows.Forms.Label
     Friend WithEvents aSupprimer As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents TipSupprimer As System.Windows.Forms.ToolTip
-    Friend WithEvents TipModif As System.Windows.Forms.ToolTip
+    Friend WithEvents tip As System.Windows.Forms.ToolTip
     Friend WithEvents TipLink As System.Windows.Forms.ToolTip
+    Friend WithEvents aDimiss As System.Windows.Forms.Button
+    Friend WithEvents pictureCM As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents changePicture As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents deletePicture As System.Windows.Forms.ToolStripMenuItem
 
 End Class
