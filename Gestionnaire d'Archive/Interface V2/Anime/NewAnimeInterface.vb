@@ -3,6 +3,7 @@
 
     ' Outer Event
     Public Event newAnimeEvent(anime As Anime)
+    Public Event loadAnimeEvent(anime As Anime)
 
     Public Sub New()
 
@@ -15,36 +16,33 @@
     End Sub
 
 #Region " Functions "
-    Private Function checkTextboxChange(sender As TextBox) As Boolean
+    Private Function isValidTextbox(sender As TextBox) As Boolean
 
         Dim ret As Boolean = True
+        sender.BackColor = Color.FromName("Control")
 
         If (sender.TextLength > 0) Then
-
-            sender.BackColor = Color.FromName("Control")
-
             If (sender.Equals(nEpisode)) Then
-                If Not IsNumeric(sender.Text) Then
-                    sender.BackColor = Color.FromArgb(200, 25, 25)
-                    ret = False
-                End If
+                If Not IsNumeric(sender.Text) Then ret = False
             End If
-
+            If (sender.Equals(nTitle)) Then
+                If V2_GUI.isNameExist(nTitle.Text) Then ret = False
+            End If
         Else
-            sender.BackColor = Color.FromArgb(200, 25, 25)
             ret = False
         End If
 
+        If (Not ret) Then sender.BackColor = Color.FromArgb(200, 25, 25)
         Return ret
 
     End Function
-    Private Function checkChange() As Boolean
+    Private Function isValidChangment() As Boolean
 
         Dim ret As Boolean = True
         Dim changeList() As Object = {nTitle, nEpisode, nLienModifiable}
 
         For Each e In changeList
-            If Not checkTextboxChange(e) Then ret = False
+            If Not isValidTextbox(e) Then ret = False
         Next
 
         Return ret
@@ -77,7 +75,7 @@
     End Sub
     Private Sub nAjouter_Click(sender As Object, e As EventArgs) Handles nAjouter.Click
 
-        If (Not checkChange()) Then Exit Sub
+        If (Not isValidChangment()) Then Exit Sub
 
         Dim anime As Anime
         anime = New Anime(
@@ -94,13 +92,19 @@
         )
 
         'TODO:
-        'Check qu'il n'existe pas
         'Lancer le script pour vérifier si il y a une image sur le serveur
         'Script retourne soit
         '{num: 1, name: "blablabla.blabla"} si l'image est présente sur le serveur
         '{num: -1, name: "null"} sinon et le serveur lance le programme pour trouver l'image
 
         RaiseEvent newAnimeEvent(anime)
+
+        Dim infobox As DialBox = New DialBox("Voulez vous afficher la série ?", mode:=DialBox.BoxMode.ModeYesNo)
+        Dim res As DialogResult = infobox.ShowDialog()
+        Console.WriteLine("LOG: newAnime: " & res)
+        If (res.Equals(DialogResult.Yes)) Then
+            RaiseEvent loadAnimeEvent(anime)
+        End If
         clear()
 
     End Sub
@@ -108,7 +112,7 @@
         clear()
     End Sub
     Private Sub form_TextChanged(sender As Object, e As EventArgs) Handles nTitle.TextChanged, nEpisode.TextChanged, nLienModifiable.TextChanged
-        nAjouter.Enabled = checkTextboxChange(sender)
+        nAjouter.Enabled = isValidTextbox(sender)
     End Sub
     Private Sub nSmartLink_CheckedChanged(sender As Object, e As EventArgs) Handles nSmartLink.CheckedChanged
         If sender.checked Then

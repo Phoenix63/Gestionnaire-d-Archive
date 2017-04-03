@@ -35,8 +35,8 @@ Partial Class AnimeSlider
         'slider
         '
         Me.slider.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.slider.Controls.Add(Me.loading)
         Me.slider.Controls.Add(Me.noResponse)
+        Me.slider.Controls.Add(Me.loading)
         Me.slider.Controls.Add(Me.sliderLeft)
         Me.slider.Controls.Add(Me.sliderRight)
         Me.slider.Location = New System.Drawing.Point(0, 0)

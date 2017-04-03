@@ -275,6 +275,9 @@
     Public Sub nextEpisode()
         Me.Episode = Me.Episode() + 1
     End Sub
+    Public Sub backEpisode()
+        Me.Episode = Math.Max(Me.Episode() - 1, 0)
+    End Sub
     Public Function toArray() As Object()
 
         Return {Me.Nom(), Me.Lien(), Me.Genre(), Me.Episode(), Me.DateSortie().ToString(Anime.FORMAT),

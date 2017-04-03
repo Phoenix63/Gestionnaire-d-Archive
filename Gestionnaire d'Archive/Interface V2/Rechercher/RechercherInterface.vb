@@ -46,5 +46,4 @@ Public Class RechercherInterface
     End Sub
 #End Region
 
-
 End Class

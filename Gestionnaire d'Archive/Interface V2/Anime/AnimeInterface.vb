@@ -15,6 +15,7 @@ Public Class AnimeInterface
 
     ' Outer Event
     Public Event AnimeUpdated(anime As Anime)
+    Public Event AnimeDeleted(anime As Anime)
     Public Event PictureUpdated()
 
     Public Sub New(ByRef anime As Anime)
@@ -47,6 +48,19 @@ Public Class AnimeInterface
         AddHandler aSmartLink.CheckedChanged, AddressOf aSmartLink_CheckedChanged
 
     End Sub
+
+#Region " Property "
+    Public ReadOnly Property isUpdated As Boolean
+        Get
+            Return Me.aChanged
+        End Get
+    End Property
+    Public ReadOnly Property Anime As Anime
+        Get
+            Return Me._anime
+        End Get
+    End Property
+#End Region
 
 #Region " Display "
     Private Sub display()
@@ -118,6 +132,7 @@ Public Class AnimeInterface
         aDimiss.Visible = onUpdate
 
         aNext.Visible = Not onUpdate
+        aPrevious.Visible = Not onUpdate
         aSupprimer.Visible = Not onUpdate
         aCloturer.Visible = Not onUpdate
 
@@ -303,81 +318,80 @@ Public Class AnimeInterface
 
 #Region " Validating constraint function "
     Private titleTemp As String
-    Private Function validateTextbox(sender As TextBox) As Boolean
+    Private Function isValidTextbox(sender As TextBox) As Boolean
 
         Dim ret As Boolean = True
+        sender.BackColor = Color.FromName("Control")
 
         If (sender.TextLength > 0) Then
-
-            sender.BackColor = Color.FromName("Control")
-
             If (sender.Equals(aEpisode)) Then
-                If Not IsNumeric(sender.Text) Then
-                    sender.BackColor = Color.FromArgb(200, 25, 25)
-                    ret = False
-                End If
-            ElseIf (sender.Equals(aTitle)) Then
-                If V2_GUI.isNameExist(aTitle.Text) And titleTemp <> "" And aTitle.Text <> titleTemp Then
-                    sender.BackColor = Color.FromArgb(200, 25, 25)
-                    ret = False
-                End If
+                If Not (IsNumeric(sender.Text)) Then ret = False
             End If
-
+            If (sender.Equals(aTitle)) Then
+                If (V2_GUI.isNameExist(aTitle.Text) And titleTemp <> "" And aTitle.Text <> titleTemp) Then ret = False
+            End If
         Else
-            sender.BackColor = Color.FromArgb(200, 25, 25)
             ret = False
         End If
 
+        If Not (ret) Then sender.BackColor = Color.FromArgb(200, 25, 25)
         Return ret
 
     End Function
 #End Region
 
 #Region " Handler "
+    Private aDeleted As Boolean = False
     Private aChanged As Boolean = False
     Private picChanged As Boolean = False
     Private genreTemp As String = ""
     Private Sub aReturn_Click(sender As Object, e As EventArgs) Handles aReturn.Click
 
         Me.Visible = False
-
-        If (picChanged And Not aChanged) Then RaiseEvent PictureUpdated()
-        If (aChanged) Then RaiseEvent AnimeUpdated(_anime)
-        'Me.Refresh()
-
+        If (aDeleted) Then
+            RaiseEvent AnimeDeleted(_anime)
+        Else
+            If (picChanged And (Not (aChanged))) Then RaiseEvent PictureUpdated()
+            If (aChanged) Then RaiseEvent AnimeUpdated(_anime)
+        End If
         Me.Parent.Controls.Remove(Me)
         Dispose()
 
     End Sub
-    Private Sub next_Click(sender As Object, e As EventArgs) Handles aNext.Click
+    Private Sub episodeUpdate()
 
         Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
-
-        _anime.nextEpisode()
         Try
-
             row.BeginEdit()
             row(4) = _anime.Episode()
             row.EndEdit()
-
             If (row.RowState = DataRowState.Modified) Then aChanged = True
             Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
-
         Catch ex As Exception
             Console.WriteLine("Next: " & ex.Message)
         End Try
+
+    End Sub
+    Private Sub aNext_Click(sender As Object, e As EventArgs) Handles aNext.Click
+
+        _anime.nextEpisode()
+        episodeUpdate()
+        display()
+
+    End Sub
+    Private Sub aPrevious_Click(sender As Object, e As EventArgs) Handles aPrevious.Click
+
+        _anime.backEpisode()
+        episodeUpdate()
         display()
 
     End Sub
     Private Sub aModifier_Click(sender As Object, e As EventArgs) Handles aModifier.Click
 
         If onUpdate Then
-
-            ' On verifie que les box sont valide
             For Each item In {aTitle, aEpisode, aLienModifiable}
-                If Not validateTextbox(item) Then Exit Sub
+                If Not isValidTextbox(item) Then Exit Sub
             Next
-
             Dim _animeUpdated As Anime = New Anime(
                 nom:=aTitle.Text,
                 lien:=aLienModifiable.Text,
@@ -390,30 +404,22 @@ Public Class AnimeInterface
                 follow:=IIf(aFinish.Checked, False, aFollow.Checked),
                 finished:=aFinish.Checked
             )
-
             If (Not _anime.Equals(_animeUpdated)) Then
 
                 Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
-
                 Try
-
                     row.BeginEdit()
                     If Not _anime.Nom().Equals(_animeUpdated.Nom()) Then
-
                         For Each ext As String In {".png", ".jpg", ".bmp"}
-
                             Dim currPath As String = Application.StartupPath & "\PICTURES\" & _anime.Nom() & ext
                             Dim destPath As String = Application.StartupPath & "\PICTURES\" & _animeUpdated.Nom() & ext
-
                             If Not System.IO.File.Exists(currPath) Then Continue For
                             If System.IO.File.Exists(destPath) Then System.IO.File.Delete(destPath)
                             My.Computer.FileSystem.RenameFile(currPath, _animeUpdated.Nom() & ext)
-
                         Next
                         _anime.Nom = _animeUpdated.Nom()
                         displayPicture(_anime.Nom())
                         row(1) = _anime.Nom()
-
                     End If
                     If Not _anime.Episode().Equals(_animeUpdated.Episode()) Then
                         _anime.Episode = _animeUpdated.Episode()
@@ -453,21 +459,16 @@ Public Class AnimeInterface
                         row(10) = If(_anime.Finished(), "1", "0")
                     End If
                     row.EndEdit()
-
                     If (row.RowState = DataRowState.Modified) Then aChanged = True
                     Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
-
                 Catch ex As Exception
                     Console.WriteLine("Edit: " & ex.Message)
                 End Try
-
             End If
-
         Else
             titleTemp = aTitle.Text
             genreTemp = aFilter.getActiveItem()
         End If
-
         onUpdate = Not onUpdate
         display()
 
@@ -480,7 +481,7 @@ Public Class AnimeInterface
 
     End Sub
     Private Sub form_TextChanged(sender As Object, e As EventArgs) Handles aTitle.TextChanged, aEpisode.TextChanged, aLienModifiable.TextChanged
-        aModifier.Enabled = validateTextbox(sender)
+        aModifier.Enabled = isValidTextbox(sender)
     End Sub
     Private Sub aSmartLink_CheckedChanged(sender As Object, e As EventArgs)
         If sender.checked Then
@@ -510,11 +511,11 @@ Public Class AnimeInterface
                 url = "http://" & aLien.Text
             End If
 
-            If (Main.DefautToolStripMenuItem.Checked) Then 'On utilise le browser par défaut
+            If (My.Settings.OTHER_CHECKED) Then 'On utilise le browser par défaut
                 Process.Start(url)
             Else 'Sinon il y a un autre browser renseigné, on vérifie son existance sinon on lance par défaut
 
-                Dim launcher As String = Main.AutreToolStripMenuItem.Tag 'Tag contient tout le chemin et Text que le nom
+                Dim launcher As String = My.Settings.BROWSER
                 Dim exect As String = IO.Path.GetFileName(launcher)
                 If (Dir(launcher.Replace("/", "\")) <> "") Then 'Le fichier existe, mais on ne garanti pas qu'il soit un client web
                     Try
@@ -533,27 +534,20 @@ Public Class AnimeInterface
     End Sub
     Private Sub aSupprimer_Click(sender As Object, e As EventArgs) Handles aSupprimer.Click
 
-        Dim resp As MsgBoxResult
-        resp = MsgBox("La suppression sera définitive, voulez-vous continuer ?", vbYesNo, "Suppression")
-        If (resp = MsgBoxResult.Yes) Then
-
+        Dim resp As DialogResult
+        resp = New DialBox("La suppression sera définitive, voulez-vous continuer ?", "Suppression", DialBox.BoxMode.ModeYesNo).ShowDialog()
+        If (resp = DialogResult.Yes) Then
             Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
-
             Try
-
                 row.BeginEdit()
                 row.Delete()
                 row.EndEdit()
-
-                If (row.RowState = DataRowState.Deleted) Then aChanged = True
+                If (row.RowState = DataRowState.Deleted) Then aDeleted = True
                 Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
-
             Catch ex As Exception
-                Console.WriteLine("Supprmier: " & ex.Message)
+                Console.WriteLine("Supprimer: " & ex.Message)
             End Try
-
             aReturn_Click(sender, e)
-
         End If
 
     End Sub
@@ -561,11 +555,8 @@ Public Class AnimeInterface
 
         _anime.Finished = Not _anime.Finished()
         aFinish.Checked = _anime.Finished()
-
         Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
-
         Try
-
             row.BeginEdit()
             If (_anime.Finished()) Then
                 row(8) = "0"
@@ -573,22 +564,15 @@ Public Class AnimeInterface
             End If
             row(10) = IIf(_anime.Finished(), "1", "0")
             row.EndEdit()
-
             If (row.RowState = DataRowState.Modified) Then aChanged = True
             Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
-
         Catch ex As Exception
             Console.WriteLine("Cloturer: " & ex.Message)
         End Try
-
-        If Not _anime.Finished Then
-            'aCloturer.Text = "Cloturer"
+        If Not (_anime.Finished) Then
             aCloturer.Image = My.Resources.ic_close
-            'aCloturer.Width = 93
         Else
-            'aCloturer.Text = "Décloturer"
             aCloturer.Image = My.Resources.ic_unclose
-            'aCloturer.Width = 103
         End If
 
     End Sub
@@ -604,7 +588,6 @@ Public Class AnimeInterface
         dialbox.FilterIndex = 1
 
         Dim result As DialogResult = dialbox.ShowDialog()
-
         If result.Equals(DialogResult.Cancel) Then Exit Sub
 
         Dim EXT_LENGTH As Integer = 4 '.xyz
@@ -614,7 +597,6 @@ Public Class AnimeInterface
         Dim dest As String = dir & normalizeName(_anime.Nom()).ToLowerInvariant() & ".png"
 
         Console.WriteLine("LOG: dir=" & dir & " exist? " & System.IO.Directory.Exists(dir))
-
         If Not System.IO.Directory.Exists(dir) Then System.IO.Directory.CreateDirectory(dir)
 
         Console.WriteLine("LOG: checking file")
@@ -626,10 +608,8 @@ Public Class AnimeInterface
         picChanged = True
         picToSave.Save(dest)
         Console.WriteLine("LOG: pic saved")
-
         pic.Close()
         pic.Dispose()
-
         display()
 
     End Sub
@@ -638,7 +618,6 @@ Public Class AnimeInterface
         If aPicture.Image.Equals(My.Resources.defaultPic) Then Exit Sub
 
         picChanged = True
-
         Dim dir As String = Application.StartupPath & "\PICTURES\"
         For Each file In System.IO.Directory.GetFiles(dir, normalizeName(_anime.Nom()) & ".*", IO.SearchOption.TopDirectoryOnly)
             System.IO.File.Delete(file)

@@ -118,6 +118,7 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -176,11 +177,17 @@
     <Compile Include="Interface V2\Anime\NewAnimeInterface.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Interface V2\Menu\InformationBox.Designer.vb">
-      <DependentUpon>InformationBox.vb</DependentUpon>
+    <Compile Include="Interface V2\Menu\DialBox.Designer.vb">
+      <DependentUpon>DialBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="Interface V2\Menu\InformationBox.vb">
+    <Compile Include="Interface V2\Menu\DialBox.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Interface V2\Menu\SettingsInterface.Designer.vb">
+      <DependentUpon>SettingsInterface.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Interface V2\Menu\SettingsInterface.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Interface V2\Rechercher\AnimeCard.Designer.vb">
       <DependentUpon>AnimeCard.vb</DependentUpon>
@@ -277,8 +284,11 @@
     <EmbeddedResource Include="Interface V2\Anime\NewAnimeInterface.resx">
       <DependentUpon>NewAnimeInterface.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Interface V2\Menu\InformationBox.resx">
-      <DependentUpon>InformationBox.vb</DependentUpon>
+    <EmbeddedResource Include="Interface V2\Menu\DialBox.resx">
+      <DependentUpon>DialBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interface V2\Menu\SettingsInterface.resx">
+      <DependentUpon>SettingsInterface.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Interface V2\Rechercher\AnimeCard.resx">
       <DependentUpon>AnimeCard.vb</DependentUpon>
@@ -358,6 +368,9 @@
     <None Include="Resources\ic_arrowleft.png" />
     <None Include="Resources\ic_arrowright.png" />
     <None Include="Resources\ic_imagechange.png" />
+    <None Include="Resources\ic_less.png" />
+    <None Include="Resources\ic_checked.png" />
+    <None Include="Resources\ic_unchecked.png" />
     <Content Include="Resources\inactivestar.png" />
     <None Include="Resources\search.png" />
     <None Include="Resources\shader.png" />

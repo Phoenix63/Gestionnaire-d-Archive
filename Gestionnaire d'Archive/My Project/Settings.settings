@@ -14,5 +14,8 @@
     <Setting Name="OTHER_CHECKED" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="AUTO_SAVE" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

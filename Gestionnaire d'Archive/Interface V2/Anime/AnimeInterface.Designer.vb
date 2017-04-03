@@ -42,18 +42,19 @@ Partial Class AnimeInterface
         Me.aDimiss = New System.Windows.Forms.Button()
         Me.aSupprimer = New System.Windows.Forms.Button()
         Me.TipLink = New System.Windows.Forms.ToolTip(Me.components)
-        Me.aModifier = New System.Windows.Forms.Button()
-        Me.aNext = New System.Windows.Forms.Button()
-        Me.aReturn = New System.Windows.Forms.Button()
-        Me.aPicture = New System.Windows.Forms.PictureBox()
         Me.pictureCM = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.changePicture = New System.Windows.Forms.ToolStripMenuItem()
         Me.deletePicture = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.aFilter = New Gestionnaire_d_Archive.AnimeFilter()
+        Me.aPrevious = New System.Windows.Forms.Button()
+        Me.aModifier = New System.Windows.Forms.Button()
+        Me.aNext = New System.Windows.Forms.Button()
+        Me.aReturn = New System.Windows.Forms.Button()
         Me.aRank = New Gestionnaire_d_Archive.StarRanking()
-        CType(Me.aPicture, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.aPicture = New System.Windows.Forms.PictureBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.pictureCM.SuspendLayout()
+        CType(Me.aPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lbEpisode
@@ -62,7 +63,7 @@ Partial Class AnimeInterface
         Me.lbEpisode.Font = New System.Drawing.Font("Palatino Linotype", 11.0!, System.Drawing.FontStyle.Bold)
         Me.lbEpisode.Location = New System.Drawing.Point(200, 60)
         Me.lbEpisode.Name = "lbEpisode"
-        Me.lbEpisode.Size = New System.Drawing.Size(86, 35)
+        Me.lbEpisode.Size = New System.Drawing.Size(83, 35)
         Me.lbEpisode.TabIndex = 0
         Me.lbEpisode.Text = "Episode :"
         Me.lbEpisode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -96,10 +97,10 @@ Partial Class AnimeInterface
         Me.aEpisode.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.aEpisode.Enabled = False
         Me.aEpisode.Font = New System.Drawing.Font("Palatino Linotype", 19.0!, System.Drawing.FontStyle.Bold)
-        Me.aEpisode.Location = New System.Drawing.Point(286, 60)
+        Me.aEpisode.Location = New System.Drawing.Point(283, 60)
         Me.aEpisode.MaxLength = 4
         Me.aEpisode.Name = "aEpisode"
-        Me.aEpisode.Size = New System.Drawing.Size(58, 35)
+        Me.aEpisode.Size = New System.Drawing.Size(52, 35)
         Me.aEpisode.TabIndex = 0
         Me.aEpisode.TabStop = False
         Me.aEpisode.Text = "1"
@@ -301,6 +302,59 @@ Partial Class AnimeInterface
         Me.tip.SetToolTip(Me.aSupprimer, "Supprimer la série")
         Me.aSupprimer.UseVisualStyleBackColor = False
         '
+        'pictureCM
+        '
+        Me.pictureCM.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.changePicture, Me.deletePicture})
+        Me.pictureCM.Name = "ContextMenuStrip1"
+        Me.pictureCM.Size = New System.Drawing.Size(162, 48)
+        '
+        'changePicture
+        '
+        Me.changePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_imagechange
+        Me.changePicture.Name = "changePicture"
+        Me.changePicture.Size = New System.Drawing.Size(161, 22)
+        Me.changePicture.Text = "Changer l'image"
+        '
+        'deletePicture
+        '
+        Me.deletePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_delete
+        Me.deletePicture.Name = "deletePicture"
+        Me.deletePicture.Size = New System.Drawing.Size(161, 22)
+        Me.deletePicture.Text = "Supprimer"
+        '
+        'aFilter
+        '
+        Me.aFilter.Active = False
+        Me.aFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
+        Me.aFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.aFilter.Location = New System.Drawing.Point(200, 105)
+        Me.aFilter.Margin = New System.Windows.Forms.Padding(0)
+        Me.aFilter.MaximumSize = New System.Drawing.Size(0, 54)
+        Me.aFilter.MinimumSize = New System.Drawing.Size(385, 54)
+        Me.aFilter.Name = "aFilter"
+        Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.aFilter.Size = New System.Drawing.Size(385, 54)
+        Me.aFilter.TabIndex = 0
+        '
+        'aPrevious
+        '
+        Me.aPrevious.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.aPrevious.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aPrevious.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.aPrevious.FlatAppearance.BorderSize = 0
+        Me.aPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.aPrevious.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.aPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.aPrevious.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.aPrevious.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_less
+        Me.aPrevious.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.aPrevious.Location = New System.Drawing.Point(335, 60)
+        Me.aPrevious.Name = "aPrevious"
+        Me.aPrevious.Size = New System.Drawing.Size(35, 35)
+        Me.aPrevious.TabIndex = 38
+        Me.aPrevious.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.aPrevious.UseVisualStyleBackColor = False
+        '
         'aModifier
         '
         Me.aModifier.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -330,7 +384,7 @@ Partial Class AnimeInterface
         Me.aNext.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
         Me.aNext.Image = CType(resources.GetObject("aNext.Image"), System.Drawing.Image)
         Me.aNext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.aNext.Location = New System.Drawing.Point(344, 60)
+        Me.aNext.Location = New System.Drawing.Point(370, 60)
         Me.aNext.Name = "aNext"
         Me.aNext.Size = New System.Drawing.Size(35, 35)
         Me.aNext.TabIndex = 2
@@ -355,6 +409,21 @@ Partial Class AnimeInterface
         Me.aReturn.TabIndex = 3
         Me.aReturn.UseVisualStyleBackColor = False
         '
+        'aRank
+        '
+        Me.aRank.ActiveStar = CType(resources.GetObject("aRank.ActiveStar"), System.Drawing.Bitmap)
+        Me.aRank.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aRank.Enabled = False
+        Me.aRank.InactiveStar = CType(resources.GetObject("aRank.InactiveStar"), System.Drawing.Bitmap)
+        Me.aRank.Location = New System.Drawing.Point(411, 60)
+        Me.aRank.Margin = New System.Windows.Forms.Padding(0)
+        Me.aRank.MaximumSize = New System.Drawing.Size(175, 35)
+        Me.aRank.MinimumSize = New System.Drawing.Size(175, 35)
+        Me.aRank.Name = "aRank"
+        Me.aRank.Rank = 1
+        Me.aRank.Size = New System.Drawing.Size(175, 35)
+        Me.aRank.TabIndex = 0
+        '
         'aPicture
         '
         Me.aPicture.BackColor = System.Drawing.SystemColors.Control
@@ -366,26 +435,6 @@ Partial Class AnimeInterface
         Me.aPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.aPicture.TabIndex = 0
         Me.aPicture.TabStop = False
-        '
-        'pictureCM
-        '
-        Me.pictureCM.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.changePicture, Me.deletePicture})
-        Me.pictureCM.Name = "ContextMenuStrip1"
-        Me.pictureCM.Size = New System.Drawing.Size(162, 48)
-        '
-        'changePicture
-        '
-        Me.changePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_imagechange
-        Me.changePicture.Name = "changePicture"
-        Me.changePicture.Size = New System.Drawing.Size(161, 22)
-        Me.changePicture.Text = "Changer l'image"
-        '
-        'deletePicture
-        '
-        Me.deletePicture.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_delete
-        Me.deletePicture.Name = "deletePicture"
-        Me.deletePicture.Size = New System.Drawing.Size(161, 22)
-        Me.deletePicture.Text = "Supprimer"
         '
         'Button2
         '
@@ -408,43 +457,13 @@ Partial Class AnimeInterface
         Me.Button2.UseVisualStyleBackColor = False
         Me.Button2.Visible = False
         '
-        'aFilter
-        '
-        Me.aFilter.Active = False
-        Me.aFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
-        Me.aFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.aFilter.Location = New System.Drawing.Point(200, 105)
-        Me.aFilter.Margin = New System.Windows.Forms.Padding(0)
-        Me.aFilter.MaximumSize = New System.Drawing.Size(0, 54)
-        Me.aFilter.MinimumSize = New System.Drawing.Size(385, 54)
-        Me.aFilter.Name = "aFilter"
-        Me.aFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
-        Me.aFilter.Size = New System.Drawing.Size(385, 54)
-        Me.aFilter.TabIndex = 0
-        '
-        'aRank
-        '
-        Me.aRank.ActiveStar = CType(resources.GetObject("aRank.ActiveStar"), System.Drawing.Bitmap)
-        Me.aRank.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aRank.Enabled = False
-        Me.aRank.InactiveStar = CType(resources.GetObject("aRank.InactiveStar"), System.Drawing.Bitmap)
-        Me.aRank.Location = New System.Drawing.Point(400, 60)
-        Me.aRank.Margin = New System.Windows.Forms.Padding(0)
-        Me.aRank.MaximumSize = New System.Drawing.Size(175, 35)
-        Me.aRank.MinimumSize = New System.Drawing.Size(175, 35)
-        Me.aRank.Name = "aRank"
-        Me.aRank.Rank = 1
-        Me.aRank.Size = New System.Drawing.Size(175, 35)
-        Me.aRank.TabIndex = 0
-        '
         'AnimeInterface
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Controls.Add(Me.aPrevious)
         Me.Controls.Add(Me.aCloturer)
-        Me.Controls.Add(Me.aDimiss)
-        Me.Controls.Add(Me.aSupprimer)
         Me.Controls.Add(Me.aModifier)
         Me.Controls.Add(Me.aFollowLabel)
         Me.Controls.Add(Me.aCommentaire)
@@ -465,10 +484,12 @@ Partial Class AnimeInterface
         Me.Controls.Add(Me.aLien)
         Me.Controls.Add(Me.aLienModifiable)
         Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.aDimiss)
+        Me.Controls.Add(Me.aSupprimer)
         Me.Name = "AnimeInterface"
         Me.Size = New System.Drawing.Size(600, 375)
-        CType(Me.aPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pictureCM.ResumeLayout(False)
+        CType(Me.aPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -501,5 +522,6 @@ Partial Class AnimeInterface
     Friend WithEvents pictureCM As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents changePicture As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents deletePicture As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents aPrevious As System.Windows.Forms.Button
 
 End Class

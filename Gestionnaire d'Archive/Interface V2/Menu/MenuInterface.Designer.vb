@@ -174,7 +174,6 @@ Partial Class MenuInterface
         '
         Me.mSettings.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.mSettings.Dock = System.Windows.Forms.DockStyle.Top
-        Me.mSettings.Enabled = False
         Me.mSettings.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.mSettings.FlatAppearance.BorderSize = 0
         Me.mSettings.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption

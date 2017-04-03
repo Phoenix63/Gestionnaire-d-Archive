@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class InformationBox
+Partial Class DialBox
     Inherits System.Windows.Forms.Form
 
     'Form remplace la méthode Dispose pour nettoyer la liste des composants.
@@ -28,8 +28,9 @@ Partial Class InformationBox
         Me.bIcon = New System.Windows.Forms.PictureBox()
         Me.bOK = New System.Windows.Forms.Button()
         Me.bContainer = New System.Windows.Forms.Panel()
-        Me.bVersion = New System.Windows.Forms.Label()
-        Me.bComment = New System.Windows.Forms.Label()
+        Me.bText = New System.Windows.Forms.Label()
+        Me.bYes = New System.Windows.Forms.Button()
+        Me.bNo = New System.Windows.Forms.Button()
         CType(Me.bIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.bContainer.SuspendLayout()
         Me.SuspendLayout()
@@ -89,45 +90,71 @@ Partial Class InformationBox
         Me.bOK.TabIndex = 13
         Me.bOK.Text = "Confirmer"
         Me.bOK.UseVisualStyleBackColor = False
+        Me.bOK.Visible = False
         '
         'bContainer
         '
         Me.bContainer.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.bContainer.Controls.Add(Me.bComment)
-        Me.bContainer.Controls.Add(Me.bVersion)
-        Me.bContainer.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.bContainer.Controls.Add(Me.bText)
+        Me.bContainer.Dock = System.Windows.Forms.DockStyle.Top
         Me.bContainer.Location = New System.Drawing.Point(0, 25)
         Me.bContainer.Name = "bContainer"
         Me.bContainer.Size = New System.Drawing.Size(350, 140)
         Me.bContainer.TabIndex = 14
         '
-        'bVersion
+        'bText
         '
-        Me.bVersion.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.bVersion.Font = New System.Drawing.Font("Palatino Linotype", 10.0!)
-        Me.bVersion.Location = New System.Drawing.Point(0, 115)
-        Me.bVersion.Name = "bVersion"
-        Me.bVersion.Size = New System.Drawing.Size(350, 25)
-        Me.bVersion.TabIndex = 0
-        Me.bVersion.Text = "Version: "
-        Me.bVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.bText.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.bText.Font = New System.Drawing.Font("Palatino Linotype", 10.0!)
+        Me.bText.Location = New System.Drawing.Point(0, 0)
+        Me.bText.Name = "bText"
+        Me.bText.Size = New System.Drawing.Size(350, 140)
+        Me.bText.TabIndex = 1
+        Me.bText.Text = "Comment:"
+        Me.bText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'bComment
+        'bYes
         '
-        Me.bComment.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.bComment.Font = New System.Drawing.Font("Palatino Linotype", 10.0!)
-        Me.bComment.Location = New System.Drawing.Point(0, 0)
-        Me.bComment.Name = "bComment"
-        Me.bComment.Size = New System.Drawing.Size(350, 115)
-        Me.bComment.TabIndex = 1
-        Me.bComment.Text = "Comment:"
-        Me.bComment.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.bYes.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.bYes.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.bYes.Dock = System.Windows.Forms.DockStyle.Right
+        Me.bYes.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.bYes.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.bYes.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.bYes.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bYes.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bYes.Location = New System.Drawing.Point(175, 165)
+        Me.bYes.Name = "bYes"
+        Me.bYes.Size = New System.Drawing.Size(175, 0)
+        Me.bYes.TabIndex = 14
+        Me.bYes.Text = "Oui"
+        Me.bYes.UseVisualStyleBackColor = False
+        Me.bYes.Visible = False
+        '
+        'bNo
+        '
+        Me.bNo.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.bNo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.bNo.Dock = System.Windows.Forms.DockStyle.Left
+        Me.bNo.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.bNo.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.bNo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.bNo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bNo.Font = New System.Drawing.Font("Palatino Linotype", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bNo.Location = New System.Drawing.Point(0, 165)
+        Me.bNo.Name = "bNo"
+        Me.bNo.Size = New System.Drawing.Size(175, 0)
+        Me.bNo.TabIndex = 15
+        Me.bNo.Text = "Non"
+        Me.bNo.UseVisualStyleBackColor = False
         '
         'InformationBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(350, 200)
+        Me.Controls.Add(Me.bNo)
+        Me.Controls.Add(Me.bYes)
         Me.Controls.Add(Me.bContainer)
         Me.Controls.Add(Me.bOK)
         Me.Controls.Add(Me.bIcon)
@@ -152,7 +179,8 @@ Partial Class InformationBox
     Friend WithEvents bIcon As System.Windows.Forms.PictureBox
     Friend WithEvents bOK As System.Windows.Forms.Button
     Friend WithEvents bContainer As System.Windows.Forms.Panel
-    Friend WithEvents bComment As System.Windows.Forms.Label
-    Friend WithEvents bVersion As System.Windows.Forms.Label
+    Friend WithEvents bText As System.Windows.Forms.Label
+    Friend WithEvents bYes As System.Windows.Forms.Button
+    Friend WithEvents bNo As System.Windows.Forms.Button
 
 End Class

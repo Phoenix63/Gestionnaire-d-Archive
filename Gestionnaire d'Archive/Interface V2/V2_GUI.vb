@@ -7,6 +7,7 @@ Public Class V2_GUI
     Inherits Form
 
     Private sInterface As SaveInterface = Nothing
+    Private settingsInterface As SettingsInterface = Nothing
     Private WithEvents mInterface As MenuInterface = Nothing
     Private WithEvents rInterface As RechercherInterface = Nothing
     Private WithEvents aInterface As AnimeInterface = Nothing
@@ -57,6 +58,10 @@ Public Class V2_GUI
 
     End Sub
     Private Sub V2_Test_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
+
+        If (aInterface IsNot Nothing) Then
+            If (aInterface.isUpdated) Then addHistory(aInterface.Anime)
+        End If
 
         fillData()
         saveHistory()
@@ -250,7 +255,6 @@ Public Class V2_GUI
         End If
 
         nInterface = New NewAnimeInterface()
-
         pContainer.Controls.Add(nInterface)
         nInterface.BringToFront()
 
@@ -283,17 +287,25 @@ Public Class V2_GUI
         'Not implemented
     End Sub
     Private Sub doSettings() Handles mInterface.SettingsEvent
-        'Not implemented
+
+        If Not settingsInterface Is Nothing Then
+            pContainer.Controls.Remove(settingsInterface)
+            settingsInterface.Dispose()
+        End If
+
+        settingsInterface = New SettingsInterface()
+        pContainer.Controls.Add(settingsInterface)
+        settingsInterface.BringToFront()
+
     End Sub
     Private Sub doInfo() Handles mInterface.InfoEvent
 
-        Dim infobox As InformationBox = New InformationBox()
-        infobox.Text = Me.Text
-        infobox.ShowIcon = True
-        infobox.Icon = Me.Icon
-        infobox.Version = "v2.1.1 (beta)"
-        infobox.Comments = "Gestionnaire d'Archive" & vbCrLf & "Application pour la gestion de série." & vbCrLf & vbCrLf & "Si une erreur survient, contactez le support en joignant le fichier 'report.log'"
-        infobox.ShowDialog()
+        Dim infobox As DialBox = New DialBox("Gestionnaire d'Archive" & vbCrLf & _
+                                             "Application pour la gestion de série." & vbCrLf & vbCrLf & _
+                                             "Si une erreur survient, contactez le support en joignant le fichier 'report.log'" & vbCrLf & vbCrLf & _
+                                             "Version 2.2.3 (beta)", Me.Text)
+
+        Console.WriteLine("LOG: info: " & infobox.ShowDialog())
 
     End Sub
     Private Sub doAppExit() Handles mInterface.ExitEvent
@@ -305,7 +317,7 @@ Public Class V2_GUI
 #End Region
 
 #Region " RechercheEvent Handler "
-    Private Sub loadAnime(anime As Anime) Handles rInterface.LoadAnimeEvent, history.loadAnimeEvent
+    Private Sub loadAnime(anime As Anime) Handles rInterface.LoadAnimeEvent, history.loadAnimeEvent, nInterface.loadAnimeEvent
 
         If Not aInterface Is Nothing Then
             pContainer.Controls.Remove(aInterface)
@@ -323,8 +335,18 @@ Public Class V2_GUI
 #Region " AnimeInterfaceEvent Handler "
     Private Sub animeUpdated(anime As Anime) Handles aInterface.AnimeUpdated
 
-        addHistory(anime)
+        If anime IsNot Nothing Then addHistory(anime)
         doSave()
+        sliderUpdate()
+
+    End Sub
+    Private Sub animeDeleted(anime As Anime) Handles aInterface.AnimeDeleted
+
+        Dim currentID As Integer = CInt(data.Tables("data").Select("Nom = '" & anime.Nom() & "'")(0).Item("Id"))
+        For Each e In historyList.ToList
+            Dim hID As Integer = CInt(data.Tables("data").Select("Nom = '" & e.Nom() & "'")(0).Item("Id"))
+            If (currentID.Equals(hID)) Then historyList.Remove(e)
+        Next
         sliderUpdate()
 
     End Sub
@@ -398,7 +420,7 @@ Public Class V2_GUI
 
 #Region " AutoSave Function "
     Private tick As Integer = 0
-    Private Const timeout As Integer = 15 'minute
+    Private timeout As Integer = My.Settings.AUTO_SAVE 'minute
     Private Sub AutoSave_Tick(sender As Object, e As EventArgs) Handles AutoSave.Tick
         tick += 1
         If (tick = timeout) Then
@@ -433,7 +455,6 @@ Public Class V2_GUI
     Private Sub addHistory(anime As Anime)
 
         Dim currentID As Integer = CInt(data.Tables("data").Select("Nom = '" & anime.Nom() & "'")(0).Item("Id"))
-
         For Each e In historyList.ToList
             Dim hID As Integer = CInt(data.Tables("data").Select("Nom = '" & e.Nom() & "'")(0).Item("Id"))
             If (currentID.Equals(hID)) Then historyList.Remove(e)
