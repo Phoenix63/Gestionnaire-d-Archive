@@ -113,6 +113,30 @@ Namespace My
                 Me("AUTO_SAVE") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property DBCONF() As Boolean
+            Get
+                Return CType(Me("DBCONF"),Boolean)
+            End Get
+            Set
+                Me("DBCONF") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property DBSTRING() As String
+            Get
+                Return CType(Me("DBSTRING"),String)
+            End Get
+            Set
+                Me("DBSTRING") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

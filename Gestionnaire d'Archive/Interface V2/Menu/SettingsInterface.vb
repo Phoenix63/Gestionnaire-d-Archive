@@ -2,6 +2,8 @@
 
 Public Class SettingsInterface
 
+    Public Event DatabaseChanged(origin As Boolean, path As String)
+
     Public Sub New()
 
         ' Cet appel est requis par le concepteur.
@@ -167,6 +169,26 @@ Public Class SettingsInterface
 
         Dim bName As String = updateBrowser()
         If bName IsNot Nothing Then tip.SetToolTip(sOtherBrowser, bName)
+
+    End Sub
+    Private Sub sDatabaseChange_Click(sender As Object, e As EventArgs) Handles sDatabaseChange.Click
+
+        If (My.Settings.DBCONF) Then
+            Dim r As DialogResult = New DialBox("Voulez vous restaurer la base de données ?", V2_GUI.Text, DialBox.BoxMode.ModeYesNo).ShowDialog()
+            If (r = DialogResult.Yes) Then
+                Me.Visible = False
+                Threading.Thread.Sleep(250)
+                RaiseEvent DatabaseChanged(True, "")
+            End If
+        Else
+            Dim r2 As DialogResult = New DialBox("Voulez vous changer de base de données ?", V2_GUI.Text, DialBox.BoxMode.ModeYesNo).ShowDialog()
+            If (r2 = DialogResult.Yes) Then
+                Dim str As String = "Private" 'HACK
+                Me.Visible = False
+                Threading.Thread.Sleep(250)
+                RaiseEvent DatabaseChanged(False, str)
+            End If
+        End If
 
     End Sub
 #End Region

@@ -35,7 +35,7 @@ Partial Class SettingsInterface
         Me.sTitle = New System.Windows.Forms.Label()
         Me.sPanelSetting = New System.Windows.Forms.Panel()
         Me.pDB = New System.Windows.Forms.Panel()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.sDatabaseChange = New System.Windows.Forms.Button()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.pNav = New System.Windows.Forms.Panel()
         Me.sUpdateBrowser = New System.Windows.Forms.Button()
@@ -163,7 +163,7 @@ Partial Class SettingsInterface
         '
         'pDB
         '
-        Me.pDB.Controls.Add(Me.Button1)
+        Me.pDB.Controls.Add(Me.sDatabaseChange)
         Me.pDB.Controls.Add(Me.Label18)
         Me.pDB.Dock = System.Windows.Forms.DockStyle.Left
         Me.pDB.Location = New System.Drawing.Point(430, 0)
@@ -171,26 +171,25 @@ Partial Class SettingsInterface
         Me.pDB.Size = New System.Drawing.Size(140, 85)
         Me.pDB.TabIndex = 45
         '
-        'Button1
+        'sDatabaseChange
         '
-        Me.Button1.BackColor = System.Drawing.SystemColors.Control
-        Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Button1.Enabled = False
-        Me.Button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Button1.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.Button1.Location = New System.Drawing.Point(0, 50)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Padding = New System.Windows.Forms.Padding(0, 0, 2, 0)
-        Me.Button1.Size = New System.Drawing.Size(140, 35)
-        Me.Button1.TabIndex = 54
-        Me.Button1.Text = "Remettre à zéro"
-        Me.Button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.Button1.UseVisualStyleBackColor = False
+        Me.sDatabaseChange.BackColor = System.Drawing.SystemColors.Control
+        Me.sDatabaseChange.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.sDatabaseChange.Dock = System.Windows.Forms.DockStyle.Top
+        Me.sDatabaseChange.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.sDatabaseChange.FlatAppearance.BorderSize = 0
+        Me.sDatabaseChange.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.sDatabaseChange.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.sDatabaseChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.sDatabaseChange.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.sDatabaseChange.Location = New System.Drawing.Point(0, 50)
+        Me.sDatabaseChange.Name = "sDatabaseChange"
+        Me.sDatabaseChange.Padding = New System.Windows.Forms.Padding(0, 0, 2, 0)
+        Me.sDatabaseChange.Size = New System.Drawing.Size(140, 35)
+        Me.sDatabaseChange.TabIndex = 54
+        Me.sDatabaseChange.Text = "Changer"
+        Me.sDatabaseChange.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.sDatabaseChange.UseVisualStyleBackColor = False
         '
         'Label18
         '
@@ -201,7 +200,7 @@ Partial Class SettingsInterface
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(140, 50)
         Me.Label18.TabIndex = 36
-        Me.Label18.Text = "Réinitialiser la base de donnée"
+        Me.Label18.Text = "Changer la base de données"
         Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'pNav
@@ -502,7 +501,7 @@ Partial Class SettingsInterface
     Friend WithEvents pNav As System.Windows.Forms.Panel
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents sAutoSave As System.Windows.Forms.TextBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents sDatabaseChange As System.Windows.Forms.Button
     Friend WithEvents sUpdateBrowser As System.Windows.Forms.Button
     Friend WithEvents sOtherBrowser As System.Windows.Forms.Button
     Friend WithEvents sDefaultBrowser As System.Windows.Forms.Button

@@ -7,7 +7,7 @@ Public Class V2_GUI
     Inherits Form
 
     Private sInterface As SaveInterface = Nothing
-    Private settingsInterface As SettingsInterface = Nothing
+    Private WithEvents settingsInterface As SettingsInterface = Nothing
     Private WithEvents mInterface As MenuInterface = Nothing
     Private WithEvents rInterface As RechercherInterface = Nothing
     Private WithEvents aInterface As AnimeInterface = Nothing
@@ -15,6 +15,9 @@ Public Class V2_GUI
 
     Private WithEvents shader As ShaderScreen = New ShaderScreen()
 
+    Private Const sqlPath As String = "Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\DataBase.mdf;" _
+                                    & "Integrated Security=True;ApplicationIntent=ReadWrite;" _
+                                    & "Connect Timeout=30;ConnectRetryCount=5"
     Private sqlCo As SqlConnection
     Private historyList As New List(Of Anime)
     Private ConsoleOut As TextWriter = Console.Out
@@ -39,7 +42,11 @@ Public Class V2_GUI
 
         End If
 
-        databaseInitialization()
+        If (My.Settings.DBCONF = True) Then
+            databaseInitialization(My.Settings.DBSTRING)
+        Else
+            databaseInitialization()
+        End If
         fillData()
 
         MyBase.Controls.Add(shader)
@@ -63,20 +70,9 @@ Public Class V2_GUI
             If (aInterface.isUpdated) Then addHistory(aInterface.Anime)
         End If
 
-        fillData()
-        saveHistory()
-        My.Settings.Save()
-
-        If Not sInterface Is Nothing Then sInterface.Dispose()
-        If Not mInterface Is Nothing Then mInterface.Dispose()
-        If Not rInterface Is Nothing Then rInterface.Dispose()
-        If Not aInterface Is Nothing Then aInterface.Dispose()
+        closeInterface()
         If Not shader Is Nothing Then shader.Dispose()
-
-        If Me.sqlCo.State.Equals(ConnectionState.Open) Then
-            databaseClose()
-            Me.sqlCo.Dispose()
-        End If
+        If Not mInterface Is Nothing Then mInterface.Dispose()
 
         Console.WriteLine("------Session ended: {0}------", System.DateTime.Now.ToString("dd/MM/yyyy - H:mm:ss"))
         Console.WriteLine()
@@ -84,11 +80,32 @@ Public Class V2_GUI
         Console.SetOut(ConsoleOut)
 
     End Sub
+    Private Sub closeInterface()
+
+        fillData()
+        saveHistory()
+        My.Settings.Save()
+
+        If Not sInterface Is Nothing Then sInterface.Dispose()
+        sInterface = Nothing
+        If Not rInterface Is Nothing Then rInterface.Dispose()
+        rInterface = Nothing
+        If Not aInterface Is Nothing Then aInterface.Dispose()
+        aInterface = Nothing
+        If Not settingsInterface Is Nothing Then settingsInterface.Dispose()
+        settingsInterface = Nothing
+
+        If Me.sqlCo.State.Equals(ConnectionState.Open) Then
+            databaseClose()
+            Me.sqlCo.Dispose()
+        End If
+
+    End Sub
 #End Region
 
 #Region " DB Function "
     Private isFirstCommit As Boolean = True
-    Private Sub databaseInitialization()
+    Private Sub databaseInitialization(Optional path As String = sqlPath)
 
         Dim retryCount As Integer = 5
         Dim connectError As Boolean = True
@@ -96,12 +113,7 @@ Public Class V2_GUI
         While connectError And (retryCount > 0)
 
             Try
-                Me.sqlCo = New SqlConnection("Data Source=(LocalDB)\v11.0;" _
-                                          & "AttachDbFilename=|DataDirectory|\DataBase.mdf;" _
-                                          & "Integrated Security=True;" _
-                                          & "ApplicationIntent=ReadWrite;" _
-                                          & "Connect Timeout=30;" _
-                                          & "ConnectRetryCount=5")
+                Me.sqlCo = New SqlConnection(path)
                 connectError = False
             Catch ex As Exception
                 retryCount -= 1
@@ -118,6 +130,93 @@ Public Class V2_GUI
         End If
 
     End Sub
+    Private Function getLocalDatabase(dbName As String, Optional deleteExisting As Boolean = False) As String
+
+        Try
+            Dim fillDB As Boolean = False
+            Dim path As String = Application.StartupPath
+            Dim mdfname As String = IO.Path.Combine(path, dbName & ".mdf")
+            Dim ldfname As String = IO.Path.Combine(path, dbName & "_log.ldf")
+
+            If (IO.File.Exists(mdfname) And deleteExisting) Then
+                Console.WriteLine("LOG: exist and delete db")
+                If (IO.File.Exists(ldfname)) Then IO.File.Delete(ldfname)
+                IO.File.Delete(mdfname)
+                createDatabase(dbName, mdfname)
+                fillDB = True
+            ElseIf (Not IO.File.Exists(mdfname)) Then
+                Console.WriteLine("LOG: unexist db")
+                createDatabase(dbName, mdfname)
+                fillDB = True
+            End If
+
+            Dim str As String = String.Format("Data Source=(LocalDB)\v11.0;AttachDBFileName={1};Initial Catalog={0};Integrated Security=True;", dbName, mdfname)
+
+            If (fillDB) Then
+                Using con As SqlConnection = New SqlConnection(str)
+                    con.Open()
+                    Dim cmd As SqlCommand = con.CreateCommand()
+                    cmd.CommandText = "CREATE TABLE [dbo].[data] (" & _
+                                        "[Id]          INT            IDENTITY (1, 1) NOT NULL," & _
+                                        "[Nom]         VARCHAR (MAX)  NOT NULL," & _
+                                        "[Url]         NVARCHAR (MAX) NOT NULL," & _
+                                        "[Genre]       NVARCHAR (MAX) DEFAULT (NULL) NULL," & _
+                                        "[Episode]     INT            NOT NULL," & _
+                                        "[Date]        NVARCHAR (12)  NOT NULL," & _
+                                        "[Note]        INT            DEFAULT ((0)) NULL," & _
+                                        "[Follow]      INT            DEFAULT ((0)) NULL," & _
+                                        "[SmartLink]   INT            DEFAULT ((0)) NULL," & _
+                                        "[Commentaire] NVARCHAR (MAX) DEFAULT (NULL) NULL," & _
+                                        "[Fini]        INT            DEFAULT ((0)) NULL," & _
+                                        "PRIMARY KEY CLUSTERED ([Id] ASC)" & _
+                                     ");"
+                    cmd.ExecuteNonQuery()
+                End Using
+            End If
+
+            Return str
+
+        Catch ex As Exception
+            Console.WriteLine("LOG: error in getting localDatabase " & dbName)
+            Console.WriteLine("ERROR: " & ex.Message)
+            Return ""
+        End Try
+
+    End Function
+    Private Sub createDatabase(dbName As String, mdfname As String)
+
+        Try
+            Dim str As String = "Data Source=(LocalDB)\v11.0;Initial Catalog=master;Integrated Security=True"
+            Using con As SqlConnection = New SqlConnection(str)
+                con.Open()
+                Dim cmd As SqlCommand = con.CreateCommand()
+                detachDatabase(dbName)
+                cmd.CommandText = String.Format("CREATE DATABASE {0} ON (NAME = '{0}', FILENAME = '{1}')", dbName, mdfname.Replace("'", "''"))
+                cmd.ExecuteNonQuery()
+            End Using
+            If (IO.File.Exists(mdfname)) Then Console.WriteLine("LOG: created") Else Console.WriteLine("LOG: not created")
+        Catch ex As Exception
+            Console.WriteLine("LOG: error in creating database " & dbName)
+            Console.WriteLine("ERROR: " & ex.Message)
+        End Try
+
+    End Sub
+    Private Sub detachDatabase(dbName As String)
+
+        Try
+            Dim str As String = "Data Source=(LocalDB)\v11.0;Initial Catalog=master;Integrated Security=True"
+            Using con As SqlConnection = New SqlConnection(str)
+                con.Open()
+                Dim cmd As SqlCommand = con.CreateCommand()
+                cmd.CommandText = String.Format("exec sp_detach_db '{0}'", dbName)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("LOG: error in detaching database " & dbName)
+            Console.WriteLine("ERROR: " & ex.Message)
+        End Try
+
+    End Sub
     Private Sub databaseOpen()
 
         Try
@@ -125,6 +224,7 @@ Public Class V2_GUI
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Critical, "Erreur au chargement de la base de donnée")
             Throw New Exception("Error on databaseOpen()")
+            Close()
         End Try
 
     End Sub
@@ -303,7 +403,7 @@ Public Class V2_GUI
         Dim infobox As DialBox = New DialBox("Gestionnaire d'Archive" & vbCrLf & _
                                              "Application pour la gestion de série." & vbCrLf & vbCrLf & _
                                              "Si une erreur survient, contactez le support en joignant le fichier 'report.log'" & vbCrLf & vbCrLf & _
-                                             "Version 2.2.3 (beta)", Me.Text)
+                                             "Version 2.2.4 (beta)", Me.Text)
 
         Console.WriteLine("LOG: info: " & infobox.ShowDialog())
 
@@ -383,6 +483,29 @@ Public Class V2_GUI
 
         data.Tables("data").Rows.Add(row)
 
+        fillData()
+
+    End Sub
+#End Region
+
+#Region " SettingsInterfaceEvent Handler "
+    Private Sub databaseUpdated(origin As Boolean, path As String) Handles settingsInterface.DatabaseChanged
+
+        closeInterface()
+        Console.WriteLine("------Restarted: {0}------", System.DateTime.Now.ToString("dd/MM/yyyy - H:mm:ss"))
+
+        If (origin) Then
+            My.Settings.DBCONF = False
+        Else
+            My.Settings.DBCONF = True
+            My.Settings.DBSTRING = getLocalDatabase(path)
+        End If
+
+        If (My.Settings.DBCONF = True) Then
+            databaseInitialization(My.Settings.DBSTRING)
+        Else
+            databaseInitialization()
+        End If
         fillData()
 
     End Sub
