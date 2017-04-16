@@ -116,15 +116,14 @@
     End Sub
     Private Sub nSmartLink_CheckedChanged(sender As Object, e As EventArgs) Handles nSmartLink.CheckedChanged
         If sender.checked Then
-            MsgBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, " & vbCrLf & _
-                   "il est nécessaire que vous mettiez le lien du première épisode." & vbCrLf & vbCrLf & _
-                   "Exemple :" & vbCrLf & _
-                   "http://monsite.fr/mon-anime" & vbCrLf & _
-                   "Doit devenir :" & vbCrLf & _
-                   "http://monsite.fr/mon-anime-episode-01" & vbCrLf & _
-                   "Si 'mon-anime-episode-01' est le lien de l'épisode 1",
-                   MsgBoxStyle.Information,
-                   "Information sur le fonctionnement")
+            Dim box As DialBox = New DialBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, il est nécessaire de mettre le lien du première épisode." & vbCrLf & vbCrLf & _
+                                            "http://monsite.fr/ma-serie" & vbCrLf & _
+                                            "Doit devenir :" & vbCrLf & _
+                                            "http://monsite.fr/ma-serie-episode-01" & vbCrLf & _
+                                            "Si 'ma-serie-episode-01' est le lien de l'épisode 1",
+                                            "Information sur le fonctionnement",
+                                            DialBox.BoxMode.ModeInformation)
+            box.ShowDialog()
         End If
     End Sub
 #End Region

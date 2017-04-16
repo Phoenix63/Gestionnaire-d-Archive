@@ -137,6 +137,18 @@ Namespace My
                 Me("DBSTRING") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2.2.4 (beta)")>  _
+        Public Property VERSION() As String
+            Get
+                Return CType(Me("VERSION"),String)
+            End Get
+            Set
+                Me("VERSION") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

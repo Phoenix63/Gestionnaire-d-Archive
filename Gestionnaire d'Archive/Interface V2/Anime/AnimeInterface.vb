@@ -485,15 +485,14 @@ Public Class AnimeInterface
     End Sub
     Private Sub aSmartLink_CheckedChanged(sender As Object, e As EventArgs)
         If sender.checked Then
-            MsgBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, " & vbCrLf & _
-                   "il est nécessaire que vous mettiez le lien du première épisode." & vbCrLf & vbCrLf & _
-                   "Exemple :" & vbCrLf & _
-                   "http://monsite.fr/mon-anime" & vbCrLf & _
-                   "Doit devenir :" & vbCrLf & _
-                   "http://monsite.fr/mon-anime-episode-01" & vbCrLf & _
-                   "Si 'mon-anime-episode-01' est le lien de l'épisode 1",
-                   MsgBoxStyle.Information,
-                   "Information sur le fonctionnement")
+            Dim box As DialBox = New DialBox("Afin de pouvoir utiliser la reconnaissance de lien de manière intelligente, il est nécessaire de mettre le lien du première épisode." & vbCrLf & vbCrLf & _
+                                            "http://monsite.fr/ma-serie" & vbCrLf & _
+                                            "Doit devenir :" & vbCrLf & _
+                                            "http://monsite.fr/ma-serie-episode-01" & vbCrLf & _
+                                            "Si 'ma-serie-episode-01' est le lien de l'épisode 1",
+                                            "Information sur le fonctionnement",
+                                            DialBox.BoxMode.ModeInformation)
+            box.ShowDialog()
         End If
     End Sub
     Private Sub lien_Click(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles aLien.LinkClicked
@@ -502,7 +501,7 @@ Public Class AnimeInterface
 
             Dim url As String
             Dim localRegex As New System.Text.RegularExpressions.Regex("^[A-Z]:\\")
-            Dim webRegex As New System.Text.RegularExpressions.Regex("^http://")
+            Dim webRegex As New System.Text.RegularExpressions.Regex("^([http://]|[https://])")
 
             'If Me._lien.Text.Contains("http://") Or Me._lien.Text.Contains(":\") Then 'C'est un url vers le web ou local
             If webRegex.IsMatch(aLien.Text) Or localRegex.IsMatch(aLien.Text) Then

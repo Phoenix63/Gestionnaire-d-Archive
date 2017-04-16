@@ -6,6 +6,8 @@ Public NotInheritable Class DialBox
         ModeOK
         ModeYesNo
         ModeCancel
+        ModeCritical
+        ModeInformation
     End Enum
 
     Private _title As String
@@ -23,6 +25,8 @@ Public NotInheritable Class DialBox
         Me._title = title
         Me._mode = mode
 
+        If title.Length > 30 Then Me.Width = 450
+
     End Sub
     Private Sub InformationBox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -35,6 +39,14 @@ Public NotInheritable Class DialBox
             Case BoxMode.ModeYesNo
                 bYes.Visible = True
                 bNo.Visible = True
+            Case BoxMode.ModeCritical
+                bOK.Visible = True
+                bPicture.Visible = True
+                bPicture.Image = My.Resources.pic_error
+            Case BoxMode.ModeInformation
+                bOK.Visible = True
+                bPicture.Visible = True
+                bPicture.Image = My.Resources.pic_information
             Case Else
                 bOK.Visible = True
         End Select
@@ -82,20 +94,20 @@ Public NotInheritable Class DialBox
     Public MoveForm As Boolean
     Public MoveForm_MousePosition As Point
 
-    Public Sub MoveForm_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, bTitle.MouseDown, bIcon.MouseDown
+    Public Sub MoveForm_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown, bIcon.MouseDown, bTitle.MouseDown
         If e.Button = Windows.Forms.MouseButtons.Left Then
             MoveForm = True
             MoveForm_MousePosition = e.Location
         End If
     End Sub
 
-    Public Sub MoveForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, bTitle.MouseMove, bIcon.MouseMove
+    Public Sub MoveForm_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove, bIcon.MouseMove, bTitle.MouseMove
         If MoveForm Then
             Me.Location = Me.Location + (e.Location - MoveForm_MousePosition)
         End If
     End Sub
 
-    Public Sub MoveForm_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, bTitle.MouseUp, bIcon.MouseUp
+    Public Sub MoveForm_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp, bIcon.MouseUp, bTitle.MouseUp
         If e.Button = Windows.Forms.MouseButtons.Left Then
             MoveForm = False
         End If

@@ -403,7 +403,7 @@ Public Class V2_GUI
         Dim infobox As DialBox = New DialBox("Gestionnaire d'Archive" & vbCrLf & _
                                              "Application pour la gestion de série." & vbCrLf & vbCrLf & _
                                              "Si une erreur survient, contactez le support en joignant le fichier 'report.log'" & vbCrLf & vbCrLf & _
-                                             "Version 2.2.4 (beta)", Me.Text)
+                                             "Version " & My.Settings.VERSION, Me.Text)
 
         Console.WriteLine("LOG: info: " & infobox.ShowDialog())
 
