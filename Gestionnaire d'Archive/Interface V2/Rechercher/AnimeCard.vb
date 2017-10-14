@@ -25,6 +25,10 @@ Public Class AnimeCard
 
     End Sub
     Private Sub AnimeCard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cardLoad()
+    End Sub
+
+    Private Sub cardLoad()
 
         Dim pictPath As String
         Dim pictFound As Boolean = False
@@ -65,6 +69,17 @@ Public Class AnimeCard
         tip.SetToolTip(cardName, _anime.Nom())
 
     End Sub
+    Public Sub reload()
+        If _anime IsNot Nothing Then cardLoad()
+    End Sub
+
+#Region " Property "
+    Public ReadOnly Property anime()
+        Get
+            Return _anime
+        End Get
+    End Property
+#End Region
 
 #Region " Handler "
     Private Sub cardFont_MouseEnter(sender As Object, e As EventArgs) Handles cardFont.MouseEnter, cardName.MouseEnter

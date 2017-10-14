@@ -49,12 +49,14 @@
 
         Dim table As DataTable = view.ToTable
 
+        Console.WriteLine("LOG: looking for fill slider with filter '{0}'", filter)
         If table.Rows.Count = 0 Then
-            displayAny()
+            Console.WriteLine(" => No match")
+            displayEmpty()
         Else
-            Console.WriteLine("LOG: start processing")
+            Console.WriteLine(" => Start processing to load data")
             fillWithFilterProcessing(table, out)
-            Console.WriteLine("LOG: end processing")
+            Console.WriteLine(" => End processing")
         End If
 
     End Sub
@@ -64,7 +66,7 @@
             table.BeginLoadData()
             Select Case out
                 Case True
-                    Console.WriteLine("LOG: processing. . .")
+                    Console.WriteLine("LOG: loading released file")
                     For Each line As DataRow In table.Rows
                         Dim a As Anime = New Anime(line)
                         Dim diff As Integer = DateDiff(DateInterval.Day, a.DateSortie(), Now.Date, FirstDayOfWeek.Monday)
@@ -75,7 +77,7 @@
                     Next
 
                 Case Else
-                    Console.WriteLine("LOG: processing. . .")
+                    Console.WriteLine("LOG: loading normally")
                     For Each line As DataRow In table.Rows
                         addAnime(New Anime(line))
                     Next
@@ -83,7 +85,7 @@
             table.EndLoadData()
 
         Catch ex As Exception
-            Console.WriteLine("LOG: fillAnimeList - " & ex.Message)
+            Console.WriteLine("ERR: " & ex.Message)
         End Try
 
     End Sub
@@ -91,10 +93,11 @@
 
         If Not worker.IsBusy Then
 
+            clearSlider()
+
             oldFilter = filter
             oldOut = out
             oldIndex = i
-            clearScreen()
             loading.Visible = True
 
             worker.RunWorkerAsync()
@@ -102,8 +105,37 @@
         End If
 
     End Sub
-    Public Sub reloadWithFilter()
-        loadWithFilter(oldFilter, oldOut, oldIndex)
+    Public Sub reloadAnimeCard(ByRef anime As Anime)
+
+        For Each card In cardList
+            If card.anime.Nom().Equals(anime.Nom) Then
+                card.reload()
+                Exit For
+            End If
+        Next
+
+    End Sub
+    Public Sub removeAnimeCard(ByRef anime As Anime)
+
+        Dim aCard As AnimeCard = Nothing
+        For Each card In cardList
+            If card.anime.Nom().Equals(anime.Nom) Then
+                aCard = card
+                Exit For
+            End If
+        Next
+
+        If (aCard IsNot Nothing) Then
+            If (cardList.Count = 1) Then
+                displayEmpty()
+            Else
+                clearScreen()
+                cardList.Remove(aCard)
+                index = 0
+                displayAnime()
+            End If
+        End If
+
     End Sub
     Private Delegate Sub dFillCardList()
     Private Sub fillCardList()
@@ -126,37 +158,42 @@
 #End Region
 
 #Region " Display "
-    Public Sub displayAnime()
-
-        cardList.Reverse()
+    Public Sub displayAnime() 'display the current index
         fillCardList()
         displayIndex()
+        displaySlider()
+    End Sub
+    Private Sub displayEmpty() 'display the empty message
+
+        If Me.InvokeRequired Then
+            Me.Invoke(Sub() displayEmpty())
+        Else
+            clearSlider()
+            Me.noResponse.Visible = True
+        End If
 
     End Sub
-    Private Sub displayAny()
-        clearScreen()
-        Me.noResponse.Visible = True
-    End Sub
-    Private Sub displayIndex(Optional state As Boolean = True)
+    Private Sub displayIndex(Optional state As Boolean = True) 'set visible state to @state for the current index
         Dim i As Integer
         For i = index * 4 To Math.Min(cardList.Count, index * 4 + 4) - 1
             cardList.Item(i).Visible = state
         Next
     End Sub
-    Private Sub displaySlider()
+    Private Sub displaySlider() 'button
         If cardList.Count <= (index + 1) * 4 Then sliderRight.Visible = False Else sliderRight.Visible = True
         If index > 0 Then sliderLeft.Visible = True Else sliderLeft.Visible = False
     End Sub
-    Public Sub clearScreen()
-
+    Public Sub clearSlider() 'reset content and clear graphically
         index = 0
+        clearScreen()
+        cardList.Clear()
+        displaySlider()
+    End Sub
+    Public Sub clearScreen() 'clear graphically
         For Each e In cardList
             slider.Controls.Remove(e)
         Next
         Me.noResponse.Visible = False
-        cardList.Clear()
-        displaySlider()
-
     End Sub
 #End Region
 
@@ -183,9 +220,15 @@
     End Sub
     Private Sub worker_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles worker.RunWorkerCompleted
 
+        If cardList.Count = 1 Then
+            Console.WriteLine("LOG: Anime matched => Load directly")
+            Dim aCard As AnimeCard = cardList.Item(0)
+            RaiseEvent loadAnimeEvent(aCard.anime)
+        End If
+
         fillCardList()
-        displaySlider()
         displayIndex()
+        displaySlider()
         loading.Visible = False
 
     End Sub

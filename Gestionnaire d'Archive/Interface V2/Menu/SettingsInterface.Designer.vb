@@ -29,9 +29,9 @@ Partial Class SettingsInterface
         Dim Label9 As System.Windows.Forms.Label
         Dim Label16 As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SettingsInterface))
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Series4 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.sTitle = New System.Windows.Forms.Label()
         Me.sPanelSetting = New System.Windows.Forms.Panel()
         Me.pDB = New System.Windows.Forms.Panel()
@@ -39,6 +39,8 @@ Partial Class SettingsInterface
         Me.Label18 = New System.Windows.Forms.Label()
         Me.pNav = New System.Windows.Forms.Panel()
         Me.sUpdateBrowser = New System.Windows.Forms.Button()
+        Me.sOtherBrowser = New System.Windows.Forms.Button()
+        Me.sDefaultBrowser = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.pSave = New System.Windows.Forms.Panel()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -53,8 +55,6 @@ Partial Class SettingsInterface
         Me.tip = New System.Windows.Forms.ToolTip(Me.components)
         Me.genreChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.sReturn = New System.Windows.Forms.Button()
-        Me.sOtherBrowser = New System.Windows.Forms.Button()
-        Me.sDefaultBrowser = New System.Windows.Forms.Button()
         Label2 = New System.Windows.Forms.Label()
         Label7 = New System.Windows.Forms.Label()
         Label5 = New System.Windows.Forms.Label()
@@ -234,6 +234,48 @@ Partial Class SettingsInterface
         Me.sUpdateBrowser.Text = "Changer"
         Me.sUpdateBrowser.UseVisualStyleBackColor = False
         '
+        'sOtherBrowser
+        '
+        Me.sOtherBrowser.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.sOtherBrowser.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.sOtherBrowser.Dock = System.Windows.Forms.DockStyle.Left
+        Me.sOtherBrowser.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.sOtherBrowser.FlatAppearance.BorderSize = 0
+        Me.sOtherBrowser.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.sOtherBrowser.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.sOtherBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.sOtherBrowser.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.sOtherBrowser.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_unchecked
+        Me.sOtherBrowser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.sOtherBrowser.Location = New System.Drawing.Point(90, 50)
+        Me.sOtherBrowser.Name = "sOtherBrowser"
+        Me.sOtherBrowser.Size = New System.Drawing.Size(90, 35)
+        Me.sOtherBrowser.TabIndex = 56
+        Me.sOtherBrowser.Text = "Autre  "
+        Me.sOtherBrowser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.sOtherBrowser.UseVisualStyleBackColor = False
+        '
+        'sDefaultBrowser
+        '
+        Me.sDefaultBrowser.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.sDefaultBrowser.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.sDefaultBrowser.Dock = System.Windows.Forms.DockStyle.Left
+        Me.sDefaultBrowser.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.sDefaultBrowser.FlatAppearance.BorderSize = 0
+        Me.sDefaultBrowser.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.sDefaultBrowser.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
+        Me.sDefaultBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.sDefaultBrowser.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
+        Me.sDefaultBrowser.Image = CType(resources.GetObject("sDefaultBrowser.Image"), System.Drawing.Image)
+        Me.sDefaultBrowser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.sDefaultBrowser.Location = New System.Drawing.Point(0, 50)
+        Me.sDefaultBrowser.Name = "sDefaultBrowser"
+        Me.sDefaultBrowser.Size = New System.Drawing.Size(90, 35)
+        Me.sDefaultBrowser.TabIndex = 55
+        Me.sDefaultBrowser.Text = "Défaut"
+        Me.sDefaultBrowser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.sDefaultBrowser.UseVisualStyleBackColor = False
+        '
         'Label11
         '
         Me.Label11.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -374,23 +416,23 @@ Partial Class SettingsInterface
         '
         'genreChart
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.genreChart.ChartAreas.Add(ChartArea1)
+        ChartArea4.Name = "ChartArea1"
+        Me.genreChart.ChartAreas.Add(ChartArea4)
         Me.genreChart.Dock = System.Windows.Forms.DockStyle.Top
         Me.genreChart.Location = New System.Drawing.Point(15, 245)
         Me.genreChart.Name = "genreChart"
         Me.genreChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
         Me.genreChart.PaletteCustomColors = New System.Drawing.Color() {System.Drawing.SystemColors.ActiveCaption}
-        Series1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX
-        Series1.ChartArea = "ChartArea1"
-        Series1.Font = New System.Drawing.Font("Palatino Linotype", 6.0!)
-        Series1.IsVisibleInLegend = False
-        Series1.IsXValueIndexed = True
-        Series1.Name = "GenderSeries"
-        Series1.SmartLabelStyle.MaxMovingDistance = 5.0R
-        Series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.UInt32
-        Series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.UInt32
-        Me.genreChart.Series.Add(Series1)
+        Series4.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX
+        Series4.ChartArea = "ChartArea1"
+        Series4.Font = New System.Drawing.Font("Palatino Linotype", 6.0!)
+        Series4.IsVisibleInLegend = False
+        Series4.IsXValueIndexed = True
+        Series4.Name = "GenderSeries"
+        Series4.SmartLabelStyle.MaxMovingDistance = 5.0R
+        Series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.UInt32
+        Series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.UInt32
+        Me.genreChart.Series.Add(Series4)
         Me.genreChart.Size = New System.Drawing.Size(570, 115)
         Me.genreChart.TabIndex = 64
         Me.genreChart.TabStop = False
@@ -412,48 +454,6 @@ Partial Class SettingsInterface
         Me.sReturn.Size = New System.Drawing.Size(25, 25)
         Me.sReturn.TabIndex = 55
         Me.sReturn.UseVisualStyleBackColor = False
-        '
-        'sOtherBrowser
-        '
-        Me.sOtherBrowser.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.sOtherBrowser.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.sOtherBrowser.Dock = System.Windows.Forms.DockStyle.Left
-        Me.sOtherBrowser.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.sOtherBrowser.FlatAppearance.BorderSize = 0
-        Me.sOtherBrowser.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.sOtherBrowser.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.sOtherBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.sOtherBrowser.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.sOtherBrowser.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.ic_unchecked
-        Me.sOtherBrowser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.sOtherBrowser.Location = New System.Drawing.Point(90, 50)
-        Me.sOtherBrowser.Name = "sOtherBrowser"
-        Me.sOtherBrowser.Size = New System.Drawing.Size(90, 35)
-        Me.sOtherBrowser.TabIndex = 56
-        Me.sOtherBrowser.Text = "Autre  "
-        Me.sOtherBrowser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.sOtherBrowser.UseVisualStyleBackColor = False
-        '
-        'sDefaultBrowser
-        '
-        Me.sDefaultBrowser.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.sDefaultBrowser.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.sDefaultBrowser.Dock = System.Windows.Forms.DockStyle.Left
-        Me.sDefaultBrowser.FlatAppearance.BorderColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.sDefaultBrowser.FlatAppearance.BorderSize = 0
-        Me.sDefaultBrowser.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.sDefaultBrowser.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight
-        Me.sDefaultBrowser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.sDefaultBrowser.Font = New System.Drawing.Font("Palatino Linotype", 9.0!)
-        Me.sDefaultBrowser.Image = CType(resources.GetObject("sDefaultBrowser.Image"), System.Drawing.Image)
-        Me.sDefaultBrowser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.sDefaultBrowser.Location = New System.Drawing.Point(0, 50)
-        Me.sDefaultBrowser.Name = "sDefaultBrowser"
-        Me.sDefaultBrowser.Size = New System.Drawing.Size(90, 35)
-        Me.sDefaultBrowser.TabIndex = 55
-        Me.sDefaultBrowser.Text = "Défaut"
-        Me.sDefaultBrowser.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.sDefaultBrowser.UseVisualStyleBackColor = False
         '
         'SettingsInterface
         '

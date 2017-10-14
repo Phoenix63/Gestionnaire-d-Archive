@@ -24,7 +24,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="VERSION" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2.2.4 (beta)</Value>
+      <Value Profile="(Default)">2.2.5 (beta)</Value>
     </Setting>
   </Settings>
 </SettingsFile>

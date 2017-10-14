@@ -26,14 +26,20 @@ Public Class RechercherInterface
     Public Sub loadWithFilter(ByVal filter As String, ByVal out As Boolean)
         slider.loadWithFilter(filter, out)
     End Sub
-    Public Sub reloadSlider()
-        slider.reloadWithFilter()
+    Public Sub reloadAnimeCard(ByRef anime As Anime)
+        updateNameList()
+        slider.reloadAnimeCard(anime)
+    End Sub
+    Public Sub removeAnimeCard(ByRef anime As Anime)
+        updateNameList()
+        slider.removeAnimeCard(anime)
     End Sub
 #End Region
 
 #Region " Handler "
     Private Sub rReturn_Click(sender As Object, e As EventArgs) Handles rReturn.Click
 
+        searchFilter.resetContent()
         Me.Visible = False
         RaiseEvent HistoryUpdated()
 

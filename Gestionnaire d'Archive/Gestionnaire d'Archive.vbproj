@@ -47,7 +47,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>Full</DebugType>
-    <DefineDebug>true</DefineDebug>
+    <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -229,7 +229,7 @@
       <DependentUpon>SaveInterface.vb</DependentUpon>
     </Compile>
     <Compile Include="Interface V2\Menu\SaveInterface.vb">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interface V2\Anime\StarRanking.Designer.vb">
       <DependentUpon>StarRanking.vb</DependentUpon>

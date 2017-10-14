@@ -16,7 +16,7 @@ Public Class AnimeInterface
     ' Outer Event
     Public Event AnimeUpdated(anime As Anime)
     Public Event AnimeDeleted(anime As Anime)
-    Public Event PictureUpdated()
+    Public Event PictureUpdated(anime As Anime)
 
     Public Sub New(ByRef anime As Anime)
 
@@ -239,6 +239,10 @@ Public Class AnimeInterface
             filePath = filePath.Replace("001", normalize(3, _anime.Episode()))
         ElseIf checkPath(filePath, "01") Then
             filePath = filePath.Replace("01", normalize(2, _anime.Episode()))
+        ElseIf checkPath(filePath, "1") Then
+            filePath = filePath.Replace("1", _anime.Episode())
+        ElseIf checkPath(filePath, "/1/") Then
+            filePath = filePath.Replace("/1/", "/" + _anime.Episode() + "/")
         ElseIf link.Contains("episode-") Then
 
             Dim epIndex As Integer, i As Integer
@@ -351,7 +355,7 @@ Public Class AnimeInterface
         If (aDeleted) Then
             RaiseEvent AnimeDeleted(_anime)
         Else
-            If (picChanged And (Not (aChanged))) Then RaiseEvent PictureUpdated()
+            If (picChanged And (Not (aChanged))) Then RaiseEvent PictureUpdated(_anime)
             If (aChanged) Then RaiseEvent AnimeUpdated(_anime)
         End If
         Me.Parent.Controls.Remove(Me)
@@ -362,13 +366,14 @@ Public Class AnimeInterface
 
         Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
         Try
+            Console.WriteLine("LOG: looking for update episode value => Id: {0}" & vbTab & "FirstName: {1}", row(0).ToString(), row(1).ToString())
             row.BeginEdit()
             row(4) = _anime.Episode()
             row.EndEdit()
             If (row.RowState = DataRowState.Modified) Then aChanged = True
-            Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+            Console.WriteLine(" => update state: {0}", row.RowState.ToString())
         Catch ex As Exception
-            Console.WriteLine("Next: " & ex.Message)
+            Console.WriteLine("ERR: " & ex.Message)
         End Try
 
     End Sub
@@ -408,6 +413,7 @@ Public Class AnimeInterface
 
                 Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
                 Try
+                    Console.WriteLine("LOG: looking for update => Id: {0}" & vbTab & "FirstName: {1}", row(0).ToString(), row(1).ToString())
                     row.BeginEdit()
                     If Not _anime.Nom().Equals(_animeUpdated.Nom()) Then
                         For Each ext As String In {".png", ".jpg", ".bmp"}
@@ -460,9 +466,9 @@ Public Class AnimeInterface
                     End If
                     row.EndEdit()
                     If (row.RowState = DataRowState.Modified) Then aChanged = True
-                    Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+                    Console.WriteLine(" => update state: {0}", row.RowState.ToString())
                 Catch ex As Exception
-                    Console.WriteLine("Edit: " & ex.Message)
+                    Console.WriteLine("ERR: " & ex.Message)
                 End Try
             End If
         Else
@@ -503,14 +509,13 @@ Public Class AnimeInterface
             Dim localRegex As New System.Text.RegularExpressions.Regex("^[A-Z]:\\")
             Dim webRegex As New System.Text.RegularExpressions.Regex("^([http://]|[https://])")
 
-            'If Me._lien.Text.Contains("http://") Or Me._lien.Text.Contains(":\") Then 'C'est un url vers le web ou local
             If webRegex.IsMatch(aLien.Text) Or localRegex.IsMatch(aLien.Text) Then
                 url = aLien.Text
             Else 'Par défaut on considère que c'est un url vers le web
                 url = "http://" & aLien.Text
             End If
 
-            If (My.Settings.OTHER_CHECKED) Then 'On utilise le browser par défaut
+            If (Not My.Settings.OTHER_CHECKED) Then 'On utilise le browser par défaut
                 Process.Start(url)
             Else 'Sinon il y a un autre browser renseigné, on vérifie son existance sinon on lance par défaut
 
@@ -536,15 +541,21 @@ Public Class AnimeInterface
         Dim resp As DialogResult
         resp = New DialBox("La suppression sera définitive, voulez-vous continuer ?", "Suppression", DialBox.BoxMode.ModeYesNo).ShowDialog()
         If (resp = DialogResult.Yes) Then
-            Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
+            Dim rowList As DataRow() = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")
+            If (rowList.Count = 0) Then
+                Console.WriteLine("ERR: " & Me._anime.Nom())
+            End If
+
+            Dim row As DataRow = rowList(0)
             Try
+                Console.WriteLine("LOG: looking for remove => Id: {0}" & vbTab & "FirstName: {1}", row(0).ToString(), row(1).ToString())
                 row.BeginEdit()
                 row.Delete()
                 row.EndEdit()
                 If (row.RowState = DataRowState.Deleted) Then aDeleted = True
-                Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+                Console.WriteLine(" => remove state: {0}", row.RowState.ToString())
             Catch ex As Exception
-                Console.WriteLine("Supprimer: " & ex.Message)
+                Console.WriteLine("ERR: " & ex.Message)
             End Try
             aReturn_Click(sender, e)
         End If
@@ -556,6 +567,7 @@ Public Class AnimeInterface
         aFinish.Checked = _anime.Finished()
         Dim row As DataRow = V2_GUI.data.Tables("data").Select("Nom = '" & Me._anime.Nom() & "'")(0)
         Try
+            Console.WriteLine("LOG: looking for update cloture state => Id: {0}" & vbTab & "FirstName: {1}", row(0).ToString(), row(1).ToString())
             row.BeginEdit()
             If (_anime.Finished()) Then
                 row(8) = "0"
@@ -564,9 +576,9 @@ Public Class AnimeInterface
             row(10) = IIf(_anime.Finished(), "1", "0")
             row.EndEdit()
             If (row.RowState = DataRowState.Modified) Then aChanged = True
-            Console.WriteLine("Id: {0}" & vbTab & "FirstName: {1}" & vbTab & "RowState: {2}", row(0).ToString(), row(1).ToString(), row.RowState.ToString())
+            Console.WriteLine(" => update state: {0}", row.RowState.ToString())
         Catch ex As Exception
-            Console.WriteLine("Cloturer: " & ex.Message)
+            Console.WriteLine("ERR: " & ex.Message)
         End Try
         If Not (_anime.Finished) Then
             aCloturer.Image = My.Resources.ic_close

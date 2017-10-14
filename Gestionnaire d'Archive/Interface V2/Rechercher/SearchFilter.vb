@@ -11,6 +11,18 @@
     End Sub
 
 #Region " Function "
+    Public Sub resetContent()
+
+        aRank.Rank = 0
+        aName.Clear()
+        aFilter.fillItemList("", ";")
+        aOut.Checked = False
+        cbSuivi.SelectedIndex = 0
+        cbFini.SelectedIndex = 0
+
+        updateNameList()
+
+    End Sub
     Public Sub updateNameList()
 
         Dim source As AutoCompleteStringCollection = New AutoCompleteStringCollection()

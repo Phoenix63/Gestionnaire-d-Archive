@@ -53,7 +53,7 @@
         nTitle.Clear()
         nEpisode.Clear()
         nRank.Rank = 1
-        nFilter = New AnimeFilter("", ";")
+        nFilter.fillItemList("", ";")
         nDate.Value = Date.Now
         nLienModifiable.Clear()
         nCommentaire.Clear()

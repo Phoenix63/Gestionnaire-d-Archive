@@ -27,7 +27,7 @@ Public Class AnimeFilter
         "Shôjo",
         "Shôjo-Ai",
         "Shônen",
-        "Slice of Lice",
+        "Slice of Life",
         "Sport",
         "Surnaturel",
         "Thriller",

@@ -121,11 +121,10 @@ Public Class SettingsInterface
 
         sOtherBrowser.Image = My.Resources.ic_checked
         sDefaultBrowser.Image = My.Resources.ic_unchecked
-
         My.Settings.OTHER_CHECKED = True
 
     End Sub
-    Private Function updateBrowser()
+    Private Function updateBrowser() As String
 
         Dim url As String = ""
         Dim fileDial As New OpenFileDialog

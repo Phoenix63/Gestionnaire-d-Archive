@@ -26,13 +26,23 @@ Public Class V2_GUI
     Public Shared nameList As List(Of String) = New List(Of String)
 
 #Region " Main Functions "
+    Protected Overrides ReadOnly Property CreateParams() As CreateParams
+        Get
+            Const CS_DROPSHADOW As Integer = &H20000
+            Dim cp As CreateParams = MyBase.CreateParams
+            cp.ClassStyle = cp.ClassStyle Or CS_DROPSHADOW
+            Return cp
+        End Get
+    End Property
     Private Sub V2_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Control.CheckForIllegalCrossThreadCalls = False
 
         Me.title.Text = Me.Text
 
+#If Not Debug Then
         Console.SetOut(Logger)
+#End If
         Console.WriteLine("------New Session: {0}------", System.DateTime.Now.ToString("dd/MM/yyyy - H:mm:ss"))
 
         If (Dir(Application.StartupPath & "\Uplauncher GA.new") <> "") Then
@@ -52,7 +62,7 @@ Public Class V2_GUI
         MyBase.Controls.Add(shader)
         With shader
             .Size = New Point(450, 375)
-            .Zone = New Point(Me.Location.X + 150, Me.Location.Y + 25)
+            .Zone = New Point(MyBase.Location.X + 150, MyBase.Location.Y + 25)
             .Location = New Point(150, 25)
             .Alpha = 30
             .BringToFront()
@@ -340,8 +350,10 @@ Public Class V2_GUI
     End Sub
     Private Sub V2_GUI_LocationChanged(sender As Object, e As EventArgs) Handles Me.LocationChanged
         shader.Zone = New Point(Me.Location.X + 150, Me.Location.Y + 25)
+        If sInterface IsNot Nothing Then sInterface.Location = New Point(Me.Location.X + (Me.Width / 2) - (sInterface.Width / 2),
+                                                                         Me.Location.Y + (Me.Height / 2) - (sInterface.Height / 2))
     End Sub
-    Private Sub shader_Click() Handles shader.Clicked
+    Private Sub shader_Click() Handles Shader.Clicked
         mInterface.menuClose()
     End Sub
 #End Region
@@ -373,11 +385,11 @@ Public Class V2_GUI
 
         If sInterface Is Nothing Then
             sInterface = SaveInterface.GetInstance()
-            sInterface.Location = New System.Drawing.Point((Me.Width / 2) - (sInterface.Width / 2), (Me.Height / 2) - (sInterface.Height / 2))
-            Me.Controls.Add(sInterface)
-            sInterface.BringToFront()
+            sInterface.Location = New Point(Me.Location.X + (Me.Width / 2) - (sInterface.Width / 2),
+                                            Me.Location.Y + (Me.Height / 2) - (sInterface.Height / 2))
         End If
 
+        sInterface.BringToFront()
         sInterface.startAnimation()
         fillData()
         sInterface.endAnimation()
@@ -435,28 +447,34 @@ Public Class V2_GUI
 #Region " AnimeInterfaceEvent Handler "
     Private Sub animeUpdated(anime As Anime) Handles aInterface.AnimeUpdated
 
+        'doSave()
+
         If anime IsNot Nothing Then addHistory(anime)
-        doSave()
-        sliderUpdate()
+        updateNameList()
+        displayHistory()
 
     End Sub
     Private Sub animeDeleted(anime As Anime) Handles aInterface.AnimeDeleted
 
-        Dim currentID As Integer = CInt(data.Tables("data").Select("Nom = '" & anime.Nom() & "'")(0).Item("Id"))
-        For Each e In historyList.ToList
-            Dim hID As Integer = CInt(data.Tables("data").Select("Nom = '" & e.Nom() & "'")(0).Item("Id"))
-            If (currentID.Equals(hID)) Then historyList.Remove(e)
+        doSave()
+
+        For Each e As Anime In historyList.ToList
+            If (e.Nom().Equals(anime.Nom())) Then
+                historyList.Remove(e)
+                displayHistory()
+            End If
         Next
-        sliderUpdate()
+        If (Not rInterface Is Nothing) Then rInterface.removeAnimeCard(anime)
 
     End Sub
-    Private Sub sliderUpdate() Handles aInterface.PictureUpdated
+    Private Sub pictureUpdated(anime As Anime) Handles aInterface.PictureUpdated
 
         If (Not rInterface Is Nothing) Then
-            Console.WriteLine("LOG: reloadSlider")
-            rInterface.reloadSlider()
+            Console.WriteLine("LOG: reload anime card from search interface")
+            rInterface.reloadAnimeCard(anime)
         Else
-            displayHistory()
+            Console.WriteLine("LOG: reload anime card from history")
+            history.reloadAnimeCard(anime)
         End If
 
     End Sub
@@ -489,7 +507,7 @@ Public Class V2_GUI
 #End Region
 
 #Region " SettingsInterfaceEvent Handler "
-    Private Sub databaseUpdated(origin As Boolean, path As String) Handles settingsInterface.DatabaseChanged
+    Private Sub databaseUpdated(origin As Boolean, path As String) Handles SettingsInterface.DatabaseChanged
 
         closeInterface()
         Console.WriteLine("------Restarted: {0}------", System.DateTime.Now.ToString("dd/MM/yyyy - H:mm:ss"))
@@ -507,6 +525,11 @@ Public Class V2_GUI
             databaseInitialization()
         End If
         fillData()
+
+        history.clearSlider()
+        historyList.Clear()
+        loadHistory()
+        displayHistory()
 
     End Sub
 #End Region
@@ -558,9 +581,10 @@ Public Class V2_GUI
 
         'HACK
         For i As Integer = 1 To 4
-            Dim path As String = Application.StartupPath & "\data.ga" & i
-            If (Dir(path) <> "") Then
-                historyList.Add(Anime.fileDeserialize(My.Computer.FileSystem.ReadAllText(path)))
+            Dim path As String = Application.StartupPath & "\data" & i & ".hga"
+            If (File.Exists(path)) Then
+                Dim anime As Anime = anime.fileDeserialize(My.Computer.FileSystem.ReadAllText(path))
+                If (isNameExist(anime.Nom())) Then historyList.Add(anime)
             End If
         Next i
 
@@ -568,10 +592,15 @@ Public Class V2_GUI
     Private Sub saveHistory()
 
         'HACK
-        For i As Integer = 1 To Math.Min(historyList.Count, 4)
-            My.Computer.FileSystem.WriteAllText(Application.StartupPath & "\data.ga" & i,
-                                                historyList(i - 1).fileFullSerialize(),
-                                                False)
+        For i As Integer = 1 To 4
+            Dim path As String = Application.StartupPath & "\data" & i & ".hga"
+            If (File.Exists(path)) Then File.Delete(path)
+
+            If (i - 1 < historyList.Count) Then
+                Dim writer As StreamWriter = File.CreateText(path)
+                writer.Write(historyList(i - 1).fileFullSerialize())
+                writer.Close()
+            End If
         Next i
 
     End Sub
@@ -583,15 +612,20 @@ Public Class V2_GUI
             If (currentID.Equals(hID)) Then historyList.Remove(e)
         Next
         historyList.Add(anime)
+        displayHistory()
 
     End Sub
     Private Sub displayHistory() Handles rInterface.HistoryUpdated
 
-        history.clearScreen()
+        historyList.Reverse()
+
+        history.clearSlider()
         history.addAnime(historyList)
         Console.WriteLine("LOG: loading history")
         history.displayAnime()
         Console.WriteLine("LOG: displaying history")
+
+        historyList.Reverse()
 
     End Sub
     Private Sub loadSearchInterface()

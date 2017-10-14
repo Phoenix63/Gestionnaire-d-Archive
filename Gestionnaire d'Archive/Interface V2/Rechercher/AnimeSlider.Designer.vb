@@ -23,8 +23,8 @@ Partial Class AnimeSlider
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.slider = New System.Windows.Forms.Panel()
-        Me.loading = New System.Windows.Forms.PictureBox()
         Me.noResponse = New System.Windows.Forms.Label()
+        Me.loading = New System.Windows.Forms.PictureBox()
         Me.sliderLeft = New System.Windows.Forms.Button()
         Me.sliderRight = New System.Windows.Forms.Button()
         Me.worker = New System.ComponentModel.BackgroundWorker()
@@ -44,17 +44,6 @@ Partial Class AnimeSlider
         Me.slider.Size = New System.Drawing.Size(570, 220)
         Me.slider.TabIndex = 25
         '
-        'loading
-        '
-        Me.loading.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.pic_loading
-        Me.loading.Location = New System.Drawing.Point(187, 10)
-        Me.loading.Name = "loading"
-        Me.loading.Size = New System.Drawing.Size(200, 200)
-        Me.loading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.loading.TabIndex = 26
-        Me.loading.TabStop = False
-        Me.loading.Visible = False
-        '
         'noResponse
         '
         Me.noResponse.BackColor = System.Drawing.SystemColors.GradientActiveCaption
@@ -66,6 +55,17 @@ Partial Class AnimeSlider
         Me.noResponse.Text = "Aucun résultat pour votre recherche"
         Me.noResponse.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.noResponse.Visible = False
+        '
+        'loading
+        '
+        Me.loading.Image = Global.Gestionnaire_d_Archive.My.Resources.Resources.pic_loading
+        Me.loading.Location = New System.Drawing.Point(187, 10)
+        Me.loading.Name = "loading"
+        Me.loading.Size = New System.Drawing.Size(200, 200)
+        Me.loading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.loading.TabIndex = 26
+        Me.loading.TabStop = False
+        Me.loading.Visible = False
         '
         'sliderLeft
         '

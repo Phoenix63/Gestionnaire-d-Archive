@@ -41,12 +41,12 @@ Partial Class NewAnimeInterface
         Me.nFinish = New System.Windows.Forms.CheckBox()
         Me.nDate = New System.Windows.Forms.DateTimePicker()
         Me.nLienModifiable = New System.Windows.Forms.TextBox()
-        Me.nFilter = New Gestionnaire_d_Archive.AnimeFilter()
         Me.nReturn = New System.Windows.Forms.Button()
         Me.nAjouter = New System.Windows.Forms.Button()
-        Me.nRank = New Gestionnaire_d_Archive.StarRanking()
         Me.nDimiss = New System.Windows.Forms.Button()
         Me.tip = New System.Windows.Forms.ToolTip(Me.components)
+        Me.nFilter = New Gestionnaire_d_Archive.AnimeFilter()
+        Me.nRank = New Gestionnaire_d_Archive.StarRanking()
         Label1 = New System.Windows.Forms.Label()
         Label2 = New System.Windows.Forms.Label()
         Label3 = New System.Windows.Forms.Label()
@@ -230,7 +230,6 @@ Partial Class NewAnimeInterface
         Me.nCommentaire.MaxLength = 100
         Me.nCommentaire.Multiline = True
         Me.nCommentaire.Name = "nCommentaire"
-        Me.nCommentaire.ReadOnly = True
         Me.nCommentaire.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.nCommentaire.Size = New System.Drawing.Size(410, 75)
         Me.nCommentaire.TabIndex = 25
@@ -284,21 +283,6 @@ Partial Class NewAnimeInterface
         Me.tip.SetToolTip(Me.nLienModifiable, "(Requis) Lien vers la série, peut être une site web ou un chemin sur votre disque" & _
         "")
         '
-        'nFilter
-        '
-        Me.nFilter.Active = True
-        Me.nFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
-        Me.nFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.nFilter.Location = New System.Drawing.Point(155, 105)
-        Me.nFilter.Margin = New System.Windows.Forms.Padding(0)
-        Me.nFilter.MaximumSize = New System.Drawing.Size(0, 54)
-        Me.nFilter.MinimumSize = New System.Drawing.Size(410, 54)
-        Me.nFilter.Name = "nFilter"
-        Me.nFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
-        Me.nFilter.Size = New System.Drawing.Size(410, 54)
-        Me.nFilter.TabIndex = 0
-        Me.tip.SetToolTip(Me.nFilter, "Genre de la série")
-        '
         'nReturn
         '
         Me.nReturn.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -338,21 +322,6 @@ Partial Class NewAnimeInterface
         Me.tip.SetToolTip(Me.nAjouter, "Valider")
         Me.nAjouter.UseVisualStyleBackColor = False
         '
-        'nRank
-        '
-        Me.nRank.ActiveStar = CType(resources.GetObject("nRank.ActiveStar"), System.Drawing.Bitmap)
-        Me.nRank.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.nRank.InactiveStar = CType(resources.GetObject("nRank.InactiveStar"), System.Drawing.Bitmap)
-        Me.nRank.Location = New System.Drawing.Point(376, 60)
-        Me.nRank.Margin = New System.Windows.Forms.Padding(0)
-        Me.nRank.MaximumSize = New System.Drawing.Size(175, 35)
-        Me.nRank.MinimumSize = New System.Drawing.Size(175, 35)
-        Me.nRank.Name = "nRank"
-        Me.nRank.Rank = 1
-        Me.nRank.Size = New System.Drawing.Size(175, 35)
-        Me.nRank.TabIndex = 0
-        Me.tip.SetToolTip(Me.nRank, "Note")
-        '
         'nDimiss
         '
         Me.nDimiss.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
@@ -371,6 +340,36 @@ Partial Class NewAnimeInterface
         Me.nDimiss.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.tip.SetToolTip(Me.nDimiss, "Annuler")
         Me.nDimiss.UseVisualStyleBackColor = False
+        '
+        'nFilter
+        '
+        Me.nFilter.Active = True
+        Me.nFilter.AutoScrollOffset = New System.Drawing.Point(0, 25)
+        Me.nFilter.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.nFilter.Location = New System.Drawing.Point(155, 105)
+        Me.nFilter.Margin = New System.Windows.Forms.Padding(0)
+        Me.nFilter.MaximumSize = New System.Drawing.Size(0, 54)
+        Me.nFilter.MinimumSize = New System.Drawing.Size(410, 54)
+        Me.nFilter.Name = "nFilter"
+        Me.nFilter.Padding = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.nFilter.Size = New System.Drawing.Size(410, 54)
+        Me.nFilter.TabIndex = 0
+        Me.tip.SetToolTip(Me.nFilter, "Genre de la série")
+        '
+        'nRank
+        '
+        Me.nRank.ActiveStar = CType(resources.GetObject("nRank.ActiveStar"), System.Drawing.Bitmap)
+        Me.nRank.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.nRank.InactiveStar = CType(resources.GetObject("nRank.InactiveStar"), System.Drawing.Bitmap)
+        Me.nRank.Location = New System.Drawing.Point(376, 60)
+        Me.nRank.Margin = New System.Windows.Forms.Padding(0)
+        Me.nRank.MaximumSize = New System.Drawing.Size(175, 35)
+        Me.nRank.MinimumSize = New System.Drawing.Size(175, 35)
+        Me.nRank.Name = "nRank"
+        Me.nRank.Rank = 1
+        Me.nRank.Size = New System.Drawing.Size(175, 35)
+        Me.nRank.TabIndex = 0
+        Me.tip.SetToolTip(Me.nRank, "Note")
         '
         'NewAnimeInterface
         '
